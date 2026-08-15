@@ -1,0 +1,1034 @@
+<!doctype html>
+<html lang="nl">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Patroon Atelier — iPad compatibele basis</title>
+  <style>
+    :root {
+      --bg: #f6f4ef;
+      --panel: #ffffff;
+      --panel-soft: #fbfaf7;
+      --text: #2f2a27;
+      --muted: #756d67;
+      --line: #e5dfd8;
+      --accent: #7b5f52;
+      --accent-soft: #efe6e1;
+      --success: #537a5a;
+      --danger: #a04d4d;
+      --shadow: 0 8px 30px rgba(64, 48, 39, 0.08);
+      --radius: 18px;
+    }
+
+    * { box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+    body {
+      margin: 0;
+      font-family: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      background: var(--bg);
+      color: var(--text);
+    }
+    button, input, select, textarea { font: inherit; }
+    button { cursor: pointer; -webkit-appearance: none; appearance: none; }
+
+    button, .check-item, input[type="checkbox"], select {
+      touch-action: manipulation;
+      -webkit-tap-highlight-color: rgba(123,95,82,.18);
+    }
+
+    @media (hover: none) and (pointer: coarse) {
+      button, select, input, textarea, .check-item { min-height: 44px; }
+      .btn.small { min-height: 40px; }
+    }
+
+    .app {
+      min-height: 100vh;
+      display: grid;
+      grid-template-columns: 250px minmax(0, 1fr);
+    }
+
+    .sidebar {
+      position: sticky;
+      top: 0;
+      height: 100vh;
+      padding: 28px 20px;
+      background: #2f2926;
+      color: #fff;
+      display: flex;
+      flex-direction: column;
+      gap: 24px;
+    }
+
+    .brand {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      font-weight: 800;
+      letter-spacing: .01em;
+    }
+    .brand-mark {
+      width: 42px;
+      height: 42px;
+      border-radius: 13px;
+      background: linear-gradient(135deg, #d0ae9e, #8e6e60);
+      display: grid;
+      place-items: center;
+      font-size: 21px;
+      box-shadow: inset 0 0 0 1px rgba(255,255,255,.18);
+    }
+    .brand small {
+      display: block;
+      margin-top: 2px;
+      font-weight: 500;
+      color: #cfc5bf;
+      letter-spacing: 0;
+    }
+
+    .nav { display: grid; gap: 6px; }
+    .nav button {
+      border: 0;
+      background: transparent;
+      color: #ddd2cc;
+      padding: 11px 12px;
+      border-radius: 11px;
+      text-align: left;
+      transition: .15s ease;
+    }
+    .nav button:hover, .nav button.active {
+      background: rgba(255,255,255,.10);
+      color: #fff;
+    }
+    .sidebar-note {
+      margin-top: auto;
+      color: #bdb2ac;
+      font-size: 12px;
+      line-height: 1.5;
+    }
+
+    .main { min-width: 0; }
+    .topbar {
+      padding: 22px 34px;
+      border-bottom: 1px solid var(--line);
+      background: rgba(246,244,239,.92);
+      backdrop-filter: blur(10px);
+      position: sticky;
+      top: 0;
+      z-index: 5;
+      display: flex;
+      justify-content: space-between;
+      gap: 16px;
+      align-items: center;
+    }
+    .topbar h1 { font-size: 20px; margin: 0; }
+    .top-actions { display: flex; gap: 8px; flex-wrap: wrap; }
+
+    .content { padding: 32px 34px 64px; max-width: 1420px; margin: 0 auto; }
+    .view { display: none; }
+    .view.active { display: block; }
+
+    .hero {
+      border-radius: 24px;
+      padding: 30px;
+      background: linear-gradient(135deg, #f0e5df 0%, #faf8f4 55%, #eadfd8 100%);
+      box-shadow: var(--shadow);
+      margin-bottom: 22px;
+    }
+    .hero h2 { margin: 0 0 8px; font-size: clamp(24px, 4vw, 40px); }
+    .hero p { margin: 0; max-width: 760px; color: var(--muted); line-height: 1.65; }
+
+    .grid { display: grid; gap: 18px; }
+    .grid.cards { grid-template-columns: repeat(4, minmax(0, 1fr)); }
+    .grid.two { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+    .grid.three { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+
+    .card {
+      background: var(--panel);
+      border: 1px solid var(--line);
+      border-radius: var(--radius);
+      padding: 20px;
+      box-shadow: 0 3px 14px rgba(64,48,39,.04);
+    }
+    .card h3 { margin: 0 0 8px; font-size: 17px; }
+    .card p { color: var(--muted); line-height: 1.55; }
+    .metric { font-size: 34px; font-weight: 800; margin-top: 8px; }
+    .metric-label { color: var(--muted); font-size: 13px; }
+
+    .section-head {
+      display: flex;
+      justify-content: space-between;
+      gap: 16px;
+      align-items: flex-end;
+      margin: 4px 0 20px;
+    }
+    .section-head h2 { margin: 0; font-size: 28px; }
+    .section-head p { margin: 6px 0 0; color: var(--muted); }
+
+    .form-grid {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 14px;
+    }
+    .form-grid.two { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+    .field { display: grid; gap: 7px; }
+    .field.full { grid-column: 1 / -1; }
+    label { font-size: 13px; font-weight: 700; color: #554c47; }
+    .hint { font-size: 12px; color: var(--muted); font-weight: 400; }
+
+    input[type="text"], input[type="number"], input[type="date"], select, textarea {
+      width: 100%;
+      border: 1px solid #d8d0ca;
+      background: #fff;
+      color: var(--text);
+      padding: 11px 12px;
+      border-radius: 11px;
+      outline: none;
+      transition: .15s ease;
+    }
+    input:focus, select:focus, textarea:focus {
+      border-color: #a98474;
+      box-shadow: 0 0 0 3px rgba(169,132,116,.12);
+    }
+    textarea { min-height: 88px; resize: vertical; }
+
+    .measure-row {
+      display: grid;
+      grid-template-columns: minmax(190px, 1.5fr) minmax(120px, 1fr) minmax(120px, 1fr);
+      gap: 10px;
+      align-items: center;
+      padding: 10px 0;
+      border-bottom: 1px solid #eee9e4;
+    }
+    .measure-row:last-child { border-bottom: 0; }
+    .measure-row strong { font-size: 14px; }
+    .measure-row .empty-standard { color: #b6aca6; font-size: 12px; }
+
+    .btn {
+      border: 0;
+      border-radius: 11px;
+      padding: 10px 14px;
+      font-weight: 700;
+      background: var(--accent);
+      color: white;
+    }
+    .btn:hover { filter: brightness(.97); }
+    .btn.secondary { background: var(--accent-soft); color: #624c42; }
+    .btn.ghost { background: transparent; color: var(--accent); border: 1px solid #d7c4bb; }
+    .btn.danger { background: #f6e8e8; color: var(--danger); }
+    .btn.small { padding: 7px 10px; font-size: 12px; }
+
+    .toolbar { display: flex; gap: 10px; flex-wrap: wrap; align-items: center; }
+    .stack { display: grid; gap: 14px; }
+
+    .check-grid {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 10px;
+    }
+    .check-item {
+      border: 1px solid var(--line);
+      background: var(--panel-soft);
+      border-radius: 12px;
+      padding: 12px 13px;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+    .check-item input { width: 18px; height: 18px; accent-color: var(--accent); }
+
+    .category-card h3 { margin-bottom: 14px; }
+    .chip-row { display: flex; flex-wrap: wrap; gap: 7px; }
+    .chip {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      padding: 5px 9px;
+      border-radius: 999px;
+      background: #f1ece8;
+      color: #665750;
+      font-size: 12px;
+    }
+
+    .fabric-list, .project-list, .archive-list, .todo-list { display: grid; gap: 12px; }
+    .item-card {
+      border: 1px solid var(--line);
+      background: white;
+      border-radius: 15px;
+      padding: 16px;
+      display: grid;
+      gap: 10px;
+    }
+    .item-head { display: flex; justify-content: space-between; gap: 12px; align-items: flex-start; }
+    .item-head h4 { margin: 0; font-size: 16px; }
+    .meta { color: var(--muted); font-size: 12px; }
+    .details { display: grid; grid-template-columns: repeat(3, minmax(0,1fr)); gap: 8px 14px; font-size: 13px; }
+    .details div span { display: block; color: var(--muted); font-size: 11px; margin-bottom: 2px; }
+
+    .empty {
+      border: 1px dashed #cfc5be;
+      border-radius: 14px;
+      padding: 24px;
+      text-align: center;
+      color: var(--muted);
+      background: rgba(255,255,255,.45);
+    }
+
+    .planner-result {
+      padding: 18px;
+      border-radius: 14px;
+      background: #f5f1ed;
+      border: 1px solid #e3d8d1;
+    }
+    .planner-result h4 { margin: 0 0 8px; }
+    .planner-summary { display: grid; gap: 6px; font-size: 14px; }
+
+    .todo-row {
+      display: grid;
+      grid-template-columns: auto minmax(0, 1fr) auto auto;
+      gap: 10px;
+      align-items: center;
+      padding: 10px 0;
+      border-bottom: 1px solid #eee9e4;
+    }
+    .todo-row:last-child { border-bottom: 0; }
+    .todo-row.done .todo-text { text-decoration: line-through; color: #9b918b; }
+    .todo-row input[type="checkbox"] { width: 18px; height: 18px; accent-color: var(--success); }
+
+    .toast {
+      position: fixed;
+      right: 24px;
+      bottom: 24px;
+      background: #2f2926;
+      color: #fff;
+      border-radius: 12px;
+      padding: 12px 14px;
+      box-shadow: var(--shadow);
+      opacity: 0;
+      transform: translateY(10px);
+      pointer-events: none;
+      transition: .2s ease;
+      z-index: 20;
+    }
+    .toast.show { opacity: 1; transform: translateY(0); }
+
+    .mobile-nav { display: none; }
+
+    @media (max-width: 1050px) {
+      .grid.cards, .grid.three { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+      .form-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+      .details { grid-template-columns: repeat(2, minmax(0,1fr)); }
+    }
+    @media (max-width: 900px), (hover: none) and (pointer: coarse) and (max-width: 1180px) {
+      .app { grid-template-columns: 1fr; }
+      .sidebar { display: none; }
+      .topbar { padding: 16px; align-items: flex-start; flex-direction: column; }
+      .content { padding: 22px 16px calc(90px + env(safe-area-inset-bottom)); }
+      .grid.cards, .grid.two, .grid.three, .form-grid, .form-grid.two, .check-grid { grid-template-columns: 1fr; }
+      .measure-row { grid-template-columns: 1fr; }
+      .details { grid-template-columns: 1fr; }
+      .mobile-nav {
+        display: flex;
+        position: fixed;
+        left: 10px;
+        right: 10px;
+        bottom: 10px;
+        z-index: 10;
+        background: #2f2926;
+        border-radius: 15px;
+        padding: 7px;
+        overflow-x: auto;
+        box-shadow: var(--shadow);
+      }
+      .mobile-nav button {
+        flex: 0 0 auto;
+        border: 0;
+        border-radius: 10px;
+        padding: 9px 10px;
+        background: transparent;
+        color: #d8cec8;
+        font-size: 12px;
+      }
+      .mobile-nav button.active { background: rgba(255,255,255,.12); color: white; }
+      .todo-row { grid-template-columns: auto minmax(0, 1fr) auto; }
+      .todo-row .project-tag { grid-column: 2; }
+    }
+  </style>
+</head>
+<body>
+<div id="bootWarning" style="position:fixed;left:12px;right:12px;top:12px;z-index:9999;padding:14px 16px;border-radius:12px;background:#fff3cd;border:1px solid #e5c56b;color:#5b4820;font-family:-apple-system,BlinkMacSystemFont,Arial,sans-serif;font-size:14px;line-height:1.45;">
+  De applicatie wordt gestart… Blijft dit bericht zichtbaar, dan opent de iPad het HTML-bestand als documentvoorbeeld en wordt JavaScript niet uitgevoerd. Open de app dan via een normale webpagina (HTTPS).
+</div>
+<noscript><div style="padding:20px;font-family:-apple-system,BlinkMacSystemFont,Arial,sans-serif;">JavaScript is niet actief. Deze applicatie kan daardoor niet werken in deze weergave.</div></noscript>
+<div class="app">
+  <aside class="sidebar">
+    <div class="brand">
+      <div class="brand-mark">✂</div>
+      <div>Patroon Atelier<small>persoonlijke kledingplanner · iPad versie</small></div>
+    </div>
+    <nav class="nav" id="desktopNav">
+      <button data-view="dashboard" class="active">Overzicht</button>
+      <button data-view="measurements">Mijn maten</button>
+      <button data-view="basepatterns">Basispatronen</button>
+      <button data-view="models">Modelintekeningen</button>
+      <button data-view="fabrics">Stoffenbibliotheek</button>
+      <button data-view="planner">Patroonplanner</button>
+      <button data-view="projects">Projecten</button>
+      <button data-view="todos">To-do</button>
+    </nav>
+    <div class="sidebar-note">Alle gegevens worden alleen in deze browser opgeslagen via localStorage. Gebruik Exporteren voor een back-up.</div>
+  </aside>
+
+  <main class="main">
+    <header class="topbar">
+      <h1 id="pageTitle">Overzicht</h1>
+      <div class="top-actions"><span id="jsStatus" class="meta" style="align-self:center;">App wordt gestart…</span>
+        <button class="btn ghost small" id="exportBtn">Exporteren</button>
+        <button class="btn ghost small" id="importBtn">Importeren</button>
+        <input type="file" id="importFile" accept="application/json" hidden />
+      </div>
+    </header>
+
+    <div class="content">
+      <section class="view active" id="view-dashboard">
+        <div class="hero">
+          <h2>Van kledingidee naar maakbaar project.</h2>
+          <p>Bewaar je maten, basispatronen en stoffen op één plek. Combineer ze daarna in de Patroonplanner en zet een idee om in een concreet kledingproject.</p>
+        </div>
+        <div id="storageWarning" class="card" style="display:none; margin-bottom:18px; border-color:#d9b66f; background:#fff8e8;">
+          <strong>Let op:</strong> deze browser laat lokale opslag voor dit bestand niet toe. De app blijft wel werken zolang dit tabblad open is. Gebruik Exporteren voor een back-up, of open de app via een gewone HTTPS-webpagina voor blijvende opslag.
+        </div>
+        <div class="grid cards">
+          <div class="card"><div class="metric-label">Laatste meting</div><div class="metric" id="metricMeasurement">—</div><div class="meta" id="metricMeasurementSub">Nog geen meting opgeslagen</div></div>
+          <div class="card"><div class="metric-label">Basispatronen beschikbaar</div><div class="metric" id="metricPatterns">0</div><div class="meta">van 6 basispatronen</div></div>
+          <div class="card"><div class="metric-label">Stoffen in bibliotheek</div><div class="metric" id="metricFabrics">0</div><div class="meta">geregistreerde stoffen</div></div>
+          <div class="card"><div class="metric-label">Open taken</div><div class="metric" id="metricTodos">0</div><div class="meta">nog uit te voeren</div></div>
+        </div>
+        <div class="grid two" style="margin-top:18px;">
+          <div class="card">
+            <h3>Actieve projecten</h3>
+            <div id="dashboardProjects" class="stack"></div>
+          </div>
+          <div class="card">
+            <h3>Eerstvolgende taken</h3>
+            <div id="dashboardTodos" class="stack"></div>
+          </div>
+        </div>
+      </section>
+
+      <section class="view" id="view-measurements">
+        <div class="section-head"><div><h2>Mijn maten</h2><p>Alle velden zijn optioneel. Sla iedere nieuwe meting apart op in het archief.</p></div></div>
+        <div class="grid two">
+          <div class="card">
+            <div class="form-grid two" style="margin-bottom:16px;">
+              <div class="field"><label>Datum meting</label><input type="date" id="measurementDate" /></div>
+              <div class="field"><label>Omschrijving <span class="hint">optioneel</span></label><input type="text" id="measurementLabel" placeholder="Bijv. Zomer 2026" /></div>
+            </div>
+            <div id="measurementFields"></div>
+            <div class="toolbar" style="margin-top:16px;"><button class="btn" id="saveMeasurementBtn">Meting opslaan</button><button class="btn secondary" id="clearMeasurementBtn">Velden leegmaken</button></div>
+          </div>
+          <div class="card">
+            <h3>Matenarchief</h3>
+            <p class="meta">Een oudere meting blijft bewaard en kan later opnieuw worden bekeken of als uitgangspunt worden geladen.</p>
+            <div id="measurementArchive" class="archive-list" style="margin-top:14px;"></div>
+          </div>
+        </div>
+      </section>
+
+      <section class="view" id="view-basepatterns">
+        <div class="section-head"><div><h2>Basispatronen</h2><p>Vink aan welke basispatronen je al hebt gemaakt. Deze komen beschikbaar in de Patroonplanner.</p></div></div>
+        <div class="card"><div id="basePatternList" class="check-grid"></div></div>
+      </section>
+
+      <section class="view" id="view-models">
+        <div class="section-head"><div><h2>Modelintekeningen</h2><p>Vink aan welke modelintekeningen je kunt of wilt gebruiken. Geen enkele keuze is verplicht.</p></div></div>
+        <div id="modelCategoryList" class="grid three"></div>
+      </section>
+
+      <section class="view" id="view-fabrics">
+        <div class="section-head"><div><h2>Stoffenbibliotheek</h2><p>Leg je voorraad vast en geef aan voor welke kledingstukken iedere stof geschikt is.</p></div></div>
+        <div class="grid two">
+          <div class="card">
+            <h3>Nieuwe stof toevoegen</h3>
+            <form id="fabricForm" class="form-grid two" style="margin-top:14px;">
+              <div class="field"><label>Stofsoort</label><input type="text" id="fabricType" placeholder="Bijv. viscose twill" /></div>
+              <div class="field"><label>Kleur</label><input type="text" id="fabricColor" placeholder="Bijv. donkergroen" /></div>
+              <div class="field"><label>Patroon</label><input type="text" id="fabricPattern" placeholder="Bijv. effen / bloem / ruit" /></div>
+              <div class="field"><label>Samenstelling</label><input type="text" id="fabricComposition" placeholder="Bijv. 100% viscose" /></div>
+              <div class="field"><label>Hoeveelheid in cm</label><input type="text" id="fabricAmount" placeholder="Bijv. 280" /></div>
+              <div class="field full">
+                <label>Geschikt voor <span class="hint">verplicht, meerdere mogelijk</span></label>
+                <div id="fabricSuitable" class="check-grid"></div>
+              </div>
+              <div class="field full"><button type="submit" class="btn">Stof opslaan</button></div>
+            </form>
+          </div>
+          <div class="card">
+            <div class="toolbar" style="justify-content:space-between; margin-bottom:14px;">
+              <h3 style="margin:0;">Mijn stoffen</h3>
+              <select id="fabricFilter" style="width:auto; min-width:170px;"></select>
+            </div>
+            <div id="fabricList" class="fabric-list"></div>
+          </div>
+        </div>
+      </section>
+
+      <section class="view" id="view-planner">
+        <div class="section-head"><div><h2>Patroonplanner</h2><p>Combineer kledingtype, basispatroon, modelintekeningen en een geschikte stof tot één project.</p></div></div>
+        <div class="grid two">
+          <div class="card">
+            <div class="form-grid two">
+              <div class="field full"><label>Naam van het project</label><input type="text" id="plannerName" placeholder="Bijv. Groene midi-jurk" /></div>
+              <div class="field"><label>Type kledingstuk</label><select id="plannerGarment"></select></div>
+              <div class="field"><label>Basispatroon</label><select id="plannerBasePattern"></select></div>
+              <div class="field full"><label>Modelintekeningen <span class="hint">allemaal optioneel</span></label></div>
+              <div id="plannerModelFields" class="form-grid two" style="grid-column:1/-1;"></div>
+              <div class="field full"><label>Geschikte stof</label><select id="plannerFabric"></select><div class="hint" id="plannerFabricHint"></div></div>
+              <div class="field full"><label>Notitie <span class="hint">optioneel</span></label><textarea id="plannerNote" placeholder="Bijv. hals 1 cm hoger maken bij proefmodel"></textarea></div>
+            </div>
+            <div class="toolbar" style="margin-top:16px;"><button class="btn" id="saveProjectBtn">Project opslaan</button><button class="btn secondary" id="refreshPlannerBtn">Keuzes verversen</button></div>
+          </div>
+          <div class="card">
+            <h3>Samenvatting</h3>
+            <div id="plannerSummary" class="planner-result"></div>
+          </div>
+        </div>
+      </section>
+
+      <section class="view" id="view-projects">
+        <div class="section-head"><div><h2>Projecten</h2><p>Je opgeslagen kledingideeën, inclusief gekozen basispatroon, modelintekeningen en stof.</p></div></div>
+        <div id="projectList" class="project-list"></div>
+      </section>
+
+      <section class="view" id="view-todos">
+        <div class="section-head"><div><h2>To-do</h2><p>Plan losse taken of koppel een taak aan een kledingproject.</p></div></div>
+        <div class="grid two">
+          <div class="card">
+            <h3>Taak toevoegen</h3>
+            <form id="todoForm" class="form-grid two" style="margin-top:14px;">
+              <div class="field full"><label>Taak</label><input type="text" id="todoText" required placeholder="Bijv. proefmodel knippen" /></div>
+              <div class="field"><label>Project <span class="hint">optioneel</span></label><select id="todoProject"></select></div>
+              <div class="field"><label>Gewenste datum <span class="hint">optioneel</span></label><input type="date" id="todoDate" /></div>
+              <div class="field full"><button class="btn" type="submit">Taak toevoegen</button></div>
+            </form>
+          </div>
+          <div class="card">
+            <div class="toolbar" style="justify-content:space-between; margin-bottom:10px;"><h3 style="margin:0;">Taken</h3><button class="btn ghost small" id="clearDoneTodosBtn">Afgeronde verwijderen</button></div>
+            <div id="todoList" class="todo-list"></div>
+          </div>
+        </div>
+      </section>
+    </div>
+  </main>
+</div>
+
+<nav class="mobile-nav" id="mobileNav">
+  <button data-view="dashboard" class="active">Overzicht</button>
+  <button data-view="measurements">Maten</button>
+  <button data-view="basepatterns">Basis</button>
+  <button data-view="models">Modellen</button>
+  <button data-view="fabrics">Stoffen</button>
+  <button data-view="planner">Planner</button>
+  <button data-view="projects">Projecten</button>
+  <button data-view="todos">To-do</button>
+</nav>
+
+<div class="toast" id="toast"></div>
+
+<script>
+(() => {
+  const STORAGE_KEY = 'patroonAtelierData_v1';
+
+  const measurementDefinitions = [
+    ['bust','Borstomtrek'], ['frontWidth','Voorbreedte'], ['armholeWidth','Armsgatbreedte'],
+    ['backWidth','Rugbreedte'], ['shoulderWidth','Schouderbreedte'],
+    ['neckWidth','Halsbreedte', true], ['frontNeckDepth','Halsdiepte voor', true], ['backNeckDepth','Halsdiepte rug', true],
+    ['waist','Lendenomtrek'], ['hip','Heupomtrek'], ['hipHeight','Heuphoogte'], ['backHeight','Rughoogte'],
+    ['backLength','Ruglengte'], ['frontLength','Voorlengte'], ['dartLength','Neeplengte'], ['bustDartDepth','Borstneepdiepte'],
+    ['armCircumference','Armsomtrek'], ['wristCircumference','Polsomtrek'], ['sleeveLength','Mouwlengte']
+  ];
+
+  const basePatterns = [
+    'Basiscorsage zonder neep',
+    'Basiscorsage met neep',
+    'Basismouw met 2 cm toegift',
+    'Basismouw met 4 cm toegift',
+    'Basisjurk met neep',
+    'Basisjurk zonder neep'
+  ];
+
+  const modelCategories = {
+    'Halsafwerking': ['Halsboord uit tricot', 'Overslag', 'Watervalhals', 'Boothals'],
+    'Cintrage': ['Cintrage T-shirt', 'Cintrage blouse geweven stof'],
+    'Sluitingen': ['Knoopsluiting', 'Blinde knoopsluiting'],
+    'Kragen': ['Eendelige hemdsblousekraag', 'Tweedelige hemdsblousekraag', 'Aansluitende rolkraag'],
+    'Mouwen': ['Raglanmouw', 'Aangeknipte mouw', 'Vleermuismouw', 'Vlindermouw', 'Hemdsblousemouw', 'Lange aansluitende mouw'],
+    'Lengte kledingstuk': ['Taillelengte', 'Heuplengte', 'Boven de knie', 'Tussen knie en enkel', 'Enkellengte']
+  };
+
+  const garmentTypes = ['Broek', 'Blouse', 'Jurk', 'Rok', 'Top'];
+  const projectStatuses = ['Idee', 'Patroon maken', 'Patroon klaar', 'Knippen', 'Naaien', 'Afgerond'];
+
+  const initialData = {
+    measurements: [],
+    selectedBasePatterns: [],
+    selectedModels: [],
+    fabrics: [],
+    projects: [],
+    todos: []
+  };
+
+  let storageAvailable = true;
+  let data = loadData();
+
+  function safeStorageGet(key) {
+    try {
+      return window.localStorage.getItem(key);
+    } catch (e) {
+      storageAvailable = false;
+      return null;
+    }
+  }
+
+  function safeStorageSet(key, value) {
+    try {
+      window.localStorage.setItem(key, value);
+      return true;
+    } catch (e) {
+      storageAvailable = false;
+      return false;
+    }
+  }
+
+  function loadData() {
+    try {
+      const raw = safeStorageGet(STORAGE_KEY);
+      if (!raw) return structuredCloneSafe(initialData);
+      const parsed = JSON.parse(raw);
+      return {
+        ...structuredCloneSafe(initialData),
+        ...parsed,
+        measurements: Array.isArray(parsed.measurements) ? parsed.measurements : [],
+        selectedBasePatterns: Array.isArray(parsed.selectedBasePatterns) ? parsed.selectedBasePatterns : [],
+        selectedModels: Array.isArray(parsed.selectedModels) ? parsed.selectedModels : [],
+        fabrics: Array.isArray(parsed.fabrics) ? parsed.fabrics : [],
+        projects: Array.isArray(parsed.projects) ? parsed.projects : [],
+        todos: Array.isArray(parsed.todos) ? parsed.todos : []
+      };
+    } catch (e) {
+      console.warn('Kon opgeslagen gegevens niet laden:', e);
+      return structuredCloneSafe(initialData);
+    }
+  }
+
+  function structuredCloneSafe(obj) { return JSON.parse(JSON.stringify(obj)); }
+  function saveData() {
+    safeStorageSet(STORAGE_KEY, JSON.stringify(data));
+    renderAll();
+    updateStorageWarning();
+  }
+  function uid() { return (window.crypto && typeof window.crypto.randomUUID === 'function') ? window.crypto.randomUUID() : 'id-' + Date.now() + '-' + Math.random().toString(16).slice(2); }
+  function esc(v = '') { return String(v).replace(/[&<>'"]/g, m => ({'&':'&amp;','<':'&lt;','>':'&gt;',"'":'&#039;','"':'&quot;'}[m])); }
+  function todayISO() { return new Date().toISOString().slice(0,10); }
+  function formatDate(iso) {
+    if (!iso) return 'Geen datum';
+    const d = new Date(iso + 'T12:00:00');
+    return new Intl.DateTimeFormat('nl-NL', { day:'2-digit', month:'2-digit', year:'numeric' }).format(d);
+  }
+  function showToast(msg) {
+    const el = document.getElementById('toast');
+    el.textContent = msg; el.classList.add('show');
+    clearTimeout(showToast.t); showToast.t = setTimeout(() => el.classList.remove('show'), 2200);
+  }
+
+  function updateStorageWarning() {
+    const warning = document.getElementById('storageWarning');
+    if (warning) warning.style.display = storageAvailable ? 'none' : 'block';
+  }
+
+  // Sommige iOS documentweergaven slikken een tap in een scrollbare navigatie in.
+  // touch-action: manipulation is de primaire oplossing; deze fallback vertaalt een
+  // echte, korte tap op de navigatie expliciet naar navigate().
+  let lastTouchNavigation = 0;
+  document.addEventListener('touchend', (e) => {
+    const btn = e.target.closest ? e.target.closest('[data-view]') : null;
+    if (!btn) return;
+    const now = Date.now();
+    if (now - lastTouchNavigation < 350) return;
+    lastTouchNavigation = now;
+    navigate(btn.dataset.view);
+  }, { passive: true });
+
+  const viewTitles = {
+    dashboard:'Overzicht', measurements:'Mijn maten', basepatterns:'Basispatronen', models:'Modelintekeningen',
+    fabrics:'Stoffenbibliotheek', planner:'Patroonplanner', projects:'Projecten', todos:'To-do'
+  };
+
+  function navigate(view) {
+    document.querySelectorAll('.view').forEach(v => v.classList.remove('active'));
+    document.getElementById('view-' + view).classList.add('active');
+    document.querySelectorAll('[data-view]').forEach(b => b.classList.toggle('active', b.dataset.view === view));
+    document.getElementById('pageTitle').textContent = viewTitles[view];
+    try { window.scrollTo({top:0, behavior:'smooth'}); } catch (e) { window.scrollTo(0, 0); }
+    if (view === 'planner') renderPlanner();
+  }
+
+  document.querySelectorAll('[data-view]').forEach(btn => btn.addEventListener('click', () => { if (Date.now() - lastTouchNavigation > 450) navigate(btn.dataset.view); }));
+
+  function buildStaticUI() {
+    document.getElementById('measurementDate').value = todayISO();
+
+    document.getElementById('measurementFields').innerHTML = measurementDefinitions.map(([key,label,standard]) => `
+      <div class="measure-row">
+        <strong>${esc(label)}</strong>
+        <div class="field"><input type="number" step="0.1" min="0" data-measure="${key}" placeholder="Eigen maat in cm" /></div>
+        <div class="field">${standard
+          ? `<input type="number" step="0.1" min="0" data-standard="${key}" placeholder="Standaardmaattabel" />`
+          : `<span class="empty-standard">—</span>`}</div>
+      </div>`).join('');
+
+    document.getElementById('basePatternList').innerHTML = basePatterns.map((p,i) => `
+      <label class="check-item"><input type="checkbox" data-base-pattern="${i}" /> <span>${esc(p)}</span></label>`).join('');
+
+    document.getElementById('modelCategoryList').innerHTML = Object.entries(modelCategories).map(([category, items], ci) => `
+      <div class="card category-card">
+        <h3>${esc(category)}</h3>
+        <div class="stack">
+          ${items.map((item, ii) => `<label class="check-item"><input type="checkbox" data-model="${ci}:${ii}" /> <span>${esc(item)}</span></label>`).join('')}
+        </div>
+      </div>`).join('');
+
+    document.getElementById('fabricSuitable').innerHTML = garmentTypes.map((g,i) => `
+      <label class="check-item"><input type="checkbox" name="fabricSuitable" value="${esc(g)}" /> <span>${esc(g)}</span></label>`).join('');
+
+    const filter = document.getElementById('fabricFilter');
+    filter.innerHTML = `<option value="">Alle kledingstukken</option>` + garmentTypes.map(g => `<option value="${esc(g)}">${esc(g)}</option>`).join('');
+
+    const garment = document.getElementById('plannerGarment');
+    garment.innerHTML = `<option value="">Kies kledingstuk…</option>` + garmentTypes.map(g => `<option value="${esc(g)}">${esc(g)}</option>`).join('');
+  }
+
+  function syncSelectionsToInputs() {
+    document.querySelectorAll('[data-base-pattern]').forEach(input => {
+      const p = basePatterns[Number(input.dataset.basePattern)];
+      input.checked = data.selectedBasePatterns.includes(p);
+    });
+
+    document.querySelectorAll('[data-model]').forEach(input => {
+      const [ci, ii] = input.dataset.model.split(':').map(Number);
+      const category = Object.keys(modelCategories)[ci];
+      const item = modelCategories[category][ii];
+      input.checked = data.selectedModels.includes(item);
+    });
+  }
+
+  document.addEventListener('change', (e) => {
+    if (e.target.matches('[data-base-pattern]')) {
+      const p = basePatterns[Number(e.target.dataset.basePattern)];
+      data.selectedBasePatterns = e.target.checked ? [...new Set([...data.selectedBasePatterns, p])] : data.selectedBasePatterns.filter(x => x !== p);
+      saveData(); showToast('Basispatronen bijgewerkt');
+    }
+    if (e.target.matches('[data-model]')) {
+      const [ci, ii] = e.target.dataset.model.split(':').map(Number);
+      const category = Object.keys(modelCategories)[ci];
+      const item = modelCategories[category][ii];
+      data.selectedModels = e.target.checked ? [...new Set([...data.selectedModels, item])] : data.selectedModels.filter(x => x !== item);
+      saveData(); showToast('Modelintekeningen bijgewerkt');
+    }
+  });
+
+  document.getElementById('saveMeasurementBtn').addEventListener('click', () => {
+    const values = {};
+    measurementDefinitions.forEach(([key]) => {
+      const own = document.querySelector(`[data-measure="${key}"]`).value;
+      const standardEl = document.querySelector(`[data-standard="${key}"]`);
+      values[key] = { own: own || '', standard: standardEl ? (standardEl.value || '') : '' };
+    });
+    const entry = {
+      id: uid(),
+      date: document.getElementById('measurementDate').value || todayISO(),
+      label: document.getElementById('measurementLabel').value.trim(),
+      values
+    };
+    data.measurements.unshift(entry);
+    saveData();
+    clearMeasurementForm(false);
+    showToast('Meting opgeslagen in het archief');
+  });
+
+  document.getElementById('clearMeasurementBtn').addEventListener('click', () => clearMeasurementForm(true));
+
+  function clearMeasurementForm(resetDate = true) {
+    document.getElementById('measurementLabel').value = '';
+    document.querySelectorAll('[data-measure], [data-standard]').forEach(i => i.value = '');
+    if (resetDate) document.getElementById('measurementDate').value = todayISO();
+  }
+
+  window.loadMeasurement = function(id) {
+    const m = data.measurements.find(x => x.id === id); if (!m) return;
+    document.getElementById('measurementDate').value = m.date || todayISO();
+    document.getElementById('measurementLabel').value = m.label || '';
+    measurementDefinitions.forEach(([key]) => {
+      const own = document.querySelector(`[data-measure="${key}"]`);
+      const std = document.querySelector(`[data-standard="${key}"]`);
+      own.value = (m.values && m.values[key] && m.values[key].own) ? m.values[key].own : '';
+      if (std) std.value = (m.values && m.values[key] && m.values[key].standard) ? m.values[key].standard : '';
+    });
+    showToast('Meting geladen in het formulier');
+  };
+
+  window.deleteMeasurement = function(id) {
+    if (!confirm('Deze meting uit het archief verwijderen?')) return;
+    data.measurements = data.measurements.filter(x => x.id !== id); saveData();
+  };
+
+  document.getElementById('fabricForm').addEventListener('submit', (e) => {
+    e.preventDefault();
+    const suitableFor = [...document.querySelectorAll('input[name="fabricSuitable"]:checked')].map(i => i.value);
+    if (!suitableFor.length) { alert('Kies minimaal één kledingstuk bij “Geschikt voor”.'); return; }
+    data.fabrics.unshift({
+      id: uid(), type: document.getElementById('fabricType').value.trim(), color: document.getElementById('fabricColor').value.trim(),
+      pattern: document.getElementById('fabricPattern').value.trim(), composition: document.getElementById('fabricComposition').value.trim(),
+      amount: document.getElementById('fabricAmount').value.trim(), suitableFor, createdAt: todayISO()
+    });
+    e.target.reset(); saveData(); showToast('Stof toegevoegd');
+  });
+
+  document.getElementById('fabricFilter').addEventListener('change', renderFabrics);
+
+  window.deleteFabric = function(id) {
+    if (!confirm('Deze stof verwijderen uit de stoffenbibliotheek?')) return;
+    data.fabrics = data.fabrics.filter(x => x.id !== id);
+    data.projects = data.projects.map(p => p.fabricId === id ? {...p, fabricId:'', fabricLabel: p.fabricLabel + ' (verwijderd uit bibliotheek)'} : p);
+    saveData();
+  };
+
+  function renderMeasurements() {
+    const el = document.getElementById('measurementArchive');
+    if (!data.measurements.length) { el.innerHTML = `<div class="empty">Nog geen metingen opgeslagen.</div>`; return; }
+    el.innerHTML = data.measurements.map(m => {
+      const filled = Object.values(m.values || {}).filter(v => v.own).length;
+      return `<div class="item-card"><div class="item-head"><div><h4>${esc(m.label || 'Meting')}</h4><div class="meta">${formatDate(m.date)} · ${filled} maten ingevuld</div></div></div><div class="toolbar"><button class="btn secondary small" onclick="loadMeasurement('${m.id}')">Laden</button><button class="btn danger small" onclick="deleteMeasurement('${m.id}')">Verwijderen</button></div></div>`;
+    }).join('');
+  }
+
+  function fabricTitle(f) {
+    const parts = [f.color, f.type].filter(Boolean);
+    return parts.join(' ') || 'Naamloze stof';
+  }
+
+  function renderFabrics() {
+    const filter = document.getElementById('fabricFilter').value;
+    const items = filter ? data.fabrics.filter(f => f.suitableFor && f.suitableFor.includes(filter)) : data.fabrics;
+    const el = document.getElementById('fabricList');
+    if (!items.length) { el.innerHTML = `<div class="empty">${filter ? 'Geen stoffen gevonden voor ' + esc(filter) + '.' : 'Nog geen stoffen toegevoegd.'}</div>`; return; }
+    el.innerHTML = items.map(f => `
+      <div class="item-card">
+        <div class="item-head"><div><h4>${esc(fabricTitle(f))}</h4><div class="meta">Toegevoegd ${formatDate(f.createdAt)}</div></div><button class="btn danger small" onclick="deleteFabric('${f.id}')">Verwijderen</button></div>
+        <div class="chip-row">${(f.suitableFor || []).map(g => `<span class="chip">${esc(g)}</span>`).join('')}</div>
+        <div class="details">
+          <div><span>Patroon</span>${esc(f.pattern || '—')}</div><div><span>Samenstelling</span>${esc(f.composition || '—')}</div><div><span>Hoeveelheid</span>${esc(f.amount || '—')}${f.amount ? ' cm' : ''}</div>
+        </div>
+      </div>`).join('');
+  }
+
+  document.getElementById('plannerGarment').addEventListener('change', () => { renderPlannerFabricOptions(); updatePlannerSummary(); });
+  document.getElementById('plannerBasePattern').addEventListener('change', updatePlannerSummary);
+  document.getElementById('plannerFabric').addEventListener('change', updatePlannerSummary);
+  document.getElementById('plannerName').addEventListener('input', updatePlannerSummary);
+  document.getElementById('plannerNote').addEventListener('input', updatePlannerSummary);
+  document.getElementById('plannerModelFields').addEventListener('change', updatePlannerSummary);
+  document.getElementById('refreshPlannerBtn').addEventListener('click', () => { renderPlanner(); showToast('Keuzes ververst'); });
+
+  function renderPlanner() {
+    const baseSelect = document.getElementById('plannerBasePattern');
+    const currentBase = baseSelect.value;
+    baseSelect.innerHTML = `<option value="">Geen keuze</option>` + data.selectedBasePatterns.map(p => `<option value="${esc(p)}">${esc(p)}</option>`).join('');
+    if (data.selectedBasePatterns.includes(currentBase)) baseSelect.value = currentBase;
+
+    const wrap = document.getElementById('plannerModelFields');
+    const old = {};
+    wrap.querySelectorAll('select[data-planner-model]').forEach(s => old[s.dataset.plannerModel] = s.value);
+    wrap.innerHTML = Object.entries(modelCategories).map(([category, items]) => {
+      const available = items.filter(item => data.selectedModels.includes(item));
+      return `<div class="field"><label>${esc(category)}</label><select data-planner-model="${esc(category)}"><option value="">Geen keuze</option>${available.map(i => `<option value="${esc(i)}">${esc(i)}</option>`).join('')}</select></div>`;
+    }).join('');
+    wrap.querySelectorAll('select[data-planner-model]').forEach(s => { if ([...s.options].some(o => o.value === old[s.dataset.plannerModel])) s.value = old[s.dataset.plannerModel]; });
+    renderPlannerFabricOptions(); updatePlannerSummary();
+  }
+
+  function renderPlannerFabricOptions() {
+    const garment = document.getElementById('plannerGarment').value;
+    const select = document.getElementById('plannerFabric');
+    const current = select.value;
+    const fabrics = garment ? data.fabrics.filter(f => f.suitableFor && f.suitableFor.includes(garment)) : [];
+    select.innerHTML = `<option value="">${garment ? 'Geen stof gekozen' : 'Kies eerst een kledingstuk'}</option>` + fabrics.map(f => `<option value="${f.id}">${esc(fabricTitle(f))}${f.amount ? ' · ' + esc(f.amount) + ' cm' : ''}</option>`).join('');
+    if (fabrics.some(f => f.id === current)) select.value = current;
+    document.getElementById('plannerFabricHint').textContent = garment ? `${fabrics.length} geschikte ${fabrics.length === 1 ? 'stof' : 'stoffen'} gevonden voor ${garment}.` : 'Selecteer eerst het type kledingstuk om de stoffen te filteren.';
+  }
+
+  function getPlannerModels() {
+    const out = {};
+    document.querySelectorAll('select[data-planner-model]').forEach(s => { if (s.value) out[s.dataset.plannerModel] = s.value; });
+    return out;
+  }
+
+  function updatePlannerSummary() {
+    const garment = document.getElementById('plannerGarment').value;
+    const base = document.getElementById('plannerBasePattern').value;
+    const fabricId = document.getElementById('plannerFabric').value;
+    const fabric = data.fabrics.find(f => f.id === fabricId);
+    const models = getPlannerModels();
+    const modelLines = Object.entries(models).map(([c,v]) => `<div><strong>${esc(c)}:</strong> ${esc(v)}</div>`).join('');
+    document.getElementById('plannerSummary').innerHTML = `
+      <h4>${esc(document.getElementById('plannerName').value.trim() || 'Nieuw kledingproject')}</h4>
+      <div class="planner-summary">
+        <div><strong>Kledingstuk:</strong> ${esc(garment || 'Nog niet gekozen')}</div>
+        <div><strong>Basispatroon:</strong> ${esc(base || 'Geen keuze')}</div>
+        ${modelLines || '<div><strong>Modelintekeningen:</strong> Geen gekozen</div>'}
+        <div><strong>Stof:</strong> ${fabric ? esc(fabricTitle(fabric)) : 'Geen keuze'}</div>
+      </div>`;
+  }
+
+  document.getElementById('saveProjectBtn').addEventListener('click', () => {
+    const garment = document.getElementById('plannerGarment').value;
+    if (!garment) { alert('Kies eerst het type kledingstuk.'); return; }
+    const name = document.getElementById('plannerName').value.trim() || `${garment} project`;
+    const basePattern = document.getElementById('plannerBasePattern').value;
+    const fabricId = document.getElementById('plannerFabric').value;
+    const fabric = data.fabrics.find(f => f.id === fabricId);
+    const project = {
+      id: uid(), name, garment, basePattern, models: getPlannerModels(), fabricId,
+      fabricLabel: fabric ? fabricTitle(fabric) : '', note: document.getElementById('plannerNote').value.trim(),
+      status: 'Idee', createdAt: todayISO(), measurementId: data.measurements.length ? data.measurements[0].id : ''
+    };
+    data.projects.unshift(project);
+    const defaultTasks = ['Basispatroon overnemen', 'Modelintekeningen uitwerken', 'Patroondelen controleren', 'Stof knippen', 'Kledingstuk naaien', 'Doorpassen en afwerken'];
+    defaultTasks.forEach(text => data.todos.push({ id: uid(), text, projectId: project.id, dueDate:'', done:false, createdAt:todayISO() }));
+    saveData();
+    document.getElementById('plannerName').value = '';
+    document.getElementById('plannerNote').value = '';
+    showToast('Project opgeslagen en basistaken toegevoegd');
+    navigate('projects');
+  });
+
+  window.deleteProject = function(id) {
+    if (!confirm('Dit project verwijderen? Gekoppelde taken worden ook verwijderd.')) return;
+    data.projects = data.projects.filter(p => p.id !== id);
+    data.todos = data.todos.filter(t => t.projectId !== id);
+    saveData();
+  };
+
+  window.setProjectStatus = function(id, status) {
+    const p = data.projects.find(x => x.id === id); if (!p) return;
+    p.status = status; saveData();
+  };
+
+  function renderProjects() {
+    const el = document.getElementById('projectList');
+    if (!data.projects.length) { el.innerHTML = `<div class="empty">Nog geen projecten. Maak je eerste combinatie in de Patroonplanner.</div>`; return; }
+    el.innerHTML = data.projects.map(p => {
+      const modelChips = Object.entries(p.models || {}).map(([c,v]) => `<span class="chip" title="${esc(c)}">${esc(v)}</span>`).join('');
+      const measurement = data.measurements.find(m => m.id === p.measurementId);
+      return `<div class="item-card">
+        <div class="item-head">
+          <div><h4>${esc(p.name)}</h4><div class="meta">${esc(p.garment)} · aangemaakt ${formatDate(p.createdAt)}</div></div>
+          <div class="toolbar"><select onchange="setProjectStatus('${p.id}', this.value)" style="width:auto;">${projectStatuses.map(s => `<option value="${esc(s)}" ${p.status===s?'selected':''}>${esc(s)}</option>`).join('')}</select><button class="btn danger small" onclick="deleteProject('${p.id}')">Verwijderen</button></div>
+        </div>
+        ${modelChips ? `<div class="chip-row">${modelChips}</div>` : ''}
+        <div class="details"><div><span>Basispatroon</span>${esc(p.basePattern || 'Geen keuze')}</div><div><span>Stof</span>${esc(p.fabricLabel || 'Geen keuze')}</div><div><span>Maten</span>${measurement ? formatDate(measurement.date) : 'Niet gekoppeld'}</div></div>
+        ${p.note ? `<div class="meta"><strong>Notitie:</strong> ${esc(p.note)}</div>` : ''}
+      </div>`;
+    }).join('');
+  }
+
+  document.getElementById('todoForm').addEventListener('submit', (e) => {
+    e.preventDefault();
+    const text = document.getElementById('todoText').value.trim(); if (!text) return;
+    data.todos.push({ id: uid(), text, projectId: document.getElementById('todoProject').value, dueDate: document.getElementById('todoDate').value, done:false, createdAt:todayISO() });
+    e.target.reset(); saveData(); showToast('Taak toegevoegd');
+  });
+
+  window.toggleTodo = function(id, done) { const t = data.todos.find(x => x.id === id); if (!t) return; t.done = done; saveData(); };
+  window.deleteTodo = function(id) { data.todos = data.todos.filter(t => t.id !== id); saveData(); };
+  document.getElementById('clearDoneTodosBtn').addEventListener('click', () => { data.todos = data.todos.filter(t => !t.done); saveData(); });
+
+  function renderTodos() {
+    const projectSelect = document.getElementById('todoProject');
+    const current = projectSelect.value;
+    projectSelect.innerHTML = `<option value="">Geen project</option>` + data.projects.map(p => `<option value="${p.id}">${esc(p.name)}</option>`).join('');
+    if (data.projects.some(p => p.id === current)) projectSelect.value = current;
+
+    const el = document.getElementById('todoList');
+    const sorted = [...data.todos].sort((a,b) => Number(a.done)-Number(b.done) || (a.dueDate || '9999').localeCompare(b.dueDate || '9999'));
+    if (!sorted.length) { el.innerHTML = `<div class="empty">Nog geen taken.</div>`; return; }
+    el.innerHTML = sorted.map(t => {
+      const p = data.projects.find(p => p.id === t.projectId);
+      return `<div class="todo-row ${t.done?'done':''}"><input type="checkbox" ${t.done?'checked':''} onchange="toggleTodo('${t.id}', this.checked)" /><div><div class="todo-text">${esc(t.text)}</div>${p?`<div class="meta project-tag">${esc(p.name)}</div>`:''}</div><div class="meta">${t.dueDate?formatDate(t.dueDate):''}</div><button class="btn danger small" onclick="deleteTodo('${t.id}')">×</button></div>`;
+    }).join('');
+  }
+
+  function renderDashboard() {
+    const last = data.measurements[0];
+    document.getElementById('metricMeasurement').textContent = last ? formatDate(last.date) : '—';
+    document.getElementById('metricMeasurementSub').textContent = last ? (last.label || 'Laatste opgeslagen meting') : 'Nog geen meting opgeslagen';
+    document.getElementById('metricPatterns').textContent = data.selectedBasePatterns.length;
+    document.getElementById('metricFabrics').textContent = data.fabrics.length;
+    document.getElementById('metricTodos').textContent = data.todos.filter(t => !t.done).length;
+
+    const proj = data.projects.filter(p => p.status !== 'Afgerond').slice(0,4);
+    document.getElementById('dashboardProjects').innerHTML = proj.length ? proj.map(p => `<div class="item-card"><div class="item-head"><div><h4>${esc(p.name)}</h4><div class="meta">${esc(p.garment)} · ${esc(p.status)}</div></div></div></div>`).join('') : `<div class="empty">Nog geen actieve projecten.</div>`;
+
+    const todos = data.todos.filter(t => !t.done).slice(0,5);
+    document.getElementById('dashboardTodos').innerHTML = todos.length ? todos.map(t => `<div><strong>${esc(t.text)}</strong>${t.dueDate?`<div class="meta">${formatDate(t.dueDate)}</div>`:''}</div>`).join('') : `<div class="empty">Geen openstaande taken.</div>`;
+  }
+
+  function renderAll() {
+    syncSelectionsToInputs();
+    renderMeasurements();
+    renderFabrics();
+    renderPlanner();
+    renderProjects();
+    renderTodos();
+    renderDashboard();
+  }
+
+  document.getElementById('exportBtn').addEventListener('click', () => {
+    const blob = new Blob([JSON.stringify(data, null, 2)], {type:'application/json'});
+    const a = document.createElement('a');
+    a.href = URL.createObjectURL(blob);
+    a.download = `patroonatelier-backup-${todayISO()}.json`;
+    a.click();
+    setTimeout(() => URL.revokeObjectURL(a.href), 1000);
+  });
+
+  document.getElementById('importBtn').addEventListener('click', () => document.getElementById('importFile').click());
+  document.getElementById('importFile').addEventListener('change', async (e) => {
+    const file = (e.target.files && e.target.files.length) ? e.target.files[0] : null; if (!file) return;
+    try {
+      const fileContents = (typeof file.text === 'function')
+        ? await file.text()
+        : await new Promise((resolve, reject) => {
+            const reader = new FileReader();
+            reader.onload = () => resolve(String(reader.result || ''));
+            reader.onerror = () => reject(reader.error || new Error('Bestand kon niet worden gelezen'));
+            reader.readAsText(file);
+          });
+      const parsed = JSON.parse(fileContents);
+      if (!parsed || typeof parsed !== 'object') throw new Error('Ongeldig bestand');
+      if (!confirm('Importeren vervangt de huidige gegevens in deze browser. Doorgaan?')) return;
+      data = { ...structuredCloneSafe(initialData), ...parsed };
+      saveData(); showToast('Back-up geïmporteerd');
+    } catch (err) { alert('Dit bestand kon niet worden geïmporteerd. Controleer of het een geldige Patroon Atelier JSON-back-up is.'); }
+    e.target.value = '';
+  });
+
+  buildStaticUI();
+  renderAll();
+  updateStorageWarning();
+  const bootWarning = document.getElementById('bootWarning');
+  if (bootWarning) bootWarning.style.display = 'none';
+  const jsStatus = document.getElementById('jsStatus');
+  if (jsStatus) jsStatus.textContent = 'App actief';
+})();
+</script>
+</body>
+</html>
