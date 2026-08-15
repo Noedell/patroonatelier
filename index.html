@@ -310,6 +310,109 @@
     }
     .toast.show { opacity: 1; transform: translateY(0); }
 
+
+
+    .fabric-photo-preview {
+      width: 100%;
+      max-width: 260px;
+      aspect-ratio: 4 / 3;
+      object-fit: cover;
+      border-radius: 14px;
+      border: 1px solid var(--line);
+      background: #f2eee9;
+      display: none;
+    }
+    .fabric-card-grid {
+      display: grid;
+      grid-template-columns: 120px minmax(0, 1fr);
+      gap: 16px;
+      align-items: start;
+    }
+    .fabric-thumb {
+      width: 120px;
+      height: 120px;
+      object-fit: cover;
+      border-radius: 14px;
+      border: 1px solid var(--line);
+      background: #f2eee9;
+    }
+    .fabric-placeholder {
+      width: 120px;
+      height: 120px;
+      border-radius: 14px;
+      border: 1px dashed #cfc5be;
+      background: #faf8f5;
+      display: grid;
+      place-items: center;
+      color: var(--muted);
+      font-size: 12px;
+      text-align: center;
+      padding: 10px;
+    }
+    .drawing-wrap {
+      min-height: 330px;
+      display: grid;
+      place-items: center;
+      background: #fff;
+      border: 1px solid var(--line);
+      border-radius: 16px;
+      padding: 12px;
+      overflow: hidden;
+    }
+    .drawing-wrap svg {
+      width: 100%;
+      max-width: 340px;
+      height: auto;
+      display: block;
+    }
+    .project-visuals {
+      display: grid;
+      grid-template-columns: minmax(120px, 190px) minmax(180px, 280px) minmax(0, 1fr);
+      gap: 16px;
+      align-items: start;
+    }
+    .project-photo {
+      width: 100%;
+      aspect-ratio: 4 / 3;
+      object-fit: cover;
+      border-radius: 14px;
+      border: 1px solid var(--line);
+      background: #f2eee9;
+    }
+    .project-drawing {
+      border: 1px solid var(--line);
+      border-radius: 14px;
+      background: #fff;
+      padding: 8px;
+      min-height: 210px;
+      display: grid;
+      place-items: center;
+    }
+    .project-drawing svg { width: 100%; max-width: 220px; height: auto; }
+    .project-order {
+      display: inline-flex;
+      gap: 6px;
+      align-items: center;
+    }
+    .drag-handle {
+      color: var(--muted);
+      font-size: 18px;
+      cursor: grab;
+      user-select: none;
+      touch-action: none;
+      padding: 4px 6px;
+    }
+    .item-card.dragging { opacity: .55; }
+    .item-card.drag-over { outline: 2px dashed #a98474; outline-offset: 3px; }
+
+    @media (max-width: 760px) {
+      .fabric-card-grid { grid-template-columns: 90px minmax(0, 1fr); }
+      .fabric-thumb, .fabric-placeholder { width: 90px; height: 90px; }
+      .project-visuals { grid-template-columns: 1fr; }
+      .project-photo { max-height: 260px; }
+      .project-drawing svg { max-width: 260px; }
+    }
+
     .mobile-nav { display: none; }
 
     @media (max-width: 1050px) {
@@ -446,19 +549,29 @@
       <section class="view" id="view-fabrics">
         <div class="section-head"><div><h2>Stoffenbibliotheek</h2><p>Leg je voorraad vast en geef aan voor welke kledingstukken iedere stof geschikt is.</p></div></div>
         <div class="grid two">
-          <div class="card">
-            <h3>Nieuwe stof toevoegen</h3>
+          <div class="card" id="fabricFormCard">
+            <h3 id="fabricFormTitle">Nieuwe stof toevoegen</h3>
             <form id="fabricForm" class="form-grid two" style="margin-top:14px;">
+              <div class="field full">
+                <label>Foto <span class="hint">optioneel</span></label>
+                <input type="file" id="fabricPhoto" accept="image/*" />
+                <img id="fabricPhotoPreview" class="fabric-photo-preview" alt="Voorbeeld van stof" />
+                <div class="toolbar"><button type="button" class="btn ghost small" id="removeFabricPhotoBtn" style="display:none;">Foto verwijderen</button></div>
+                <div class="hint">Foto's worden automatisch verkleind zodat de app op de iPad niet onnodig veel opslag gebruikt.</div>
+              </div>
               <div class="field"><label>Stofsoort</label><input type="text" id="fabricType" placeholder="Bijv. viscose twill" /></div>
               <div class="field"><label>Kleur</label><input type="text" id="fabricColor" placeholder="Bijv. donkergroen" /></div>
               <div class="field"><label>Patroon</label><input type="text" id="fabricPattern" placeholder="Bijv. effen / bloem / ruit" /></div>
               <div class="field"><label>Samenstelling</label><input type="text" id="fabricComposition" placeholder="Bijv. 100% viscose" /></div>
               <div class="field"><label>Hoeveelheid in cm</label><input type="text" id="fabricAmount" placeholder="Bijv. 280" /></div>
+              <div class="field"><label>Gebreid of geweven</label><select id="fabricConstruction"><option value="">Geen keuze</option><option value="Gebreid">Gebreid</option><option value="Geweven">Geweven</option></select></div>
+              <div class="field"><label>Gewicht</label><select id="fabricWeight"><option value="">Geen keuze</option><option value="Licht">Licht</option><option value="Midden">Midden</option><option value="Zwaar">Zwaar</option></select></div>
+              <div class="field"><label>Rekbaar</label><select id="fabricStretch"><option value="">Geen keuze</option><option value="Ja">Ja</option><option value="Nee">Nee</option></select></div>
               <div class="field full">
                 <label>Geschikt voor <span class="hint">verplicht, meerdere mogelijk</span></label>
                 <div id="fabricSuitable" class="check-grid"></div>
               </div>
-              <div class="field full"><button type="submit" class="btn">Stof opslaan</button></div>
+              <div class="field full"><div class="toolbar"><button type="submit" class="btn" id="fabricSubmitBtn">Stof opslaan</button><button type="button" class="btn secondary" id="cancelFabricEditBtn" style="display:none;">Annuleren</button></div></div>
             </form>
           </div>
           <div class="card">
@@ -487,7 +600,10 @@
             <div class="toolbar" style="margin-top:16px;"><button class="btn" id="saveProjectBtn">Project opslaan</button><button class="btn secondary" id="refreshPlannerBtn">Keuzes verversen</button></div>
           </div>
           <div class="card">
-            <h3>Samenvatting</h3>
+            <h3>Lijntekening</h3>
+            <div id="plannerDrawing" class="drawing-wrap"></div>
+            <p class="meta" style="margin-top:10px;">Dit is een visuele modelpreview op basis van de gekozen opties, geen maatvast productiepatroon.</p>
+            <h3 style="margin-top:22px;">Samenvatting</h3>
             <div id="plannerSummary" class="planner-result"></div>
           </div>
         </div>
@@ -578,6 +694,11 @@
 
   let storageAvailable = true;
   let data = loadData();
+  let editingFabricId = '';
+  let pendingFabricPhoto = '';
+  let draggedProjectId = '';
+  let touchDraggedProjectId = '';
+  let touchDragTargetId = ''; 
 
   function safeStorageGet(key) {
     try {
@@ -780,16 +901,123 @@
     data.measurements = data.measurements.filter(x => x.id !== id); saveData();
   };
 
+  function updateFabricPhotoPreview() {
+    const img = document.getElementById('fabricPhotoPreview');
+    const removeBtn = document.getElementById('removeFabricPhotoBtn');
+    if (pendingFabricPhoto) {
+      img.src = pendingFabricPhoto;
+      img.style.display = 'block';
+      removeBtn.style.display = 'inline-flex';
+    } else {
+      img.removeAttribute('src');
+      img.style.display = 'none';
+      removeBtn.style.display = 'none';
+    }
+  }
+
+  function resizeFabricPhoto(file) {
+    return new Promise((resolve, reject) => {
+      const reader = new FileReader();
+      reader.onload = () => {
+        const img = new Image();
+        img.onload = () => {
+          const maxSize = 600;
+          const scale = Math.min(1, maxSize / Math.max(img.width, img.height));
+          const canvas = document.createElement('canvas');
+          canvas.width = Math.max(1, Math.round(img.width * scale));
+          canvas.height = Math.max(1, Math.round(img.height * scale));
+          const ctx = canvas.getContext('2d');
+          ctx.drawImage(img, 0, 0, canvas.width, canvas.height);
+          resolve(canvas.toDataURL('image/jpeg', 0.62));
+        };
+        img.onerror = () => reject(new Error('Afbeelding kon niet worden geopend'));
+        img.src = reader.result;
+      };
+      reader.onerror = () => reject(reader.error || new Error('Afbeelding kon niet worden gelezen'));
+      reader.readAsDataURL(file);
+    });
+  }
+
+  document.getElementById('fabricPhoto').addEventListener('change', async (e) => {
+    const file = e.target.files && e.target.files.length ? e.target.files[0] : null;
+    if (!file) return;
+    try {
+      pendingFabricPhoto = await resizeFabricPhoto(file);
+      updateFabricPhotoPreview();
+      showToast('Foto toegevoegd');
+    } catch (err) {
+      alert('De foto kon niet worden verwerkt. Probeer een andere afbeelding.');
+    }
+  });
+
+  document.getElementById('removeFabricPhotoBtn').addEventListener('click', () => {
+    pendingFabricPhoto = '';
+    document.getElementById('fabricPhoto').value = '';
+    updateFabricPhotoPreview();
+  });
+
+  function resetFabricForm() {
+    editingFabricId = '';
+    pendingFabricPhoto = '';
+    document.getElementById('fabricForm').reset();
+    document.getElementById('fabricFormTitle').textContent = 'Nieuwe stof toevoegen';
+    document.getElementById('fabricSubmitBtn').textContent = 'Stof opslaan';
+    document.getElementById('cancelFabricEditBtn').style.display = 'none';
+    updateFabricPhotoPreview();
+  }
+
+  window.editFabric = function(id) {
+    const f = data.fabrics.find(x => x.id === id); if (!f) return;
+    editingFabricId = id;
+    pendingFabricPhoto = f.photo || '';
+    document.getElementById('fabricType').value = f.type || '';
+    document.getElementById('fabricColor').value = f.color || '';
+    document.getElementById('fabricPattern').value = f.pattern || '';
+    document.getElementById('fabricComposition').value = f.composition || '';
+    document.getElementById('fabricAmount').value = f.amount || '';
+    document.getElementById('fabricConstruction').value = f.construction || '';
+    document.getElementById('fabricWeight').value = f.weight || '';
+    document.getElementById('fabricStretch').value = f.stretchy || '';
+    document.querySelectorAll('input[name="fabricSuitable"]').forEach(i => i.checked = (f.suitableFor || []).includes(i.value));
+    document.getElementById('fabricFormTitle').textContent = 'Stof bewerken';
+    document.getElementById('fabricSubmitBtn').textContent = 'Wijzigingen opslaan';
+    document.getElementById('cancelFabricEditBtn').style.display = 'inline-flex';
+    document.getElementById('fabricPhoto').value = '';
+    updateFabricPhotoPreview();
+    document.getElementById('fabricFormCard').scrollIntoView({behavior:'smooth', block:'start'});
+  };
+
+  document.getElementById('cancelFabricEditBtn').addEventListener('click', resetFabricForm);
+
   document.getElementById('fabricForm').addEventListener('submit', (e) => {
     e.preventDefault();
     const suitableFor = [...document.querySelectorAll('input[name="fabricSuitable"]:checked')].map(i => i.value);
     if (!suitableFor.length) { alert('Kies minimaal één kledingstuk bij “Geschikt voor”.'); return; }
-    data.fabrics.unshift({
-      id: uid(), type: document.getElementById('fabricType').value.trim(), color: document.getElementById('fabricColor').value.trim(),
-      pattern: document.getElementById('fabricPattern').value.trim(), composition: document.getElementById('fabricComposition').value.trim(),
-      amount: document.getElementById('fabricAmount').value.trim(), suitableFor, createdAt: todayISO()
-    });
-    e.target.reset(); saveData(); showToast('Stof toegevoegd');
+    const values = {
+      type: document.getElementById('fabricType').value.trim(),
+      color: document.getElementById('fabricColor').value.trim(),
+      pattern: document.getElementById('fabricPattern').value.trim(),
+      composition: document.getElementById('fabricComposition').value.trim(),
+      amount: document.getElementById('fabricAmount').value.trim(),
+      construction: document.getElementById('fabricConstruction').value,
+      weight: document.getElementById('fabricWeight').value,
+      stretchy: document.getElementById('fabricStretch').value,
+      suitableFor,
+      photo: pendingFabricPhoto
+    };
+    if (editingFabricId) {
+      const f = data.fabrics.find(x => x.id === editingFabricId);
+      if (f) {
+        Object.assign(f, values);
+        data.projects.forEach(p => { if (p.fabricId === f.id) p.fabricLabel = fabricTitle(f); });
+      }
+      showToast('Stof bijgewerkt');
+    } else {
+      data.fabrics.unshift({ id: uid(), ...values, createdAt: todayISO() });
+      showToast('Stof toegevoegd');
+    }
+    resetFabricForm();
+    saveData();
   });
 
   document.getElementById('fabricFilter').addEventListener('change', renderFabrics);
@@ -822,12 +1050,111 @@
     if (!items.length) { el.innerHTML = `<div class="empty">${filter ? 'Geen stoffen gevonden voor ' + esc(filter) + '.' : 'Nog geen stoffen toegevoegd.'}</div>`; return; }
     el.innerHTML = items.map(f => `
       <div class="item-card">
-        <div class="item-head"><div><h4>${esc(fabricTitle(f))}</h4><div class="meta">Toegevoegd ${formatDate(f.createdAt)}</div></div><button class="btn danger small" onclick="deleteFabric('${f.id}')">Verwijderen</button></div>
-        <div class="chip-row">${(f.suitableFor || []).map(g => `<span class="chip">${esc(g)}</span>`).join('')}</div>
-        <div class="details">
-          <div><span>Patroon</span>${esc(f.pattern || '—')}</div><div><span>Samenstelling</span>${esc(f.composition || '—')}</div><div><span>Hoeveelheid</span>${esc(f.amount || '—')}${f.amount ? ' cm' : ''}</div>
+        <div class="fabric-card-grid">
+          <div>${f.photo ? `<img class="fabric-thumb" src="${f.photo}" alt="${esc(fabricTitle(f))}" />` : `<div class="fabric-placeholder">Geen foto</div>`}</div>
+          <div>
+            <div class="item-head"><div><h4>${esc(fabricTitle(f))}</h4><div class="meta">Toegevoegd ${formatDate(f.createdAt)}</div></div><div class="toolbar"><button class="btn secondary small" onclick="editFabric('${f.id}')">Bewerken</button><button class="btn danger small" onclick="deleteFabric('${f.id}')">Verwijderen</button></div></div>
+            <div class="chip-row" style="margin-top:10px;">${(f.suitableFor || []).map(g => `<span class="chip">${esc(g)}</span>`).join('')}</div>
+            <div class="details" style="margin-top:10px;">
+              <div><span>Patroon</span>${esc(f.pattern || '—')}</div><div><span>Samenstelling</span>${esc(f.composition || '—')}</div><div><span>Hoeveelheid</span>${esc(f.amount || '—')}${f.amount ? ' cm' : ''}</div>
+              <div><span>Gebreid/geweven</span>${esc(f.construction || '—')}</div><div><span>Gewicht</span>${esc(f.weight || '—')}</div><div><span>Rekbaar</span>${esc(f.stretchy || '—')}</div>
+            </div>
+          </div>
         </div>
       </div>`).join('');
+  }
+
+  function modelValue(models, category) { return models && models[category] ? models[category] : ''; }
+
+  function generateLineDrawing(basePattern, models, garment) {
+    models = models || {};
+    const neckline = modelValue(models, 'Halsafwerking');
+    const waist = modelValue(models, 'Cintrage');
+    const closure = modelValue(models, 'Sluitingen');
+    const collar = modelValue(models, 'Kragen');
+    const sleeve = modelValue(models, 'Mouwen');
+    const length = modelValue(models, 'Lengte kledingstuk');
+    const hasDart = (basePattern || '').toLowerCase().includes('met neep');
+    const baseLower = (basePattern || '').toLowerCase();
+    const isSleeveBase = baseLower.includes('basismouw');
+    const isDress = baseLower.includes('jurk') || garment === 'Jurk';
+    const isBodice = baseLower.includes('corsage') || (!isDress && !isSleeveBase);
+    const cinched = !!waist;
+    let bottomY = isDress ? 330 : 250;
+    if (length === 'Taillelengte') bottomY = 220;
+    if (length === 'Heuplengte') bottomY = 270;
+    if (length === 'Boven de knie') bottomY = 315;
+    if (length === 'Tussen knie en enkel') bottomY = 365;
+    if (length === 'Enkellengte') bottomY = 405;
+
+    const line = '#413a36';
+    const soft = '#9b918b';
+    let svg = `<svg viewBox="0 0 320 430" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Lijntekening van patroon"><rect width="320" height="430" fill="#fff"/><g fill="none" stroke="${line}" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">`;
+
+    if (isSleeveBase) {
+      svg += `<path d="M112 62 C132 43 188 43 208 62 C225 92 238 165 231 242 L211 373 L109 373 L89 242 C82 165 95 92 112 62 Z"/>`;
+      svg += `<path d="M109 373 Q160 385 211 373"/><path d="M112 62 Q160 84 208 62" stroke="${soft}" stroke-dasharray="5 5"/>`;
+      if (baseLower.includes('4 cm')) svg += `<path d="M97 383 Q160 399 223 383" stroke="${soft}" stroke-dasharray="5 5"/>`;
+      else svg += `<path d="M104 380 Q160 393 216 380" stroke="${soft}" stroke-dasharray="5 5"/>`;
+      svg += `</g><text x="160" y="417" text-anchor="middle" fill="${soft}" font-size="12" font-family="system-ui">${esc(basePattern || 'Basismouw')}</text></svg>`;
+      return svg;
+    }
+
+    const waistX = cinched ? 116 : 108;
+    const hipX = isDress ? 100 : 106;
+    const shoulderY = 92;
+    const neckLeft = 137, neckRight = 183;
+
+    // torso / jurk basis
+    svg += `<path d="M${neckLeft} 72 L118 ${shoulderY} Q104 112 102 143 L${waistX} 220 ${isDress ? `L${hipX} 270 L92 ${bottomY} L228 ${bottomY} L220 270 L${320-hipX} 220 L218 143 Q216 112 202 ${shoulderY} L${neckRight} 72` : `L${320-waistX} 220 L218 143 Q216 112 202 ${shoulderY} L${neckRight} 72`}"/>`;
+
+    // hals
+    if (neckline === 'Boothals') svg += `<path d="M126 80 Q160 94 194 80"/>`;
+    else if (neckline === 'Overslag') svg += `<path d="M137 74 L178 145 M183 74 L142 145"/>`;
+    else if (neckline === 'Watervalhals') svg += `<path d="M132 79 Q160 118 188 79 M136 86 Q160 112 184 86"/>`;
+    else if (neckline === 'Halsboord uit tricot') svg += `<path d="M136 76 Q160 102 184 76 M133 72 Q160 105 187 72"/>`;
+    else svg += `<path d="M${neckLeft} 72 Q160 103 ${neckRight} 72"/>`;
+
+    // kragen
+    if (collar === 'Eendelige hemdsblousekraag') svg += `<path d="M136 75 L120 103 L152 91 M184 75 L200 103 L168 91"/>`;
+    if (collar === 'Tweedelige hemdsblousekraag') svg += `<path d="M136 75 L126 91 L151 95 M184 75 L194 91 L169 95 M140 70 Q160 84 180 70"/>`;
+    if (collar === 'Aansluitende rolkraag') svg += `<path d="M137 72 L140 45 Q160 36 180 45 L183 72 M140 52 Q160 62 180 52"/>`;
+
+    // mouwen
+    if (sleeve === 'Raglanmouw') {
+      svg += `<path d="M140 77 L104 129 L60 245 L83 254 L117 153 M180 77 L216 129 L260 245 L237 254 L203 153"/>`;
+    } else if (sleeve === 'Aangeknipte mouw') {
+      svg += `<path d="M119 92 L62 112 L72 151 L108 142 M201 92 L258 112 L248 151 L212 142"/>`;
+    } else if (sleeve === 'Vleermuismouw') {
+      svg += `<path d="M119 94 L45 126 L70 214 L111 184 M201 94 L275 126 L250 214 L209 184"/>`;
+    } else if (sleeve === 'Vlindermouw') {
+      svg += `<path d="M116 99 Q68 106 56 171 Q89 181 111 153 M204 99 Q252 106 264 171 Q231 181 209 153"/>`;
+    } else if (sleeve === 'Hemdsblousemouw') {
+      svg += `<path d="M113 104 Q85 112 81 155 L72 307 L101 313 L112 160 M207 104 Q235 112 239 155 L248 307 L219 313 L208 160 M73 298 L100 302 M220 302 L247 298"/>`;
+    } else if (sleeve === 'Lange aansluitende mouw') {
+      svg += `<path d="M113 104 Q91 116 91 152 L87 315 L108 315 L112 158 M207 104 Q229 116 229 152 L233 315 L212 315 L208 158"/>`;
+    } else {
+      svg += `<path d="M118 92 Q96 106 102 143 M202 92 Q224 106 218 143"/>`;
+    }
+
+    // nepen / cintrage
+    if (hasDart) svg += `<path d="M132 205 L142 168 L151 205 M188 205 L178 168 L169 205" stroke="${soft}"/>`;
+    if (cinched) svg += `<path d="M108 220 Q160 235 212 220" stroke="${soft}" stroke-dasharray="4 5"/>`;
+
+    // sluitingen
+    if (closure === 'Knoopsluiting') {
+      svg += `<path d="M160 100 L160 ${bottomY}"/>`;
+      for (let y=126; y<Math.min(bottomY,300); y+=30) svg += `<circle cx="160" cy="${y}" r="2.6" fill="${line}"/>`;
+    } else if (closure === 'Blinde knoopsluiting') {
+      svg += `<path d="M157 101 L157 ${bottomY} M163 101 L163 ${bottomY}"/>`;
+    } else {
+      svg += `<path d="M160 103 L160 ${isDress ? bottomY : 220}" stroke="${soft}" stroke-dasharray="5 6"/>`;
+    }
+
+    // zoom / hulplijn
+    svg += `<path d="M${isDress ? 92 : waistX} ${bottomY} L${isDress ? 228 : 320-waistX} ${bottomY}"/>`;
+    svg += `</g><text x="160" y="423" text-anchor="middle" fill="${soft}" font-size="12" font-family="system-ui">${esc(basePattern || garment || 'Basispatroon')}</text></svg>`;
+    return svg;
   }
 
   document.getElementById('plannerGarment').addEventListener('change', () => { renderPlannerFabricOptions(); updatePlannerSummary(); });
@@ -878,6 +1205,7 @@
     const fabric = data.fabrics.find(f => f.id === fabricId);
     const models = getPlannerModels();
     const modelLines = Object.entries(models).map(([c,v]) => `<div><strong>${esc(c)}:</strong> ${esc(v)}</div>`).join('');
+    document.getElementById('plannerDrawing').innerHTML = generateLineDrawing(base, models, garment);
     document.getElementById('plannerSummary').innerHTML = `
       <h4>${esc(document.getElementById('plannerName').value.trim() || 'Nieuw kledingproject')}</h4>
       <div class="planner-summary">
@@ -922,20 +1250,122 @@
     p.status = status; saveData();
   };
 
+  function moveProject(id, direction) {
+    const index = data.projects.findIndex(p => p.id === id);
+    if (index < 0) return;
+    const target = index + direction;
+    if (target < 0 || target >= data.projects.length) return;
+    const temp = data.projects[index];
+    data.projects[index] = data.projects[target];
+    data.projects[target] = temp;
+    saveData();
+  }
+  window.moveProject = moveProject;
+
+  function reorderProjectToTarget(sourceId, targetId) {
+    if (!sourceId || !targetId || sourceId === targetId) return;
+    const sourceIndex = data.projects.findIndex(p => p.id === sourceId);
+    const targetIndex = data.projects.findIndex(p => p.id === targetId);
+    if (sourceIndex < 0 || targetIndex < 0) return;
+    const moved = data.projects.splice(sourceIndex, 1)[0];
+    data.projects.splice(Math.min(targetIndex, data.projects.length), 0, moved);
+    saveData();
+  }
+
+  document.addEventListener('dragstart', (e) => {
+    const card = e.target.closest ? e.target.closest('[data-project-card]') : null;
+    if (!card) return;
+    draggedProjectId = card.dataset.projectCard;
+    card.classList.add('dragging');
+    if (e.dataTransfer) { e.dataTransfer.effectAllowed = 'move'; e.dataTransfer.setData('text/plain', draggedProjectId); }
+  });
+  document.addEventListener('dragend', (e) => {
+    document.querySelectorAll('[data-project-card]').forEach(c => c.classList.remove('dragging','drag-over'));
+    draggedProjectId = '';
+  });
+  document.addEventListener('dragover', (e) => {
+    const card = e.target.closest ? e.target.closest('[data-project-card]') : null;
+    if (!card || !draggedProjectId) return;
+    e.preventDefault();
+    document.querySelectorAll('[data-project-card]').forEach(c => c.classList.remove('drag-over'));
+    card.classList.add('drag-over');
+  });
+  document.addEventListener('drop', (e) => {
+    const card = e.target.closest ? e.target.closest('[data-project-card]') : null;
+    if (!card || !draggedProjectId) return;
+    e.preventDefault();
+    const targetId = card.dataset.projectCard;
+    reorderProjectToTarget(draggedProjectId, targetId);
+    draggedProjectId = '';
+  });
+
+  document.addEventListener('pointerdown', (e) => {
+    if (e.pointerType !== 'touch' && e.pointerType !== 'pen') return;
+    const handle = e.target.closest ? e.target.closest('.drag-handle') : null;
+    if (!handle) return;
+    const card = handle.closest('[data-project-card]');
+    if (!card) return;
+    touchDraggedProjectId = card.dataset.projectCard;
+    touchDragTargetId = touchDraggedProjectId;
+    card.classList.add('dragging');
+    try { handle.setPointerCapture(e.pointerId); } catch (err) {}
+    e.preventDefault();
+  }, {passive:false});
+
+  document.addEventListener('pointermove', (e) => {
+    if (!touchDraggedProjectId) return;
+    const under = document.elementFromPoint(e.clientX, e.clientY);
+    const card = under && under.closest ? under.closest('[data-project-card]') : null;
+    document.querySelectorAll('[data-project-card]').forEach(c => c.classList.remove('drag-over'));
+    if (card) {
+      touchDragTargetId = card.dataset.projectCard;
+      card.classList.add('drag-over');
+    }
+    e.preventDefault();
+  }, {passive:false});
+
+  document.addEventListener('pointerup', (e) => {
+    if (!touchDraggedProjectId) return;
+    const sourceId = touchDraggedProjectId;
+    const targetId = touchDragTargetId;
+    touchDraggedProjectId = '';
+    touchDragTargetId = '';
+    document.querySelectorAll('[data-project-card]').forEach(c => c.classList.remove('dragging','drag-over'));
+    if (sourceId && targetId && sourceId !== targetId) reorderProjectToTarget(sourceId, targetId);
+  });
+
+  document.addEventListener('pointercancel', () => {
+    touchDraggedProjectId = '';
+    touchDragTargetId = '';
+    document.querySelectorAll('[data-project-card]').forEach(c => c.classList.remove('dragging','drag-over'));
+  });
+
   function renderProjects() {
     const el = document.getElementById('projectList');
     if (!data.projects.length) { el.innerHTML = `<div class="empty">Nog geen projecten. Maak je eerste combinatie in de Patroonplanner.</div>`; return; }
-    el.innerHTML = data.projects.map(p => {
+    el.innerHTML = `<div class="meta" style="margin-bottom:8px;">Sleep projecten met ☰ of gebruik de pijlen om de volgorde te wijzigen.</div>` + data.projects.map((p, index) => {
       const modelChips = Object.entries(p.models || {}).map(([c,v]) => `<span class="chip" title="${esc(c)}">${esc(v)}</span>`).join('');
       const measurement = data.measurements.find(m => m.id === p.measurementId);
-      return `<div class="item-card">
+      const fabric = data.fabrics.find(f => f.id === p.fabricId);
+      const photo = fabric && fabric.photo ? fabric.photo : '';
+      const currentFabricLabel = fabric ? fabricTitle(fabric) : (p.fabricLabel || 'Geen keuze');
+      return `<div class="item-card" data-project-card="${p.id}">
         <div class="item-head">
-          <div><h4>${esc(p.name)}</h4><div class="meta">${esc(p.garment)} · aangemaakt ${formatDate(p.createdAt)}</div></div>
-          <div class="toolbar"><select onchange="setProjectStatus('${p.id}', this.value)" style="width:auto;">${projectStatuses.map(s => `<option value="${esc(s)}" ${p.status===s?'selected':''}>${esc(s)}</option>`).join('')}</select><button class="btn danger small" onclick="deleteProject('${p.id}')">Verwijderen</button></div>
+          <div style="display:flex;gap:8px;align-items:flex-start;"><span class="drag-handle" draggable="true" title="Sleep om te verplaatsen">☰</span><div><h4>${esc(p.name)}</h4><div class="meta">${esc(p.garment)} · aangemaakt ${formatDate(p.createdAt)}</div></div></div>
+          <div class="toolbar">
+            <span class="project-order"><button class="btn ghost small" onclick="moveProject('${p.id}', -1)" ${index===0?'disabled':''} title="Omhoog">↑</button><button class="btn ghost small" onclick="moveProject('${p.id}', 1)" ${index===data.projects.length-1?'disabled':''} title="Omlaag">↓</button></span>
+            <select onchange="setProjectStatus('${p.id}', this.value)" style="width:auto;">${projectStatuses.map(s => `<option value="${esc(s)}" ${p.status===s?'selected':''}>${esc(s)}</option>`).join('')}</select><button class="btn danger small" onclick="deleteProject('${p.id}')">Verwijderen</button>
+          </div>
         </div>
-        ${modelChips ? `<div class="chip-row">${modelChips}</div>` : ''}
-        <div class="details"><div><span>Basispatroon</span>${esc(p.basePattern || 'Geen keuze')}</div><div><span>Stof</span>${esc(p.fabricLabel || 'Geen keuze')}</div><div><span>Maten</span>${measurement ? formatDate(measurement.date) : 'Niet gekoppeld'}</div></div>
-        ${p.note ? `<div class="meta"><strong>Notitie:</strong> ${esc(p.note)}</div>` : ''}
+        <div class="project-visuals">
+          <div>${photo ? `<img class="project-photo" src="${photo}" alt="Stof voor ${esc(p.name)}" />` : `<div class="fabric-placeholder" style="width:100%;height:auto;aspect-ratio:4/3;">Geen stoffoto</div>`}</div>
+          <div class="project-drawing">${generateLineDrawing(p.basePattern, p.models || {}, p.garment)}</div>
+          <div>
+            ${modelChips ? `<div class="chip-row">${modelChips}</div>` : '<div class="meta">Geen modelintekeningen gekozen.</div>'}
+            <div class="details" style="margin-top:12px;"><div><span>Basispatroon</span>${esc(p.basePattern || 'Geen keuze')}</div><div><span>Stof</span>${esc(currentFabricLabel)}</div><div><span>Maten</span>${measurement ? formatDate(measurement.date) : 'Niet gekoppeld'}</div></div>
+            ${p.note ? `<div class="meta" style="margin-top:10px;"><strong>Notitie:</strong> ${esc(p.note)}</div>` : ''}
+          </div>
+        </div>
       </div>`;
     }).join('');
   }
