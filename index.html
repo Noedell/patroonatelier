@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Patroon Atelier — stoffen & technische tekeningen</title>
+  <title>Patroon Atelier — ideeën, stoffen & patronen</title>
   <style>
     :root {
       --bg: #f6f4ef;
@@ -483,6 +483,69 @@
       .drawing-wrap.technical { min-height:320px; padding:5px; }
     }
 
+
+    .idea-toolbar { display:flex; justify-content:space-between; gap:12px; align-items:center; flex-wrap:wrap; margin-bottom:16px; }
+    .idea-filter-panel { border:1px solid var(--line); background:var(--panel-soft); border-radius:16px; padding:14px; margin-bottom:18px; }
+    .idea-filter-grid { display:grid; grid-template-columns:repeat(5,minmax(0,1fr)); gap:10px; margin-top:10px; }
+    .idea-grid { display:grid; grid-template-columns:repeat(3,minmax(0,1fr)); gap:16px; }
+    .idea-card { border:1px solid var(--line); background:var(--panel); border-radius:18px; overflow:hidden; box-shadow:0 3px 14px rgba(64,48,39,.05); display:flex; flex-direction:column; min-width:0; }
+    .idea-card-image { width:100%; aspect-ratio:4/3; object-fit:cover; background:var(--panel-soft); display:block; }
+    .idea-card-placeholder { width:100%; aspect-ratio:4/3; background:var(--panel-soft); display:grid; place-items:center; color:var(--muted); font-size:13px; border-bottom:1px dashed var(--line); }
+    .idea-card-body { padding:15px; display:grid; gap:10px; height:100%; }
+    .idea-card-title { display:flex; align-items:flex-start; justify-content:space-between; gap:10px; }
+    .idea-card-title h3 { margin:0; font-size:18px; }
+    .idea-description { color:var(--muted); font-size:13px; line-height:1.5; display:-webkit-box; -webkit-line-clamp:3; -webkit-box-orient:vertical; overflow:hidden; }
+    .idea-status-select { width:auto; min-width:150px; padding:7px 9px; font-size:12px; }
+    .idea-panel { display:none; }
+    .idea-panel.active { display:block; }
+    .idea-form-section { border-top:1px solid var(--line); padding-top:18px; margin-top:18px; }
+    .idea-form-section:first-child { border-top:0; padding-top:0; margin-top:0; }
+    .idea-form-section h3 { margin:0 0 12px; }
+    .idea-image-manager { display:grid; grid-template-columns:repeat(4,minmax(0,1fr)); gap:10px; margin-top:12px; }
+    .idea-image-tile { position:relative; border:1px solid var(--line); border-radius:14px; overflow:hidden; background:var(--panel-soft); }
+    .idea-image-tile img { width:100%; aspect-ratio:4/3; object-fit:cover; display:block; }
+    .idea-image-actions { padding:7px; display:flex; gap:6px; flex-wrap:wrap; }
+    .idea-main-badge { position:absolute; top:7px; left:7px; background:var(--sidebar); color:var(--sidebar-text); padding:4px 7px; border-radius:999px; font-size:10px; font-weight:800; }
+    .idea-fabric-picker { display:grid; gap:9px; max-height:430px; overflow:auto; padding-right:3px; }
+    .idea-fabric-option { display:grid; grid-template-columns:auto 54px minmax(0,1fr); gap:10px; align-items:start; border:1px solid var(--line); border-radius:13px; padding:9px; background:var(--panel-soft); }
+    .idea-fabric-option img { width:54px; height:54px; object-fit:cover; border-radius:9px; border:1px solid var(--line); }
+    .idea-fabric-option .mini-placeholder { width:54px; height:54px; border-radius:9px; border:1px dashed var(--line); display:grid; place-items:center; color:var(--muted); font-size:9px; text-align:center; }
+    .idea-fabric-option input[type="checkbox"] { width:20px; height:20px; margin-top:4px; }
+    .idea-fabric-note { margin-top:7px; font-size:12px; padding:8px 9px !important; }
+    .idea-detail-hero { display:grid; grid-template-columns:minmax(260px,1.1fr) minmax(0,1fr); gap:22px; align-items:start; }
+    .idea-detail-main { width:100%; max-height:520px; object-fit:cover; border-radius:18px; border:1px solid var(--line); background:var(--panel-soft); }
+    .idea-detail-placeholder { min-height:310px; border:1px dashed var(--line); border-radius:18px; background:var(--panel-soft); display:grid; place-items:center; color:var(--muted); }
+    .idea-detail-title h2 { margin:0 0 8px; font-size:clamp(26px,4vw,38px); }
+    .idea-detail-sections { display:grid; gap:18px; margin-top:20px; }
+    .idea-detail-section { border:1px solid var(--line); border-radius:16px; background:var(--panel); padding:17px; }
+    .idea-detail-section h3 { margin:0 0 12px; }
+    .idea-design-grid { display:grid; grid-template-columns:repeat(3,minmax(0,1fr)); gap:10px 16px; }
+    .idea-design-item span { display:block; color:var(--muted); font-size:11px; margin-bottom:3px; }
+    .idea-gallery { display:grid; grid-template-columns:repeat(4,minmax(0,1fr)); gap:10px; }
+    .idea-gallery figure { margin:0; position:relative; }
+    .idea-gallery img { width:100%; aspect-ratio:4/3; object-fit:cover; border-radius:13px; border:1px solid var(--line); }
+    .idea-gallery figcaption { color:var(--muted); font-size:10px; margin-top:4px; }
+    .idea-linked-fabrics { display:grid; grid-template-columns:repeat(2,minmax(0,1fr)); gap:10px; }
+    .idea-linked-fabric { border:1px solid var(--line); border-radius:13px; padding:10px; display:grid; grid-template-columns:68px minmax(0,1fr); gap:10px; background:var(--panel-soft); }
+    .idea-linked-fabric img { width:68px; height:68px; object-fit:cover; border-radius:10px; }
+    .idea-flow { display:flex; align-items:center; gap:8px; flex-wrap:wrap; margin-top:12px; color:var(--muted); font-size:12px; }
+    .idea-flow-step { border:1px solid var(--line); background:var(--panel-soft); border-radius:999px; padding:6px 10px; }
+    .idea-flow-step.current { border-color:var(--accent); color:var(--accent); font-weight:800; }
+    .project-source-note { border:1px solid var(--line); background:var(--panel-soft); border-radius:11px; padding:9px 10px; font-size:12px; color:var(--muted); margin-top:10px; }
+    .project-highlight { outline:3px solid var(--accent); outline-offset:3px; }
+    body[data-theme="dark"] .idea-card, body[data-theme="dark"] .idea-detail-section { background:var(--panel); }
+
+    @media (max-width: 1100px) {
+      .idea-grid { grid-template-columns:repeat(2,minmax(0,1fr)); }
+      .idea-filter-grid { grid-template-columns:repeat(3,minmax(0,1fr)); }
+      .idea-image-manager, .idea-gallery { grid-template-columns:repeat(3,minmax(0,1fr)); }
+    }
+    @media (max-width: 760px) {
+      .idea-grid, .idea-filter-grid, .idea-detail-hero, .idea-design-grid, .idea-linked-fabrics { grid-template-columns:1fr; }
+      .idea-image-manager, .idea-gallery { grid-template-columns:repeat(2,minmax(0,1fr)); }
+      .idea-status-select { width:100%; }
+    }
+
     .mobile-nav { display: none; }
 
     @media (max-width: 1050px) {
@@ -543,6 +606,7 @@
       <button data-view="basepatterns">Basispatronen</button>
       <button data-view="models">Modelintekeningen</button>
       <button data-view="fabrics">Stoffenbibliotheek</button>
+      <button data-view="ideas">Ideeënbibliotheek</button>
       <button data-view="planner">Patroonplanner</button>
       <button data-view="projects">Projecten</button>
       <button data-view="todos">To-do</button>
@@ -666,6 +730,95 @@
         </div>
       </section>
 
+      <section class="view" id="view-ideas">
+        <div id="ideasOverview" class="idea-panel active">
+          <div class="section-head">
+            <div><h2>Ideeënbibliotheek</h2><p>Bewaar losse kledingideeën, inspiratie en stofcombinaties voordat ze een concreet patroon of project worden.</p></div>
+            <button type="button" class="btn" id="newIdeaBtn">+ Nieuw idee</button>
+          </div>
+          <div class="idea-filter-panel">
+            <div class="field"><label>Zoeken</label><input type="search" id="ideaSearchText" placeholder="Zoek op naam of omschrijving…" autocomplete="off" /></div>
+            <div class="idea-filter-grid">
+              <div class="field"><label>Kledingstuktype</label><select id="ideaFilterGarment"></select></div>
+              <div class="field"><label>Status</label><select id="ideaFilterStatus"></select></div>
+              <div class="field"><label>Seizoen</label><select id="ideaFilterSeason"></select></div>
+              <div class="field"><label>Stof</label><select id="ideaFilterFabric"></select></div>
+              <div class="field"><label>Favoriet</label><select id="ideaFilterFavorite"><option value="">Alle ideeën</option><option value="yes">Alleen favorieten</option><option value="no">Niet favoriet</option></select></div>
+            </div>
+            <div class="fabric-result-line"><span id="ideaResultCount"></span><button type="button" class="btn ghost small" id="clearIdeaFiltersBtn">Filters wissen</button></div>
+          </div>
+          <div id="ideaList" class="idea-grid"></div>
+        </div>
+
+        <div id="ideasFormPanel" class="idea-panel">
+          <div class="section-head">
+            <div><h2 id="ideaFormTitle">Nieuw idee</h2><p>Sla snel op wat je al weet. Vrijwel alle velden zijn optioneel.</p></div>
+            <button type="button" class="btn ghost" id="backFromIdeaFormBtn">← Terug naar ideeën</button>
+          </div>
+          <form id="ideaForm" class="card">
+            <div class="idea-form-section">
+              <h3>Basis</h3>
+              <div class="form-grid two">
+                <div class="field full"><label>Naam <span class="hint">verplicht</span></label><input type="text" id="ideaName" required placeholder="Bijv. luchtige zomerblouse" /></div>
+                <div class="field"><label>Kledingstuktype</label><select id="ideaGarment"></select></div>
+                <div class="field"><label>Status</label><select id="ideaStatus"></select></div>
+                <div class="field"><label>Seizoen <span class="hint">optioneel</span></label><select id="ideaSeason"></select></div>
+                <div class="field"><label>Favoriet</label><select id="ideaFavorite"><option value="no">Nee</option><option value="yes">Ja</option></select></div>
+                <div class="field full"><label>Korte omschrijving</label><textarea id="ideaDescription" placeholder="Wat is de kern van het idee?"></textarea></div>
+              </div>
+            </div>
+
+            <div class="idea-form-section">
+              <h3>Ontwerp</h3>
+              <div class="form-grid two">
+                <div class="field"><label>Pasvorm</label><input type="text" id="ideaFit" placeholder="Bijv. losvallend, aansluitend" /></div>
+                <div class="field"><label>Halslijn</label><input type="text" id="ideaNeckline" list="ideaNecklineSuggestions" placeholder="Bijv. boothals" /></div>
+                <div class="field"><label>Mouwtype</label><input type="text" id="ideaSleeve" list="ideaSleeveSuggestions" placeholder="Bijv. raglanmouw" /></div>
+                <div class="field"><label>Lengte</label><input type="text" id="ideaLength" list="ideaLengthSuggestions" placeholder="Bijv. heuplengte" /></div>
+                <div class="field"><label>Taille / silhouet</label><input type="text" id="ideaWaist" list="ideaWaistSuggestions" placeholder="Bijv. licht gecentreerd" /></div>
+                <div class="field"><label>Sluiting</label><input type="text" id="ideaClosure" list="ideaClosureSuggestions" placeholder="Bijv. knoopsluiting" /></div>
+                <div class="field"><label>Zaktype</label><input type="text" id="ideaPocket" placeholder="Bijv. steekzak, borstzak" /></div>
+                <div class="field"><label>Bijzondere details</label><input type="text" id="ideaSpecialDetails" placeholder="Bijv. plooien, volants, split" /></div>
+                <div class="field full"><label>Andere ontwerpnotities</label><textarea id="ideaDesignNotes" placeholder="Vrije ontwerpnotities…"></textarea></div>
+              </div>
+            </div>
+
+            <div class="idea-form-section">
+              <h3>Inspiratie</h3>
+              <div class="field">
+                <label>Afbeeldingen <span class="hint">meerdere mogelijk</span></label>
+                <input type="file" id="ideaImagesInput" accept="image/*" multiple />
+                <div class="hint">Afbeeldingen worden automatisch verkleind voor de iPad. Je kunt één afbeelding als hoofdafbeelding markeren.</div>
+              </div>
+              <div id="ideaImageManager" class="idea-image-manager"></div>
+            </div>
+
+            <div class="idea-form-section">
+              <h3>Stoffen</h3>
+              <p class="meta">Koppel bestaande stoffen. De stofgegevens zelf worden niet gekopieerd; het idee bewaart alleen de relatie naar de Stoffenbibliotheek.</p>
+              <div id="ideaFabricLinks" class="idea-fabric-picker"></div>
+            </div>
+
+            <div class="idea-form-section">
+              <h3>Persoonlijke notities</h3>
+              <div class="field"><textarea id="ideaPersonalNotes" placeholder="Alles wat je later nog wilt onthouden…"></textarea></div>
+            </div>
+
+            <div class="toolbar" style="margin-top:20px;"><button type="submit" class="btn" id="ideaSubmitBtn">Idee opslaan</button><button type="button" class="btn secondary" id="cancelIdeaBtn">Annuleren</button></div>
+          </form>
+          <datalist id="ideaNecklineSuggestions"><option value="Halsboord uit tricot"></option><option value="Overslag"></option><option value="Watervalhals"></option><option value="Boothals"></option></datalist>
+          <datalist id="ideaSleeveSuggestions"><option value="Raglanmouw"></option><option value="Aangeknipte mouw"></option><option value="Vleermuismouw"></option><option value="Vlindermouw"></option><option value="Hemdsblousemouw"></option><option value="Lange aansluitende mouw"></option></datalist>
+          <datalist id="ideaLengthSuggestions"><option value="Taillelengte"></option><option value="Heuplengte"></option><option value="Boven de knie"></option><option value="Tussen knie en enkel"></option><option value="Enkellengte"></option></datalist>
+          <datalist id="ideaWaistSuggestions"><option value="Cintrage T-shirt"></option><option value="Cintrage blouse geweven stof"></option></datalist>
+          <datalist id="ideaClosureSuggestions"><option value="Knoopsluiting"></option><option value="Blinde knoopsluiting"></option></datalist>
+        </div>
+
+        <div id="ideasDetailPanel" class="idea-panel">
+          <div class="idea-toolbar"><button type="button" class="btn ghost" id="backFromIdeaDetailBtn">← Alle ideeën</button><div class="toolbar" id="ideaDetailTopActions"></div></div>
+          <div id="ideaDetail"></div>
+        </div>
+      </section>
+
       <section class="view" id="view-planner">
         <div class="section-head"><div><h2>Patroonplanner</h2><p>Combineer kledingtype, basispatroon, modelintekeningen en een geschikte stof tot één project.</p></div></div>
         <div class="grid two">
@@ -731,6 +884,7 @@
   <button data-view="basepatterns">Basis</button>
   <button data-view="models">Modellen</button>
   <button data-view="fabrics">Stoffen</button>
+  <button data-view="ideas">Ideeën</button>
   <button data-view="planner">Planner</button>
   <button data-view="projects">Projecten</button>
   <button data-view="todos">To-do</button>
@@ -771,12 +925,16 @@
 
   const garmentTypes = ['Broek', 'Blouse', 'Jurk', 'Rok', 'Top'];
   const projectStatuses = ['Idee', 'Patroon maken', 'Patroon klaar', 'Knippen', 'Naaien', 'Afgerond'];
+  const ideaStatuses = ['Idee', 'Uitwerken', 'Klaar voor patroon', 'Omgezet naar project', 'Geparkeerd'];
+  const ideaGarmentTypes = ['Top', 'Blouse', 'Jurk', 'Rok', 'Broek', 'Jas', 'Vest', 'Gilet', 'Anders'];
+  const ideaSeasons = ['Lente', 'Zomer', 'Herfst', 'Winter', 'Alle seizoenen'];
 
   const initialData = {
     measurements: [],
     selectedBasePatterns: [],
     selectedModels: [],
     fabrics: [],
+    ideas: [],
     projects: [],
     todos: [],
     theme: 'atelier'
@@ -787,6 +945,12 @@
   let editingFabricId = '';
   let pendingFabricPhoto = '';
   let pendingPlannerInspiration = '';
+  let ideaPanelMode = 'overview';
+  let editingIdeaId = '';
+  let activeIdeaId = '';
+  let pendingIdeaImages = [];
+  let pendingIdeaMainImageId = '';
+  let highlightProjectId = '';
   let draggedProjectId = '';
   let touchDraggedProjectId = '';
   let touchDragTargetId = ''; 
@@ -822,6 +986,7 @@
         selectedBasePatterns: Array.isArray(parsed.selectedBasePatterns) ? parsed.selectedBasePatterns : [],
         selectedModels: Array.isArray(parsed.selectedModels) ? parsed.selectedModels : [],
         fabrics: Array.isArray(parsed.fabrics) ? parsed.fabrics : [],
+        ideas: Array.isArray(parsed.ideas) ? parsed.ideas : [],
         projects: Array.isArray(parsed.projects) ? parsed.projects : [],
         todos: Array.isArray(parsed.todos) ? parsed.todos : []
       };
@@ -879,7 +1044,7 @@
 
   const viewTitles = {
     dashboard:'Overzicht', measurements:'Mijn maten', basepatterns:'Basispatronen', models:'Modelintekeningen',
-    fabrics:'Stoffenbibliotheek', planner:'Patroonplanner', projects:'Projecten', todos:'To-do'
+    fabrics:'Stoffenbibliotheek', ideas:'Ideeënbibliotheek', planner:'Patroonplanner', projects:'Projecten', todos:'To-do'
   };
 
   function navigate(view) {
@@ -889,6 +1054,7 @@
     document.getElementById('pageTitle').textContent = viewTitles[view];
     try { window.scrollTo({top:0, behavior:'smooth'}); } catch (e) { window.scrollTo(0, 0); }
     if (view === 'planner') renderPlanner();
+    if (view === 'ideas') showIdeaPanel('overview');
   }
 
   document.querySelectorAll('[data-view]').forEach(btn => btn.addEventListener('click', () => { if (Date.now() - lastTouchNavigation > 450) navigate(btn.dataset.view); }));
@@ -924,6 +1090,10 @@
 
     const garment = document.getElementById('plannerGarment');
     garment.innerHTML = `<option value="">Kies kledingstuk…</option>` + garmentTypes.map(g => `<option value="${esc(g)}">${esc(g)}</option>`).join('');
+
+    document.getElementById('ideaGarment').innerHTML = `<option value="">Geen keuze</option>` + ideaGarmentTypes.map(g => `<option value="${esc(g)}">${esc(g)}</option>`).join('');
+    document.getElementById('ideaStatus').innerHTML = ideaStatuses.map(x => `<option value="${esc(x)}">${esc(x)}</option>`).join('');
+    document.getElementById('ideaSeason').innerHTML = `<option value="">Geen keuze</option>` + ideaSeasons.map(x => `<option value="${esc(x)}">${esc(x)}</option>`).join('');
   }
 
   function syncSelectionsToInputs() {
@@ -1139,6 +1309,7 @@
     if (!confirm('Deze stof verwijderen uit de stoffenbibliotheek?')) return;
     data.fabrics = data.fabrics.filter(x => x.id !== id);
     data.projects = data.projects.map(p => p.fabricId === id ? {...p, fabricId:'', fabricLabel: p.fabricLabel + ' (verwijderd uit bibliotheek)'} : p);
+    data.ideas.forEach(idea => { idea.fabricLinks = (idea.fabricLinks || []).filter(link => link.fabricId !== id); });
     saveData();
   };
 
@@ -1241,6 +1412,391 @@
         </div>
       </div>`).join('');
   }
+
+
+  function showIdeaPanel(mode) {
+    ideaPanelMode = mode || 'overview';
+    document.getElementById('ideasOverview').classList.toggle('active', ideaPanelMode === 'overview');
+    document.getElementById('ideasFormPanel').classList.toggle('active', ideaPanelMode === 'form');
+    document.getElementById('ideasDetailPanel').classList.toggle('active', ideaPanelMode === 'detail');
+    if (ideaPanelMode === 'overview') renderIdeas();
+    if (ideaPanelMode === 'detail' && activeIdeaId) renderIdeaDetail(activeIdeaId);
+  }
+
+  function ideaMainImage(idea) {
+    const images = idea && Array.isArray(idea.images) ? idea.images : [];
+    if (!images.length) return null;
+    return images.find(img => img.id === idea.mainImageId) || images[0];
+  }
+
+  function normalizeIdea(idea) {
+    if (!idea) return idea;
+    if (!Array.isArray(idea.images)) idea.images = [];
+    if (!Array.isArray(idea.fabricLinks)) idea.fabricLinks = [];
+    if (!Array.isArray(idea.linkedPatternIds)) idea.linkedPatternIds = [];
+    if (!idea.design || typeof idea.design !== 'object') idea.design = {};
+    return idea;
+  }
+
+  function resetIdeaForm() {
+    editingIdeaId = '';
+    pendingIdeaImages = [];
+    pendingIdeaMainImageId = '';
+    document.getElementById('ideaForm').reset();
+    document.getElementById('ideaStatus').value = 'Idee';
+    document.getElementById('ideaFavorite').value = 'no';
+    document.getElementById('ideaFormTitle').textContent = 'Nieuw idee';
+    document.getElementById('ideaSubmitBtn').textContent = 'Idee opslaan';
+    document.getElementById('ideaImagesInput').value = '';
+    renderIdeaImageManager();
+    renderIdeaFabricPicker([]);
+  }
+
+  function openNewIdea() {
+    resetIdeaForm();
+    showIdeaPanel('form');
+    window.scrollTo({top:0, behavior:'smooth'});
+  }
+
+  function renderIdeaFabricPicker(selectedLinks) {
+    const wrap = document.getElementById('ideaFabricLinks');
+    const selectedMap = {};
+    (selectedLinks || []).forEach(link => selectedMap[link.fabricId] = link.note || '');
+    if (!data.fabrics.length) {
+      wrap.innerHTML = `<div class="empty">Nog geen stoffen in de Stoffenbibliotheek. Je kunt het idee nu opslaan en later stoffen koppelen.</div>`;
+      return;
+    }
+    wrap.innerHTML = data.fabrics.map(f => {
+      const checked = Object.prototype.hasOwnProperty.call(selectedMap, f.id);
+      const photo = f.photo ? `<img src="${f.photo}" alt="${esc(fabricTitle(f))}" />` : `<div class="mini-placeholder">Geen foto</div>`;
+      return `<label class="idea-fabric-option"><input type="checkbox" data-idea-fabric="${f.id}" ${checked?'checked':''} /><div>${photo}</div><div><strong>${esc(fabricTitle(f))}</strong><div class="meta">${esc((f.suitableFor || []).join(' · ') || 'Geen categorie')}</div><input type="text" class="idea-fabric-note" data-idea-fabric-note="${f.id}" value="${esc(selectedMap[f.id] || '')}" placeholder="Waarom past deze stof bij het idee?" ${checked?'':'disabled'} /></div></label>`;
+    }).join('');
+  }
+
+  document.getElementById('ideaFabricLinks').addEventListener('change', e => {
+    if (!e.target.matches('[data-idea-fabric]')) return;
+    const id = e.target.dataset.ideaFabric;
+    const note = document.querySelector(`[data-idea-fabric-note="${id}"]`);
+    if (note) note.disabled = !e.target.checked;
+  });
+
+  function renderIdeaImageManager() {
+    const wrap = document.getElementById('ideaImageManager');
+    if (!pendingIdeaImages.length) {
+      wrap.innerHTML = `<div class="empty" style="grid-column:1/-1;">Nog geen inspiratiebeelden toegevoegd.</div>`;
+      return;
+    }
+    wrap.innerHTML = pendingIdeaImages.map(img => `<div class="idea-image-tile">${img.id===pendingIdeaMainImageId?'<span class="idea-main-badge">Hoofdafbeelding</span>':''}<img src="${img.data}" alt="Inspiratiebeeld" /><div class="idea-image-actions"><button type="button" class="btn ghost small" onclick="setIdeaMainImage('${img.id}')">Hoofd</button><button type="button" class="btn danger small" onclick="removeIdeaImage('${img.id}')">Verwijderen</button></div></div>`).join('');
+  }
+
+  window.setIdeaMainImage = function(id) {
+    if (!pendingIdeaImages.some(img => img.id === id)) return;
+    pendingIdeaMainImageId = id;
+    renderIdeaImageManager();
+  };
+
+  window.removeIdeaImage = function(id) {
+    pendingIdeaImages = pendingIdeaImages.filter(img => img.id !== id);
+    if (pendingIdeaMainImageId === id) pendingIdeaMainImageId = pendingIdeaImages.length ? pendingIdeaImages[0].id : '';
+    renderIdeaImageManager();
+  };
+
+  async function resizeIdeaImage(file) {
+    return new Promise((resolve, reject) => {
+      const reader = new FileReader();
+      reader.onload = () => {
+        const img = new Image();
+        img.onload = () => {
+          const maxSize = 700;
+          const scale = Math.min(1, maxSize / Math.max(img.width, img.height));
+          const canvas = document.createElement('canvas');
+          canvas.width = Math.max(1, Math.round(img.width * scale));
+          canvas.height = Math.max(1, Math.round(img.height * scale));
+          const ctx = canvas.getContext('2d');
+          ctx.drawImage(img, 0, 0, canvas.width, canvas.height);
+          resolve({ id: uid(), data: canvas.toDataURL('image/jpeg', 0.58), createdAt: todayISO() });
+        };
+        img.onerror = () => reject(new Error('Afbeelding kon niet worden geopend'));
+        img.src = reader.result;
+      };
+      reader.onerror = () => reject(reader.error || new Error('Afbeelding kon niet worden gelezen'));
+      reader.readAsDataURL(file);
+    });
+  }
+
+  document.getElementById('ideaImagesInput').addEventListener('change', async e => {
+    const files = Array.from(e.target.files || []);
+    if (!files.length) return;
+    const room = Math.max(0, 10 - pendingIdeaImages.length);
+    if (!room) { alert('Voor deze versie kun je maximaal 10 inspiratiebeelden per idee bewaren.'); e.target.value=''; return; }
+    const chosen = files.slice(0, room);
+    try {
+      const processed = [];
+      for (const file of chosen) processed.push(await resizeIdeaImage(file));
+      pendingIdeaImages = pendingIdeaImages.concat(processed);
+      if (!pendingIdeaMainImageId && pendingIdeaImages.length) pendingIdeaMainImageId = pendingIdeaImages[0].id;
+      renderIdeaImageManager();
+      if (files.length > room) alert(`Er zijn ${room} afbeeldingen toegevoegd; het maximum is 10 per idee.`);
+    } catch (err) {
+      alert('Een van de afbeeldingen kon niet worden verwerkt. Probeer een andere afbeelding.');
+    }
+    e.target.value = '';
+  });
+
+  function collectIdeaFabricLinks() {
+    return Array.from(document.querySelectorAll('[data-idea-fabric]:checked')).map(cb => {
+      const note = document.querySelector(`[data-idea-fabric-note="${cb.dataset.ideaFabric}"]`);
+      return { fabricId: cb.dataset.ideaFabric, note: note ? note.value.trim() : '' };
+    });
+  }
+
+  function ideaFormValues() {
+    return {
+      name: document.getElementById('ideaName').value.trim(),
+      garment: document.getElementById('ideaGarment').value,
+      description: document.getElementById('ideaDescription').value.trim(),
+      favorite: document.getElementById('ideaFavorite').value === 'yes',
+      status: document.getElementById('ideaStatus').value || 'Idee',
+      season: document.getElementById('ideaSeason').value,
+      design: {
+        fit: document.getElementById('ideaFit').value.trim(),
+        neckline: document.getElementById('ideaNeckline').value.trim(),
+        sleeve: document.getElementById('ideaSleeve').value.trim(),
+        length: document.getElementById('ideaLength').value.trim(),
+        waist: document.getElementById('ideaWaist').value.trim(),
+        specialDetails: document.getElementById('ideaSpecialDetails').value.trim(),
+        closure: document.getElementById('ideaClosure').value.trim(),
+        pocket: document.getElementById('ideaPocket').value.trim(),
+        notes: document.getElementById('ideaDesignNotes').value.trim()
+      },
+      images: pendingIdeaImages.slice(),
+      mainImageId: pendingIdeaMainImageId,
+      fabricLinks: collectIdeaFabricLinks(),
+      personalNotes: document.getElementById('ideaPersonalNotes').value.trim()
+    };
+  }
+
+  document.getElementById('ideaForm').addEventListener('submit', e => {
+    e.preventDefault();
+    const values = ideaFormValues();
+    if (!values.name) { alert('Geef het idee minimaal een naam.'); return; }
+    if (editingIdeaId) {
+      const idea = data.ideas.find(x => x.id === editingIdeaId);
+      if (!idea) return;
+      Object.assign(idea, values, { updatedAt: todayISO() });
+      if (!Array.isArray(idea.linkedPatternIds)) idea.linkedPatternIds = [];
+      activeIdeaId = idea.id;
+      saveData();
+      showIdeaPanel('detail');
+      showToast('Idee bijgewerkt');
+    } else {
+      const idea = { id: uid(), ...values, createdAt: todayISO(), updatedAt: todayISO(), projectId:'', linkedPatternIds:[] };
+      data.ideas.unshift(idea);
+      activeIdeaId = idea.id;
+      saveData();
+      showIdeaPanel('detail');
+      showToast('Idee opgeslagen');
+    }
+  });
+
+  window.editIdea = function(id) {
+    const idea = normalizeIdea(data.ideas.find(x => x.id === id));
+    if (!idea) return;
+    editingIdeaId = idea.id;
+    activeIdeaId = idea.id;
+    pendingIdeaImages = idea.images.map(img => ({...img}));
+    pendingIdeaMainImageId = idea.mainImageId || (pendingIdeaImages[0] ? pendingIdeaImages[0].id : '');
+    document.getElementById('ideaName').value = idea.name || '';
+    document.getElementById('ideaGarment').value = idea.garment || '';
+    document.getElementById('ideaDescription').value = idea.description || '';
+    document.getElementById('ideaFavorite').value = idea.favorite ? 'yes' : 'no';
+    document.getElementById('ideaStatus').value = idea.status || 'Idee';
+    document.getElementById('ideaSeason').value = idea.season || '';
+    document.getElementById('ideaFit').value = idea.design.fit || '';
+    document.getElementById('ideaNeckline').value = idea.design.neckline || '';
+    document.getElementById('ideaSleeve').value = idea.design.sleeve || '';
+    document.getElementById('ideaLength').value = idea.design.length || '';
+    document.getElementById('ideaWaist').value = idea.design.waist || '';
+    document.getElementById('ideaSpecialDetails').value = idea.design.specialDetails || '';
+    document.getElementById('ideaClosure').value = idea.design.closure || '';
+    document.getElementById('ideaPocket').value = idea.design.pocket || '';
+    document.getElementById('ideaDesignNotes').value = idea.design.notes || '';
+    document.getElementById('ideaPersonalNotes').value = idea.personalNotes || '';
+    document.getElementById('ideaFormTitle').textContent = 'Idee bewerken';
+    document.getElementById('ideaSubmitBtn').textContent = 'Wijzigingen opslaan';
+    renderIdeaImageManager();
+    renderIdeaFabricPicker(idea.fabricLinks);
+    showIdeaPanel('form');
+    window.scrollTo({top:0, behavior:'smooth'});
+  };
+
+  window.deleteIdea = function(id) {
+    const idea = data.ideas.find(x => x.id === id);
+    if (!idea) return;
+    if (idea.projectId && data.projects.some(p => p.id === idea.projectId)) {
+      if (!confirm('Dit idee is gekoppeld aan een project. Het project blijft bestaan, maar de koppeling naar het idee wordt verwijderd. Idee verwijderen?')) return;
+      const p = data.projects.find(p => p.id === idea.projectId);
+      if (p) p.ideaId = '';
+    } else if (!confirm('Dit idee verwijderen?')) return;
+    data.ideas = data.ideas.filter(x => x.id !== id);
+    activeIdeaId = '';
+    saveData();
+    showIdeaPanel('overview');
+  };
+
+  window.toggleIdeaFavorite = function(id) {
+    const idea = data.ideas.find(x => x.id === id); if (!idea) return;
+    idea.favorite = !idea.favorite;
+    saveData();
+    if (ideaPanelMode === 'detail') renderIdeaDetail(id);
+  };
+
+  window.setIdeaStatus = function(id, status) {
+    const idea = data.ideas.find(x => x.id === id); if (!idea) return;
+    idea.status = status;
+    idea.updatedAt = todayISO();
+    saveData();
+    if (ideaPanelMode === 'detail') renderIdeaDetail(id);
+  };
+
+  window.openIdeaDetail = function(id) {
+    activeIdeaId = id;
+    showIdeaPanel('detail');
+    window.scrollTo({top:0, behavior:'smooth'});
+  };
+
+  function updateIdeaFilterOptions() {
+    const garment = document.getElementById('ideaFilterGarment');
+    const status = document.getElementById('ideaFilterStatus');
+    const season = document.getElementById('ideaFilterSeason');
+    const fabric = document.getElementById('ideaFilterFabric');
+    const gv=garment.value, sv=status.value, sev=season.value, fv=fabric.value;
+    garment.innerHTML = `<option value="">Alle kledingstukken</option>` + ideaGarmentTypes.map(x => `<option value="${esc(x)}">${esc(x)}</option>`).join('');
+    status.innerHTML = `<option value="">Alle statussen</option>` + ideaStatuses.map(x => `<option value="${esc(x)}">${esc(x)}</option>`).join('');
+    season.innerHTML = `<option value="">Alle seizoenen</option>` + ideaSeasons.map(x => `<option value="${esc(x)}">${esc(x)}</option>`).join('');
+    fabric.innerHTML = `<option value="">Alle stoffen</option>` + data.fabrics.map(f => `<option value="${f.id}">${esc(fabricTitle(f))}</option>`).join('');
+    if ([...garment.options].some(o=>o.value===gv)) garment.value=gv;
+    if ([...status.options].some(o=>o.value===sv)) status.value=sv;
+    if ([...season.options].some(o=>o.value===sev)) season.value=sev;
+    if ([...fabric.options].some(o=>o.value===fv)) fabric.value=fv;
+  }
+
+  function renderIdeas() {
+    if (!document.getElementById('ideaList')) return;
+    updateIdeaFilterOptions();
+    const q = document.getElementById('ideaSearchText').value.trim().toLocaleLowerCase('nl-NL');
+    const garment = document.getElementById('ideaFilterGarment').value;
+    const status = document.getElementById('ideaFilterStatus').value;
+    const season = document.getElementById('ideaFilterSeason').value;
+    const fabricId = document.getElementById('ideaFilterFabric').value;
+    const favorite = document.getElementById('ideaFilterFavorite').value;
+    let items = data.ideas.map(normalizeIdea).filter(idea => {
+      if (q && !`${idea.name||''} ${idea.description||''}`.toLocaleLowerCase('nl-NL').includes(q)) return false;
+      if (garment && idea.garment !== garment) return false;
+      if (status && idea.status !== status) return false;
+      if (season && idea.season !== season) return false;
+      if (fabricId && !(idea.fabricLinks || []).some(link => link.fabricId === fabricId)) return false;
+      if (favorite === 'yes' && !idea.favorite) return false;
+      if (favorite === 'no' && idea.favorite) return false;
+      return true;
+    });
+    items.sort((a,b) => Number(!!b.favorite)-Number(!!a.favorite) || String(b.createdAt||'').localeCompare(String(a.createdAt||'')));
+    document.getElementById('ideaResultCount').textContent = `${items.length} van ${data.ideas.length} ${data.ideas.length===1?'idee':'ideeën'}`;
+    const list = document.getElementById('ideaList');
+    if (!items.length) { list.innerHTML = `<div class="empty" style="grid-column:1/-1;">Geen ideeën gevonden. Voeg een nieuw idee toe of pas de filters aan.</div>`; return; }
+    list.innerHTML = items.map(idea => {
+      const main = ideaMainImage(idea);
+      const fabrics = (idea.fabricLinks || []).map(link => data.fabrics.find(f => f.id === link.fabricId)).filter(Boolean);
+      return `<article class="idea-card"><div>${main?`<img class="idea-card-image" src="${main.data}" alt="${esc(idea.name)}" />`:`<div class="idea-card-placeholder">Geen inspiratiebeeld</div>`}</div><div class="idea-card-body"><div class="idea-card-title"><div><div class="meta">${esc(idea.garment || 'Kledingstuk niet gekozen')} · ${formatDate(idea.createdAt)}</div><h3>${esc(idea.name)}</h3></div><button class="favorite-btn ${idea.favorite?'active':''}" onclick="toggleIdeaFavorite('${idea.id}')" aria-label="Favoriet">${idea.favorite?'★':'☆'}</button></div><div class="idea-description">${esc(idea.description || 'Geen omschrijving')}</div><select class="idea-status-select" onchange="setIdeaStatus('${idea.id}', this.value)">${ideaStatuses.map(st=>`<option value="${esc(st)}" ${idea.status===st?'selected':''}>${esc(st)}</option>`).join('')}</select>${fabrics.length?`<div class="chip-row">${fabrics.slice(0,3).map(f=>`<span class="chip">${esc(fabricTitle(f))}</span>`).join('')}${fabrics.length>3?`<span class="chip">+${fabrics.length-3}</span>`:''}</div>`:''}<div class="toolbar" style="margin-top:auto;"><button class="btn secondary small" onclick="openIdeaDetail('${idea.id}')">Open idee</button><button class="btn ghost small" onclick="editIdea('${idea.id}')">Bewerken</button></div></div></article>`;
+    }).join('');
+  }
+
+  function renderIdeaDetail(id) {
+    const idea = normalizeIdea(data.ideas.find(x => x.id === id));
+    const root = document.getElementById('ideaDetail');
+    if (!idea) { root.innerHTML = `<div class="empty">Dit idee bestaat niet meer.</div>`; return; }
+    activeIdeaId = idea.id;
+    const main = ideaMainImage(idea);
+    const designLabels = [
+      ['Pasvorm','fit'],['Halslijn','neckline'],['Mouwtype','sleeve'],['Lengte','length'],['Taille / silhouet','waist'],['Bijzondere details','specialDetails'],['Sluiting','closure'],['Zaktype','pocket'],['Andere ontwerpnotities','notes']
+    ];
+    const designHtml = designLabels.filter(([label,key]) => idea.design[key]).map(([label,key]) => `<div class="idea-design-item"><span>${label}</span>${esc(idea.design[key])}</div>`).join('');
+    const fabricHtml = (idea.fabricLinks || []).map(link => {
+      const f = data.fabrics.find(x => x.id === link.fabricId); if (!f) return '';
+      return `<div class="idea-linked-fabric"><div>${f.photo?`<img src="${f.photo}" alt="${esc(fabricTitle(f))}" />`:`<div class="mini-placeholder" style="width:68px;height:68px;">Geen foto</div>`}</div><div><strong>${esc(fabricTitle(f))}</strong><div class="meta">${esc((f.suitableFor||[]).join(' · '))}</div>${link.note?`<div style="margin-top:7px;font-size:12px;">${esc(link.note)}</div>`:''}</div></div>`;
+    }).filter(Boolean).join('');
+    const project = idea.projectId ? data.projects.find(p => p.id === idea.projectId) : null;
+    document.getElementById('ideaDetailTopActions').innerHTML = `<button class="favorite-btn ${idea.favorite?'active':''}" onclick="toggleIdeaFavorite('${idea.id}')" aria-label="Favoriet">${idea.favorite?'★':'☆'}</button><button class="btn secondary small" onclick="editIdea('${idea.id}')">Bewerken</button><button class="btn danger small" onclick="deleteIdea('${idea.id}')">Verwijderen</button>`;
+    root.innerHTML = `<div class="idea-detail-hero"><div>${main?`<img class="idea-detail-main" src="${main.data}" alt="${esc(idea.name)}" />`:`<div class="idea-detail-placeholder">Geen hoofdafbeelding</div>`}</div><div class="idea-detail-title"><div class="meta">${esc(idea.garment || 'Geen kledingstuktype')} · toegevoegd ${formatDate(idea.createdAt)}</div><h2>${esc(idea.name)}</h2><div class="field" style="max-width:260px;"><label>Status</label><select onchange="setIdeaStatus('${idea.id}', this.value)">${ideaStatuses.map(st=>`<option value="${esc(st)}" ${idea.status===st?'selected':''}>${esc(st)}</option>`).join('')}</select></div>${idea.season?`<div class="chip-row" style="margin-top:10px;"><span class="chip">${esc(idea.season)}</span></div>`:''}${idea.description?`<p style="line-height:1.65;color:var(--muted);">${esc(idea.description)}</p>`:''}<div class="idea-flow"><span class="idea-flow-step current">Idee</span><span>→</span><span class="idea-flow-step">Patroon</span><span>→</span><span class="idea-flow-step ${project?'current':''}">Project</span></div><div class="toolbar" style="margin-top:18px;">${project?`<button class="btn" onclick="goToIdeaProject('${project.id}')">Ga naar gekoppeld project</button>`:`<button class="btn" onclick="convertIdeaToProject('${idea.id}')">Maak project van dit idee</button>`}</div></div></div><div class="idea-detail-sections"><section class="idea-detail-section"><h3>Ontwerpdetails</h3>${designHtml?`<div class="idea-design-grid">${designHtml}</div>`:`<div class="empty">Nog geen ontwerpdetails ingevuld.</div>`}</section><section class="idea-detail-section"><h3>Inspiratiebeelden</h3>${idea.images.length?`<div class="idea-gallery">${idea.images.map(img=>`<figure><img src="${img.data}" alt="Inspiratiebeeld" />${img.id===idea.mainImageId?'<figcaption>Hoofdafbeelding</figcaption>':'<figcaption>Inspiratie</figcaption>'}</figure>`).join('')}</div>`:`<div class="empty">Nog geen inspiratiebeelden.</div>`}</section><section class="idea-detail-section"><h3>Gekoppelde stoffen</h3>${fabricHtml?`<div class="idea-linked-fabrics">${fabricHtml}</div>`:`<div class="empty">Nog geen stoffen gekoppeld.</div>`}</section><section class="idea-detail-section"><h3>Persoonlijke notities</h3>${idea.personalNotes?`<div style="white-space:pre-wrap;line-height:1.6;">${esc(idea.personalNotes)}</div>`:`<div class="empty">Nog geen persoonlijke notities.</div>`}</section><section class="idea-detail-section"><h3>Relaties</h3><div class="meta">Project: ${project?esc(project.name):'nog niet gekoppeld'}</div><div class="meta" style="margin-top:5px;">Patroonbibliotheek: datastructuur voorbereid via <code>linkedPatternIds</code>; nog geen patroonfunctionaliteit actief.</div></section></div>`;
+  }
+
+  function mappedIdeaModels(idea) {
+    const out = {};
+    const design = idea.design || {};
+    const mappings = [['Halsafwerking','neckline'],['Mouwen','sleeve'],['Lengte kledingstuk','length'],['Sluitingen','closure'],['Cintrage','waist']];
+    mappings.forEach(([category,key]) => {
+      if (design[key] && modelCategories[category] && modelCategories[category].includes(design[key])) out[category] = design[key];
+    });
+    return out;
+  }
+
+  window.convertIdeaToProject = function(id) {
+    const idea = normalizeIdea(data.ideas.find(x => x.id === id)); if (!idea) return;
+    if (idea.projectId) {
+      const existing = data.projects.find(p => p.id === idea.projectId);
+      if (existing) { goToIdeaProject(existing.id); return; }
+      idea.projectId = '';
+    }
+    const primaryLink = (idea.fabricLinks || []).find(link => data.fabrics.some(f => f.id === link.fabricId));
+    const fabric = primaryLink ? data.fabrics.find(f => f.id === primaryLink.fabricId) : null;
+    const project = {
+      id: uid(), name: idea.name, garment: idea.garment || 'Anders', basePattern:'', models:mappedIdeaModels(idea),
+      fabricId: fabric ? fabric.id : '', fabricLabel: fabric ? fabricTitle(fabric) : '', note:'', inspirationPhoto:'',
+      ideaId: idea.id, status:'Idee', createdAt:todayISO(), measurementId:data.measurements.length ? data.measurements[0].id : ''
+    };
+    data.projects.unshift(project);
+    idea.projectId = project.id;
+    idea.status = 'Omgezet naar project';
+    idea.updatedAt = todayISO();
+    const defaultTasks = ['Basispatroon kiezen of overnemen', 'Modelintekeningen uitwerken', 'Patroondelen controleren', 'Stof knippen', 'Kledingstuk naaien', 'Doorpassen en afwerken'];
+    defaultTasks.forEach(text => data.todos.push({ id:uid(), text, projectId:project.id, dueDate:'', done:false, createdAt:todayISO() }));
+    saveData();
+    activeIdeaId = idea.id;
+    showIdeaPanel('detail');
+    showToast('Project aangemaakt vanuit idee');
+  };
+
+  window.goToIdeaProject = function(projectId) {
+    highlightProjectId = projectId;
+    navigate('projects');
+    setTimeout(() => {
+      const card = document.getElementById('project-card-' + projectId);
+      if (card) {
+        card.classList.add('project-highlight');
+        card.scrollIntoView({behavior:'smooth', block:'center'});
+        setTimeout(() => card.classList.remove('project-highlight'), 2200);
+      }
+    }, 80);
+  };
+
+  window.goToProjectIdea = function(ideaId) {
+    if (!data.ideas.some(i => i.id === ideaId)) return;
+    navigate('ideas');
+    activeIdeaId = ideaId;
+    showIdeaPanel('detail');
+  };
+
+  document.getElementById('newIdeaBtn').addEventListener('click', openNewIdea);
+  document.getElementById('backFromIdeaFormBtn').addEventListener('click', () => showIdeaPanel('overview'));
+  document.getElementById('cancelIdeaBtn').addEventListener('click', () => showIdeaPanel('overview'));
+  document.getElementById('backFromIdeaDetailBtn').addEventListener('click', () => showIdeaPanel('overview'));
+  ['ideaFilterGarment','ideaFilterStatus','ideaFilterSeason','ideaFilterFabric','ideaFilterFavorite'].forEach(id => document.getElementById(id).addEventListener('change', renderIdeas));
+  document.getElementById('ideaSearchText').addEventListener('input', renderIdeas);
+  document.getElementById('clearIdeaFiltersBtn').addEventListener('click', () => {
+    document.getElementById('ideaSearchText').value='';
+    ['ideaFilterGarment','ideaFilterStatus','ideaFilterSeason','ideaFilterFabric','ideaFilterFavorite'].forEach(id => document.getElementById(id).value='');
+    renderIdeas();
+  });
 
   function modelValue(models, category) { return models && models[category] ? models[category] : ''; }
 
@@ -1514,6 +2070,8 @@
 
   window.deleteProject = function(id) {
     if (!confirm('Dit project verwijderen? Gekoppelde taken worden ook verwijderd.')) return;
+    const linkedIdea = data.ideas.find(idea => idea.projectId === id);
+    if (linkedIdea) { linkedIdea.projectId = ''; if (linkedIdea.status === 'Omgezet naar project') linkedIdea.status = 'Klaar voor patroon'; }
     data.projects = data.projects.filter(p => p.id !== id);
     data.todos = data.todos.filter(t => t.projectId !== id);
     saveData();
@@ -1622,8 +2180,11 @@
       const measurement = data.measurements.find(m => m.id === p.measurementId);
       const fabric = data.fabrics.find(f => f.id === p.fabricId);
       const photo = fabric && fabric.photo ? fabric.photo : '';
+      const sourceIdea = p.ideaId ? data.ideas.find(idea => idea.id === p.ideaId) : null;
+      const sourceIdeaImage = sourceIdea ? ideaMainImage(normalizeIdea(sourceIdea)) : null;
+      const projectInspiration = p.inspirationPhoto || (sourceIdeaImage ? sourceIdeaImage.data : '');
       const currentFabricLabel = fabric ? fabricTitle(fabric) : (p.fabricLabel || 'Geen keuze');
-      return `<div class="item-card" data-project-card="${p.id}">
+      return `<div class="item-card ${highlightProjectId===p.id?'project-highlight':''}" id="project-card-${p.id}" data-project-card="${p.id}">
         <div class="item-head">
           <div style="display:flex;gap:8px;align-items:flex-start;"><span class="drag-handle" draggable="true" title="Sleep om te verplaatsen">☰</span><div><h4>${esc(p.name)}</h4><div class="meta">${esc(p.garment)} · aangemaakt ${formatDate(p.createdAt)}</div></div></div>
           <div class="toolbar">
@@ -1633,12 +2194,13 @@
         </div>
         <div class="project-visuals">
           <div><div>${photo ? `<img class="project-photo" src="${photo}" alt="Stof voor ${esc(p.name)}" />` : `<div class="fabric-placeholder" style="width:100%;height:auto;aspect-ratio:4/3;">Geen stoffoto</div>`}</div><div class="visual-caption">Stof</div></div>
-          <div><div>${p.inspirationPhoto ? `<img class="project-inspiration" src="${p.inspirationPhoto}" alt="Inspiratie voor ${esc(p.name)}" />` : `<div class="fabric-placeholder" style="width:100%;height:auto;aspect-ratio:4/3;">Geen inspiratie</div>`}</div><div class="visual-caption">Inspiratie</div></div>
+          <div><div>${projectInspiration ? `<img class="project-inspiration" src="${projectInspiration}" alt="Inspiratie voor ${esc(p.name)}" />` : `<div class="fabric-placeholder" style="width:100%;height:auto;aspect-ratio:4/3;">Geen inspiratie</div>`}</div><div class="visual-caption">Inspiratie</div></div>
           <div class="project-drawing project-tech-cell">${generateLineDrawing(p.basePattern, p.models || {}, p.garment)}</div>
           <div class="project-detail-cell">
             ${modelChips ? `<div class="chip-row">${modelChips}</div>` : '<div class="meta">Geen modelintekeningen gekozen.</div>'}
             <div class="details" style="margin-top:12px;"><div><span>Basispatroon</span>${esc(p.basePattern || 'Geen keuze')}</div><div><span>Stof</span>${esc(currentFabricLabel)}</div><div><span>Maten</span>${measurement ? formatDate(measurement.date) : 'Niet gekoppeld'}</div></div>
             ${p.note ? `<div class="meta" style="margin-top:10px;"><strong>Notitie:</strong> ${esc(p.note)}</div>` : ''}
+            ${sourceIdea ? `<div class="project-source-note">Ontstaan uit idee <strong>${esc(sourceIdea.name)}</strong>. <button class="btn ghost small" style="margin-left:6px;" onclick="goToProjectIdea('${sourceIdea.id}')">Bekijk bronidee</button></div>` : ''}
           </div>
         </div>
       </div>`;
@@ -1690,6 +2252,7 @@
     syncSelectionsToInputs();
     renderMeasurements();
     renderFabrics();
+    renderIdeas();
     renderPlanner();
     renderProjects();
     renderTodos();
