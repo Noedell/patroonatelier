@@ -546,6 +546,70 @@
       .idea-status-select { width:100%; }
     }
 
+
+    .pattern-panel { display:none; }
+    .pattern-panel.active { display:block; }
+    .pattern-filter-panel { border:1px solid var(--line); background:var(--panel-soft); border-radius:16px; padding:14px; margin-bottom:18px; }
+    .pattern-filter-grid { display:grid; grid-template-columns:repeat(6,minmax(0,1fr)); gap:10px; margin-top:10px; }
+    .pattern-grid { display:grid; grid-template-columns:repeat(3,minmax(0,1fr)); gap:16px; }
+    .pattern-card { border:1px solid var(--line); background:var(--panel); border-radius:18px; overflow:hidden; box-shadow:0 3px 14px rgba(64,48,39,.05); display:flex; flex-direction:column; min-width:0; }
+    .pattern-card-media { width:100%; aspect-ratio:4/3; background:var(--panel-soft); display:grid; place-items:center; overflow:hidden; border-bottom:1px solid var(--line); }
+    .pattern-card-media img { width:100%; height:100%; object-fit:cover; display:block; }
+    .pattern-card-media svg { width:100%; height:100%; max-height:260px; }
+    .pattern-card-body { padding:15px; display:grid; gap:10px; height:100%; }
+    .pattern-card-title { display:flex; gap:10px; align-items:flex-start; justify-content:space-between; }
+    .pattern-card-title h3 { margin:0; font-size:18px; }
+    .pattern-form-section { border-top:1px solid var(--line); padding-top:18px; margin-top:18px; }
+    .pattern-form-section:first-child { border-top:0; padding-top:0; margin-top:0; }
+    .pattern-form-section h3 { margin:0 0 12px; }
+    .pattern-image-manager { display:grid; grid-template-columns:repeat(4,minmax(0,1fr)); gap:10px; margin-top:12px; }
+    .pattern-image-tile { border:1px solid var(--line); border-radius:14px; overflow:hidden; background:var(--panel-soft); position:relative; }
+    .pattern-image-tile img { width:100%; aspect-ratio:4/3; object-fit:cover; display:block; }
+    .pattern-image-actions { display:grid; gap:6px; padding:8px; }
+    .pattern-image-actions select { padding:7px 8px; font-size:11px; }
+    .pattern-main-badge { position:absolute; left:7px; top:7px; background:var(--sidebar); color:var(--sidebar-text); border-radius:999px; padding:4px 7px; font-size:10px; font-weight:800; }
+    .pattern-detail-hero { display:grid; grid-template-columns:minmax(260px,1.05fr) minmax(0,1fr); gap:22px; align-items:start; }
+    .pattern-detail-main { width:100%; max-height:520px; object-fit:cover; border-radius:18px; border:1px solid var(--line); background:var(--panel-soft); }
+    .pattern-detail-drawing { min-height:320px; border:1px solid var(--line); border-radius:18px; background:var(--panel); display:grid; place-items:center; overflow:hidden; }
+    .pattern-detail-drawing svg { width:100%; max-width:680px; height:auto; }
+    .pattern-detail-drawing img { max-width:100%; max-height:500px; object-fit:contain; display:block; }
+    .pattern-detail-title h2 { margin:0 0 8px; font-size:clamp(26px,4vw,38px); }
+    .pattern-detail-sections { display:grid; gap:18px; margin-top:20px; }
+    .pattern-detail-section { border:1px solid var(--line); border-radius:16px; background:var(--panel); padding:17px; }
+    .pattern-detail-section h3 { margin:0 0 12px; }
+    .pattern-meta-grid { display:grid; grid-template-columns:repeat(3,minmax(0,1fr)); gap:10px 16px; }
+    .pattern-meta-item span { display:block; color:var(--muted); font-size:11px; margin-bottom:3px; }
+    .pattern-gallery { display:grid; grid-template-columns:repeat(4,minmax(0,1fr)); gap:10px; }
+    .pattern-gallery figure { margin:0; }
+    .pattern-gallery img { width:100%; aspect-ratio:4/3; object-fit:cover; border-radius:13px; border:1px solid var(--line); }
+    .pattern-gallery figcaption { color:var(--muted); font-size:10px; margin-top:4px; }
+    .version-timeline { display:grid; gap:11px; }
+    .version-card { border:1px solid var(--line); background:var(--panel-soft); border-radius:14px; padding:13px; display:grid; gap:8px; }
+    .version-card.current { border-color:var(--accent); box-shadow:inset 3px 0 0 var(--accent); }
+    .version-head { display:flex; justify-content:space-between; gap:10px; align-items:flex-start; }
+    .version-head h4 { margin:0; }
+    .version-current-badge { display:inline-flex; border-radius:999px; background:var(--accent-soft); color:var(--accent); padding:4px 8px; font-size:10px; font-weight:800; }
+    .version-detail-grid { display:grid; grid-template-columns:repeat(3,minmax(0,1fr)); gap:10px 16px; }
+    .version-preview { width:100%; max-width:360px; max-height:300px; object-fit:contain; border:1px solid var(--line); border-radius:14px; background:var(--panel-soft); display:none; }
+    .rating-stars { letter-spacing:2px; color:#c58c19; white-space:nowrap; }
+    .pattern-relations { display:grid; grid-template-columns:repeat(2,minmax(0,1fr)); gap:14px; }
+    .pattern-relation-list { display:grid; gap:8px; }
+    .pattern-relation-item { border:1px solid var(--line); background:var(--panel-soft); border-radius:12px; padding:10px; display:flex; justify-content:space-between; align-items:center; gap:10px; }
+    .planner-pattern-box { border:1px solid var(--line); background:var(--panel-soft); border-radius:13px; padding:12px; grid-column:1/-1; }
+    .planner-pattern-actions { margin-top:8px; }
+    .project-pattern-note { border:1px solid var(--line); background:var(--panel-soft); border-radius:11px; padding:9px 10px; font-size:12px; color:var(--muted); margin-top:10px; }
+    body[data-theme="dark"] .pattern-card, body[data-theme="dark"] .pattern-detail-section, body[data-theme="dark"] .pattern-detail-drawing { background:var(--panel); }
+
+    @media (max-width: 1180px) {
+      .pattern-filter-grid { grid-template-columns:repeat(3,minmax(0,1fr)); }
+      .pattern-grid { grid-template-columns:repeat(2,minmax(0,1fr)); }
+      .pattern-image-manager, .pattern-gallery { grid-template-columns:repeat(3,minmax(0,1fr)); }
+    }
+    @media (max-width: 760px) {
+      .pattern-filter-grid, .pattern-grid, .pattern-detail-hero, .pattern-meta-grid, .version-detail-grid, .pattern-relations { grid-template-columns:1fr; }
+      .pattern-image-manager, .pattern-gallery { grid-template-columns:repeat(2,minmax(0,1fr)); }
+    }
+
     .mobile-nav { display: none; }
 
     @media (max-width: 1050px) {
@@ -607,6 +671,7 @@
       <button data-view="models">Modelintekeningen</button>
       <button data-view="fabrics">Stoffenbibliotheek</button>
       <button data-view="ideas">Ideeënbibliotheek</button>
+      <button data-view="patterns">Patroonbibliotheek</button>
       <button data-view="planner">Patroonplanner</button>
       <button data-view="projects">Projecten</button>
       <button data-view="todos">To-do</button>
@@ -636,7 +701,7 @@
         </div>
         <div class="grid cards">
           <div class="card"><div class="metric-label">Laatste meting</div><div class="metric" id="metricMeasurement">—</div><div class="meta" id="metricMeasurementSub">Nog geen meting opgeslagen</div></div>
-          <div class="card"><div class="metric-label">Basispatronen beschikbaar</div><div class="metric" id="metricPatterns">0</div><div class="meta">van 6 basispatronen</div></div>
+          <div class="card"><div class="metric-label">Patronen in bibliotheek</div><div class="metric" id="metricPatterns">0</div><div class="meta" id="metricPatternsSub">Nog geen patronen opgeslagen</div></div>
           <div class="card"><div class="metric-label">Stoffen in bibliotheek</div><div class="metric" id="metricFabrics">0</div><div class="meta">geregistreerde stoffen</div></div>
           <div class="card"><div class="metric-label">Open taken</div><div class="metric" id="metricTodos">0</div><div class="meta">nog uit te voeren</div></div>
         </div>
@@ -819,6 +884,107 @@
         </div>
       </section>
 
+
+      <section class="view" id="view-patterns">
+        <div id="patternsOverview" class="pattern-panel active">
+          <div class="section-head">
+            <div><h2>Patroonbibliotheek</h2><p>Beheer patronen als een ontwikkelgeschiedenis: patroon → versie → aanpassingen → maten → project → resultaat.</p></div>
+            <button type="button" class="btn" id="newPatternBtn">+ Nieuw patroon</button>
+          </div>
+          <div class="pattern-filter-panel">
+            <div class="field"><label>Zoeken</label><input type="search" id="patternSearchText" placeholder="Zoek op naam, merk, patroonnummer of omschrijving…" autocomplete="off" /></div>
+            <div class="pattern-filter-grid">
+              <div class="field"><label>Kledingstuktype</label><select id="patternFilterGarment"></select></div>
+              <div class="field"><label>Bron</label><select id="patternFilterSource"></select></div>
+              <div class="field"><label>Status</label><select id="patternFilterStatus"></select></div>
+              <div class="field"><label>Favoriet</label><select id="patternFilterFavorite"><option value="">Alle patronen</option><option value="yes">Alleen favorieten</option><option value="no">Niet favoriet</option></select></div>
+              <div class="field"><label>Patroonsoort</label><select id="patternFilterKind"></select></div>
+              <div class="field"><label>Recent aangepast</label><select id="patternFilterRecent"><option value="">Alle datums</option><option value="7">Laatste 7 dagen</option><option value="30">Laatste 30 dagen</option><option value="90">Laatste 90 dagen</option></select></div>
+            </div>
+            <div class="fabric-result-line"><span id="patternResultCount"></span><button type="button" class="btn ghost small" id="clearPatternFiltersBtn">Filters wissen</button></div>
+          </div>
+          <div id="patternList" class="pattern-grid"></div>
+        </div>
+
+        <div id="patternsFormPanel" class="pattern-panel">
+          <div class="section-head"><div><h2 id="patternFormTitle">Nieuw patroon</h2><p>Leg het overkoepelende patroon vast. Bij een nieuw patroon wordt automatisch versie 1.0 aangemaakt.</p></div><button type="button" class="btn ghost" id="backFromPatternFormBtn">← Terug naar patronen</button></div>
+          <form id="patternForm" class="card">
+            <div class="pattern-form-section">
+              <h3>Basisgegevens</h3>
+              <div class="form-grid two">
+                <div class="field full"><label>Patroonnaam <span class="hint">verplicht</span></label><input type="text" id="patternName" required placeholder="Bijv. Basis blouse" /></div>
+                <div class="field"><label>Kledingstuktype</label><select id="patternGarment"></select></div>
+                <div class="field"><label>Patroonsoort</label><select id="patternKind"></select></div>
+                <div class="field"><label>Bron</label><select id="patternSource"></select></div>
+                <div class="field"><label>Status</label><select id="patternStatus"></select></div>
+                <div class="field"><label>Favoriet</label><select id="patternFavorite"><option value="no">Nee</option><option value="yes">Ja</option></select></div>
+                <div class="field"><label>Merk / ontwerper</label><input type="text" id="patternBrand" placeholder="Optioneel, vooral bij aangekochte patronen" /></div>
+                <div class="field"><label>Patroonnummer</label><input type="text" id="patternNumber" placeholder="Bijv. 1234" /></div>
+                <div class="field full"><label>Link naar patroon / website</label><input type="text" id="patternUrl" inputmode="url" placeholder="https://…" /></div>
+                <div class="field full"><label>Korte omschrijving</label><textarea id="patternDescription" placeholder="Wat voor patroon is dit en waarvoor gebruik je het?"></textarea></div>
+                <div class="field full"><label>Algemene notities</label><textarea id="patternNotes" placeholder="Algemene informatie die voor alle versies geldt…"></textarea></div>
+              </div>
+            </div>
+            <div class="pattern-form-section">
+              <h3>Patroonafbeeldingen</h3>
+              <div class="field"><label>Afbeeldingen <span class="hint">meerdere mogelijk</span></label><input type="file" id="patternImagesInput" accept="image/*" multiple /><div class="hint">Kies per beeld het type en markeer één afbeelding als hoofdafbeelding.</div></div>
+              <div id="patternImageManager" class="pattern-image-manager"></div>
+            </div>
+            <div class="toolbar" style="margin-top:20px;"><button type="submit" class="btn" id="patternSubmitBtn">Patroon opslaan</button><button type="button" class="btn secondary" id="cancelPatternBtn">Annuleren</button></div>
+          </form>
+        </div>
+
+        <div id="patternsDetailPanel" class="pattern-panel">
+          <div class="idea-toolbar"><button type="button" class="btn ghost" id="backFromPatternDetailBtn">← Alle patronen</button><div class="toolbar" id="patternDetailTopActions"></div></div>
+          <div id="patternDetail"></div>
+        </div>
+
+        <div id="patternVersionFormPanel" class="pattern-panel">
+          <div class="section-head"><div><h2 id="patternVersionFormTitle">Nieuwe patroonversie</h2><p>Een nieuwe versie is een zelfstandige snapshot. Oudere versies worden niet gewijzigd.</p></div><button type="button" class="btn ghost" id="backFromVersionFormBtn">← Terug naar patroon</button></div>
+          <form id="patternVersionForm" class="card">
+            <div class="pattern-form-section">
+              <h3>Versiegegevens</h3>
+              <div class="form-grid two">
+                <div class="field"><label>Versienummer <span class="hint">verplicht</span></label><input type="text" id="patternVersionNumber" required placeholder="Bijv. 2.0" /></div>
+                <div class="field"><label>Naam / titel</label><input type="text" id="patternVersionTitle" placeholder="Bijv. V-hals, langere mouw" /></div>
+                <div class="field"><label>Datum</label><input type="date" id="patternVersionDate" /></div>
+                <div class="field"><label>Status</label><select id="patternVersionStatus"></select></div>
+                <div class="field"><label>Gebruikte maat</label><input type="text" id="patternVersionSize" placeholder="Bijv. maat 40 / eigen maat" /></div>
+                <div class="field"><label>Gebruikt matenprofiel</label><select id="patternVersionMeasurement"></select></div>
+                <div class="field full"><label>Beschrijving van de wijzigingen</label><textarea id="patternVersionChanges" placeholder="Bijv. Nieuwe halslijn en 3 cm extra ruimte bij de bovenarm."></textarea></div>
+                <div class="field full"><label>Pasvormnotities</label><textarea id="patternVersionFitNotes"></textarea></div>
+                <div class="field full"><label>Aanpassingen</label><textarea id="patternVersionAdjustments" placeholder="Bijv. +2 cm bovenarm\n-1 cm schouder\nFBA\nMouw verlengd"></textarea></div>
+                <div class="field full"><label>Algemene notities</label><textarea id="patternVersionNotes"></textarea></div>
+              </div>
+            </div>
+            <div class="pattern-form-section">
+              <h3>Afbeelding en patroonbestand</h3>
+              <div class="form-grid two">
+                <div class="field"><label>Afbeelding / technische tekening</label><input type="file" id="patternVersionImageInput" accept="image/*" /><img id="patternVersionImagePreview" class="version-preview" alt="Versie-afbeelding" /><button type="button" class="btn ghost small" id="removePatternVersionImageBtn" style="display:none;">Afbeelding verwijderen</button></div>
+                <div class="field"><label>Patroonbestand <span class="hint">optioneel, max. 900 KB</span></label><input type="file" id="patternVersionFileInput" accept=".pdf,.svg,.txt,.png,.jpg,.jpeg,.webp" /><div id="patternVersionFileInfo" class="meta">Geen bestand geselecteerd.</div><button type="button" class="btn ghost small" id="removePatternVersionFileBtn" style="display:none;">Bestand verwijderen</button></div>
+              </div>
+            </div>
+            <div class="pattern-form-section">
+              <h3>Persoonlijke beoordeling</h3>
+              <div class="form-grid two">
+                <div class="field"><label>Pasvorm</label><select id="patternVersionFitRating"><option value="">Nog niet beoordeeld</option><option value="1">★☆☆☆☆</option><option value="2">★★☆☆☆</option><option value="3">★★★☆☆</option><option value="4">★★★★☆</option><option value="5">★★★★★</option></select></div>
+                <div class="field"><label>Moeilijkheid</label><select id="patternVersionDifficulty"><option value="">Nog niet beoordeeld</option><option value="1">★☆☆☆☆</option><option value="2">★★☆☆☆</option><option value="3">★★★☆☆</option><option value="4">★★★★☆</option><option value="5">★★★★★</option></select></div>
+                <div class="field"><label>Hoeveel aanpassingen waren nodig?</label><select id="patternVersionAdjustmentAmount"><option value="">Geen beoordeling</option><option value="Geen">Geen</option><option value="Weinig">Weinig</option><option value="Gemiddeld">Gemiddeld</option><option value="Veel">Veel</option></select></div>
+                <div class="field"><label>Zou ik deze versie opnieuw gebruiken?</label><select id="patternVersionReuse"><option value="">Nog niet beoordeeld</option><option value="Ja">Ja</option><option value="Nee">Nee</option></select></div>
+                <div class="field full"><label>Wat zou ik volgende keer veranderen?</label><textarea id="patternVersionNextChange"></textarea></div>
+                <div class="field full"><label>Algemene ervaring</label><textarea id="patternVersionExperience"></textarea></div>
+              </div>
+            </div>
+            <div class="toolbar" style="margin-top:20px;"><button type="submit" class="btn" id="patternVersionSubmitBtn">Versie opslaan</button><button type="button" class="btn secondary" id="cancelPatternVersionBtn">Annuleren</button></div>
+          </form>
+        </div>
+
+        <div id="patternVersionDetailPanel" class="pattern-panel">
+          <div class="idea-toolbar"><button type="button" class="btn ghost" id="backFromVersionDetailBtn">← Terug naar patroon</button><div class="toolbar" id="patternVersionDetailActions"></div></div>
+          <div id="patternVersionDetail"></div>
+        </div>
+      </section>
+
       <section class="view" id="view-planner">
         <div class="section-head"><div><h2>Patroonplanner</h2><p>Combineer kledingtype, basispatroon, modelintekeningen en een geschikte stof tot één project.</p></div></div>
         <div class="grid two">
@@ -826,8 +992,16 @@
             <div class="form-grid two">
               <div class="field full"><label>Naam van het project</label><input type="text" id="plannerName" placeholder="Bijv. Groene midi-jurk" /></div>
               <div class="field"><label>Type kledingstuk</label><select id="plannerGarment"></select></div>
-              <div class="field"><label>Basispatroon</label><select id="plannerBasePattern"></select></div>
-              <div class="field full"><label>Modelintekeningen <span class="hint">allemaal optioneel</span></label></div>
+               <div class="field"><label>Basispatroon</label><select id="plannerBasePattern"></select></div>
+               <div class="planner-pattern-box">
+                 <div class="form-grid two">
+                   <div class="field"><label>Patroon uit Patroonbibliotheek</label><select id="plannerPattern"></select></div>
+                   <div class="field"><label>Patroonversie</label><select id="plannerPatternVersion"></select></div>
+                 </div>
+                 <div class="toolbar planner-pattern-actions"><button type="button" class="btn ghost small" id="loadPlannerPatternVersionBtn">Laad gekozen versie</button><button type="button" class="btn ghost small" id="openPlannerPatternVersionBtn">Open versie in bibliotheek</button><button type="button" class="btn secondary small" id="savePlannerAsVersionBtn">Opslaan als nieuwe versie</button></div>
+                 <div class="hint" id="plannerPatternHint">Optioneel. Koppel dit ontwerp of project aan een bestaand patroon en een specifieke versie.</div>
+               </div>
+               <div class="field full"><label>Modelintekeningen <span class="hint">allemaal optioneel</span></label></div>
               <div id="plannerModelFields" class="form-grid two" style="grid-column:1/-1;"></div>
               <div class="field full"><label>Geschikte stof</label><select id="plannerFabric"></select><div class="hint" id="plannerFabricHint"></div></div>
               <div class="field full">
@@ -885,6 +1059,7 @@
   <button data-view="models">Modellen</button>
   <button data-view="fabrics">Stoffen</button>
   <button data-view="ideas">Ideeën</button>
+  <button data-view="patterns">Patronen</button>
   <button data-view="planner">Planner</button>
   <button data-view="projects">Projecten</button>
   <button data-view="todos">To-do</button>
@@ -923,11 +1098,16 @@
     'Lengte kledingstuk': ['Taillelengte', 'Heuplengte', 'Boven de knie', 'Tussen knie en enkel', 'Enkellengte']
   };
 
-  const garmentTypes = ['Broek', 'Blouse', 'Jurk', 'Rok', 'Top'];
+  const garmentTypes = ['Broek', 'Blouse', 'Jurk', 'Rok', 'Top', 'T-shirt', 'Jas', 'Vest', 'Gilet', 'Anders'];
   const projectStatuses = ['Idee', 'Patroon maken', 'Patroon klaar', 'Knippen', 'Naaien', 'Afgerond'];
   const ideaStatuses = ['Idee', 'Uitwerken', 'Klaar voor patroon', 'Omgezet naar project', 'Geparkeerd'];
   const ideaGarmentTypes = ['Top', 'Blouse', 'Jurk', 'Rok', 'Broek', 'Jas', 'Vest', 'Gilet', 'Anders'];
   const ideaSeasons = ['Lente', 'Zomer', 'Herfst', 'Winter', 'Alle seizoenen'];
+  const patternStatuses = ['Concept', 'In ontwikkeling', 'Getest', 'Bewezen', 'Gepensioneerd'];
+  const patternSources = ['Eigen ontwerp', 'Aangekocht patroon', 'Gemodificeerd bestaand patroon', 'Anders'];
+  const patternKinds = ['Basispatroon', 'Commercieel patroon', 'Aangepast patroon', 'Werkpatroon', 'Anders'];
+  const patternGarmentTypes = ['Top', 'T-shirt', 'Blouse', 'Jurk', 'Rok', 'Broek', 'Jas', 'Vest', 'Gilet', 'Anders'];
+  const patternImageTypes = ['Technische tekening', 'Voorkant', 'Achterkant', 'Inspiratiebeeld', 'Gemaakt resultaat', 'Anders'];
 
   const initialData = {
     measurements: [],
@@ -935,6 +1115,7 @@
     selectedModels: [],
     fabrics: [],
     ideas: [],
+    patterns: [],
     projects: [],
     todos: [],
     theme: 'atelier'
@@ -951,6 +1132,16 @@
   let pendingIdeaImages = [];
   let pendingIdeaMainImageId = '';
   let highlightProjectId = '';
+  let patternPanelMode = 'overview';
+  let editingPatternId = '';
+  let activePatternId = '';
+  let activePatternVersionId = '';
+  let editingPatternVersionId = '';
+  let pendingPatternImages = [];
+  let pendingPatternMainImageId = '';
+  let pendingPatternVersionImage = '';
+  let pendingPatternVersionFile = null;
+  let pendingPatternPlannerSnapshot = null;
   let draggedProjectId = '';
   let touchDraggedProjectId = '';
   let touchDragTargetId = ''; 
@@ -987,6 +1178,7 @@
         selectedModels: Array.isArray(parsed.selectedModels) ? parsed.selectedModels : [],
         fabrics: Array.isArray(parsed.fabrics) ? parsed.fabrics : [],
         ideas: Array.isArray(parsed.ideas) ? parsed.ideas : [],
+        patterns: Array.isArray(parsed.patterns) ? parsed.patterns : [],
         projects: Array.isArray(parsed.projects) ? parsed.projects : [],
         todos: Array.isArray(parsed.todos) ? parsed.todos : []
       };
@@ -1044,7 +1236,7 @@
 
   const viewTitles = {
     dashboard:'Overzicht', measurements:'Mijn maten', basepatterns:'Basispatronen', models:'Modelintekeningen',
-    fabrics:'Stoffenbibliotheek', ideas:'Ideeënbibliotheek', planner:'Patroonplanner', projects:'Projecten', todos:'To-do'
+    fabrics:'Stoffenbibliotheek', ideas:'Ideeënbibliotheek', patterns:'Patroonbibliotheek', planner:'Patroonplanner', projects:'Projecten', todos:'To-do'
   };
 
   function navigate(view) {
@@ -1055,6 +1247,7 @@
     try { window.scrollTo({top:0, behavior:'smooth'}); } catch (e) { window.scrollTo(0, 0); }
     if (view === 'planner') renderPlanner();
     if (view === 'ideas') showIdeaPanel('overview');
+    if (view === 'patterns') showPatternPanel('overview');
   }
 
   document.querySelectorAll('[data-view]').forEach(btn => btn.addEventListener('click', () => { if (Date.now() - lastTouchNavigation > 450) navigate(btn.dataset.view); }));
@@ -1094,6 +1287,12 @@
     document.getElementById('ideaGarment').innerHTML = `<option value="">Geen keuze</option>` + ideaGarmentTypes.map(g => `<option value="${esc(g)}">${esc(g)}</option>`).join('');
     document.getElementById('ideaStatus').innerHTML = ideaStatuses.map(x => `<option value="${esc(x)}">${esc(x)}</option>`).join('');
     document.getElementById('ideaSeason').innerHTML = `<option value="">Geen keuze</option>` + ideaSeasons.map(x => `<option value="${esc(x)}">${esc(x)}</option>`).join('');
+
+    document.getElementById('patternGarment').innerHTML = `<option value="">Geen keuze</option>` + patternGarmentTypes.map(x => `<option value="${esc(x)}">${esc(x)}</option>`).join('');
+    document.getElementById('patternKind').innerHTML = patternKinds.map(x => `<option value="${esc(x)}">${esc(x)}</option>`).join('');
+    document.getElementById('patternSource').innerHTML = patternSources.map(x => `<option value="${esc(x)}">${esc(x)}</option>`).join('');
+    document.getElementById('patternStatus').innerHTML = patternStatuses.map(x => `<option value="${esc(x)}">${esc(x)}</option>`).join('');
+    document.getElementById('patternVersionStatus').innerHTML = patternStatuses.map(x => `<option value="${esc(x)}">${esc(x)}</option>`).join('');
   }
 
   function syncSelectionsToInputs() {
@@ -1726,8 +1925,10 @@
       return `<div class="idea-linked-fabric"><div>${f.photo?`<img src="${f.photo}" alt="${esc(fabricTitle(f))}" />`:`<div class="mini-placeholder" style="width:68px;height:68px;">Geen foto</div>`}</div><div><strong>${esc(fabricTitle(f))}</strong><div class="meta">${esc((f.suitableFor||[]).join(' · '))}</div>${link.note?`<div style="margin-top:7px;font-size:12px;">${esc(link.note)}</div>`:''}</div></div>`;
     }).filter(Boolean).join('');
     const project = idea.projectId ? data.projects.find(p => p.id === idea.projectId) : null;
+    const linkedPatterns = (idea.linkedPatternIds || []).map(pid => normalizePattern(data.patterns.find(p => p.id === pid))).filter(Boolean);
+    const linkedPatternHtml = linkedPatterns.length ? linkedPatterns.map(p => { const v=currentPatternVersion(p); return `<div class="pattern-relation-item"><div><strong>${esc(p.name)}</strong><div class="meta">${esc(v?versionLabel(v):'Geen versie')} · ${esc(p.status||'Concept')}</div></div><button class="btn ghost small" onclick="goToIdeaPattern('${p.id}')">Open patroon</button></div>`; }).join('') : '<div class="empty">Nog geen patronen gekoppeld.</div>';
     document.getElementById('ideaDetailTopActions').innerHTML = `<button class="favorite-btn ${idea.favorite?'active':''}" onclick="toggleIdeaFavorite('${idea.id}')" aria-label="Favoriet">${idea.favorite?'★':'☆'}</button><button class="btn secondary small" onclick="editIdea('${idea.id}')">Bewerken</button><button class="btn danger small" onclick="deleteIdea('${idea.id}')">Verwijderen</button>`;
-    root.innerHTML = `<div class="idea-detail-hero"><div>${main?`<img class="idea-detail-main" src="${main.data}" alt="${esc(idea.name)}" />`:`<div class="idea-detail-placeholder">Geen hoofdafbeelding</div>`}</div><div class="idea-detail-title"><div class="meta">${esc(idea.garment || 'Geen kledingstuktype')} · toegevoegd ${formatDate(idea.createdAt)}</div><h2>${esc(idea.name)}</h2><div class="field" style="max-width:260px;"><label>Status</label><select onchange="setIdeaStatus('${idea.id}', this.value)">${ideaStatuses.map(st=>`<option value="${esc(st)}" ${idea.status===st?'selected':''}>${esc(st)}</option>`).join('')}</select></div>${idea.season?`<div class="chip-row" style="margin-top:10px;"><span class="chip">${esc(idea.season)}</span></div>`:''}${idea.description?`<p style="line-height:1.65;color:var(--muted);">${esc(idea.description)}</p>`:''}<div class="idea-flow"><span class="idea-flow-step current">Idee</span><span>→</span><span class="idea-flow-step">Patroon</span><span>→</span><span class="idea-flow-step ${project?'current':''}">Project</span></div><div class="toolbar" style="margin-top:18px;">${project?`<button class="btn" onclick="goToIdeaProject('${project.id}')">Ga naar gekoppeld project</button>`:`<button class="btn" onclick="convertIdeaToProject('${idea.id}')">Maak project van dit idee</button>`}</div></div></div><div class="idea-detail-sections"><section class="idea-detail-section"><h3>Ontwerpdetails</h3>${designHtml?`<div class="idea-design-grid">${designHtml}</div>`:`<div class="empty">Nog geen ontwerpdetails ingevuld.</div>`}</section><section class="idea-detail-section"><h3>Inspiratiebeelden</h3>${idea.images.length?`<div class="idea-gallery">${idea.images.map(img=>`<figure><img src="${img.data}" alt="Inspiratiebeeld" />${img.id===idea.mainImageId?'<figcaption>Hoofdafbeelding</figcaption>':'<figcaption>Inspiratie</figcaption>'}</figure>`).join('')}</div>`:`<div class="empty">Nog geen inspiratiebeelden.</div>`}</section><section class="idea-detail-section"><h3>Gekoppelde stoffen</h3>${fabricHtml?`<div class="idea-linked-fabrics">${fabricHtml}</div>`:`<div class="empty">Nog geen stoffen gekoppeld.</div>`}</section><section class="idea-detail-section"><h3>Persoonlijke notities</h3>${idea.personalNotes?`<div style="white-space:pre-wrap;line-height:1.6;">${esc(idea.personalNotes)}</div>`:`<div class="empty">Nog geen persoonlijke notities.</div>`}</section><section class="idea-detail-section"><h3>Relaties</h3><div class="meta">Project: ${project?esc(project.name):'nog niet gekoppeld'}</div><div class="meta" style="margin-top:5px;">Patroonbibliotheek: datastructuur voorbereid via <code>linkedPatternIds</code>; nog geen patroonfunctionaliteit actief.</div></section></div>`;
+    root.innerHTML = `<div class="idea-detail-hero"><div>${main?`<img class="idea-detail-main" src="${main.data}" alt="${esc(idea.name)}" />`:`<div class="idea-detail-placeholder">Geen hoofdafbeelding</div>`}</div><div class="idea-detail-title"><div class="meta">${esc(idea.garment || 'Geen kledingstuktype')} · toegevoegd ${formatDate(idea.createdAt)}</div><h2>${esc(idea.name)}</h2><div class="field" style="max-width:260px;"><label>Status</label><select onchange="setIdeaStatus('${idea.id}', this.value)">${ideaStatuses.map(st=>`<option value="${esc(st)}" ${idea.status===st?'selected':''}>${esc(st)}</option>`).join('')}</select></div>${idea.season?`<div class="chip-row" style="margin-top:10px;"><span class="chip">${esc(idea.season)}</span></div>`:''}${idea.description?`<p style="line-height:1.65;color:var(--muted);">${esc(idea.description)}</p>`:''}<div class="idea-flow"><span class="idea-flow-step current">Idee</span><span>→</span><span class="idea-flow-step ${linkedPatterns.length?'current':''}">Patroon</span><span>→</span><span class="idea-flow-step ${project?'current':''}">Project</span></div><div class="toolbar" style="margin-top:18px;">${project?`<button class="btn" onclick="goToIdeaProject('${project.id}')">Ga naar gekoppeld project</button>`:`<button class="btn" onclick="convertIdeaToProject('${idea.id}')">Maak project van dit idee</button>`}</div></div></div><div class="idea-detail-sections"><section class="idea-detail-section"><h3>Ontwerpdetails</h3>${designHtml?`<div class="idea-design-grid">${designHtml}</div>`:`<div class="empty">Nog geen ontwerpdetails ingevuld.</div>`}</section><section class="idea-detail-section"><h3>Inspiratiebeelden</h3>${idea.images.length?`<div class="idea-gallery">${idea.images.map(img=>`<figure><img src="${img.data}" alt="Inspiratiebeeld" />${img.id===idea.mainImageId?'<figcaption>Hoofdafbeelding</figcaption>':'<figcaption>Inspiratie</figcaption>'}</figure>`).join('')}</div>`:`<div class="empty">Nog geen inspiratiebeelden.</div>`}</section><section class="idea-detail-section"><h3>Gekoppelde stoffen</h3>${fabricHtml?`<div class="idea-linked-fabrics">${fabricHtml}</div>`:`<div class="empty">Nog geen stoffen gekoppeld.</div>`}</section><section class="idea-detail-section"><h3>Persoonlijke notities</h3>${idea.personalNotes?`<div style="white-space:pre-wrap;line-height:1.6;">${esc(idea.personalNotes)}</div>`:`<div class="empty">Nog geen persoonlijke notities.</div>`}</section><section class="idea-detail-section"><h3>Relaties</h3><div class="meta" style="margin-bottom:10px;">Project: ${project?esc(project.name):'nog niet gekoppeld'}</div><div class="pattern-relation-list">${linkedPatternHtml}</div></section></div>`;
   }
 
   function mappedIdeaModels(idea) {
@@ -1749,10 +1950,14 @@
     }
     const primaryLink = (idea.fabricLinks || []).find(link => data.fabrics.some(f => f.id === link.fabricId));
     const fabric = primaryLink ? data.fabrics.find(f => f.id === primaryLink.fabricId) : null;
+    const ideaPattern = (idea.linkedPatternIds || []).length === 1 ? normalizePattern(data.patterns.find(p => p.id === idea.linkedPatternIds[0])) : null;
+    const ideaPatternVersion = ideaPattern ? currentPatternVersion(ideaPattern) : null;
+    const ideaPatternSnapshot = ideaPatternVersion && ideaPatternVersion.plannerSnapshot ? ideaPatternVersion.plannerSnapshot : null;
     const project = {
-      id: uid(), name: idea.name, garment: idea.garment || 'Anders', basePattern:'', models:mappedIdeaModels(idea),
+      id: uid(), name: idea.name, garment: (ideaPatternSnapshot && ideaPatternSnapshot.garment) || idea.garment || 'Anders', basePattern:(ideaPatternSnapshot && ideaPatternSnapshot.basePattern)||'', models:Object.keys(mappedIdeaModels(idea)).length ? mappedIdeaModels(idea) : structuredCloneSafe((ideaPatternSnapshot&&ideaPatternSnapshot.models)||{}),
       fabricId: fabric ? fabric.id : '', fabricLabel: fabric ? fabricTitle(fabric) : '', note:'', inspirationPhoto:'',
-      ideaId: idea.id, status:'Idee', createdAt:todayISO(), measurementId:data.measurements.length ? data.measurements[0].id : ''
+      ideaId: idea.id, patternId:ideaPattern?ideaPattern.id:'', patternVersionId:ideaPatternVersion?ideaPatternVersion.id:'', patternName:ideaPattern?ideaPattern.name:'', patternVersionNumber:ideaPatternVersion?ideaPatternVersion.number:'',
+      status:'Idee', createdAt:todayISO(), measurementId:ideaPatternVersion&&ideaPatternVersion.measurementId?ideaPatternVersion.measurementId:(data.measurements.length ? data.measurements[0].id : '')
     };
     data.projects.unshift(project);
     idea.projectId = project.id;
@@ -1797,6 +2002,612 @@
     ['ideaFilterGarment','ideaFilterStatus','ideaFilterSeason','ideaFilterFabric','ideaFilterFavorite'].forEach(id => document.getElementById(id).value='');
     renderIdeas();
   });
+
+
+  function showPatternPanel(mode) {
+    patternPanelMode = mode || 'overview';
+    ['patternsOverview','patternsFormPanel','patternsDetailPanel','patternVersionFormPanel','patternVersionDetailPanel'].forEach(id => {
+      const el = document.getElementById(id);
+      if (el) el.classList.remove('active');
+    });
+    const map = {overview:'patternsOverview', form:'patternsFormPanel', detail:'patternsDetailPanel', versionForm:'patternVersionFormPanel', versionDetail:'patternVersionDetailPanel'};
+    const target = document.getElementById(map[patternPanelMode] || 'patternsOverview');
+    if (target) target.classList.add('active');
+    if (patternPanelMode === 'overview') renderPatterns();
+    if (patternPanelMode === 'detail' && activePatternId) renderPatternDetail(activePatternId);
+    if (patternPanelMode === 'versionDetail' && activePatternId && activePatternVersionId) renderPatternVersionDetail(activePatternId, activePatternVersionId);
+  }
+
+  function normalizePattern(pattern) {
+    if (!pattern) return pattern;
+    if (!Array.isArray(pattern.images)) pattern.images = [];
+    if (!Array.isArray(pattern.versions)) pattern.versions = [];
+    pattern.versions.forEach(v => {
+      if (!v.id) v.id = uid();
+      if (!v.rating || typeof v.rating !== 'object') v.rating = {};
+      if (!v.plannerSnapshot || typeof v.plannerSnapshot !== 'object') v.plannerSnapshot = {basePattern:'', models:{}, garment:pattern.garment || ''};
+      if (!v.plannerSnapshot.models || typeof v.plannerSnapshot.models !== 'object') v.plannerSnapshot.models = {};
+      if (!v.file || typeof v.file !== 'object') v.file = null;
+      if (!Array.isArray(v.standardAdjustmentIds)) v.standardAdjustmentIds = [];
+      if (!Array.isArray(v.fabricAdviceIds)) v.fabricAdviceIds = [];
+      if (!v.fitProfileId) v.fitProfileId = '';
+      if (!v.analytics || typeof v.analytics !== 'object') v.analytics = {};
+    });
+    if (!pattern.currentVersionId && pattern.versions.length) pattern.currentVersionId = pattern.versions[0].id;
+    return pattern;
+  }
+
+  function patternMainImage(pattern) {
+    const images = pattern && Array.isArray(pattern.images) ? pattern.images : [];
+    if (!images.length) return null;
+    return images.find(img => img.id === pattern.mainImageId) || images[0];
+  }
+
+  function currentPatternVersion(pattern) {
+    pattern = normalizePattern(pattern);
+    if (!pattern || !pattern.versions.length) return null;
+    return pattern.versions.find(v => v.id === pattern.currentVersionId) || pattern.versions[0];
+  }
+
+  function findPatternVersion(patternId, versionId) {
+    const pattern = normalizePattern(data.patterns.find(x => x.id === patternId));
+    if (!pattern) return {pattern:null, version:null};
+    const version = pattern.versions.find(v => v.id === versionId) || currentPatternVersion(pattern);
+    return {pattern, version};
+  }
+
+  function safeHttpUrl(value) {
+    const raw = String(value || '').trim();
+    if (!raw) return '';
+    try {
+      const url = new URL(raw);
+      return (url.protocol === 'http:' || url.protocol === 'https:') ? url.href : '';
+    } catch (e) { return ''; }
+  }
+
+  function versionLabel(version) {
+    if (!version) return 'Geen versie';
+    return `Versie ${version.number || '—'}${version.title ? ' · ' + version.title : ''}`;
+  }
+
+  function ratingStars(value) {
+    const n = Math.max(0, Math.min(5, Number(value) || 0));
+    if (!n) return 'Nog niet beoordeeld';
+    return `<span class="rating-stars">${'★'.repeat(n)}${'☆'.repeat(5-n)}</span>`;
+  }
+
+  function patternPreviewHtml(pattern, compact) {
+    pattern = normalizePattern(pattern);
+    const main = patternMainImage(pattern);
+    if (main) return `<img src="${main.data}" alt="${esc(pattern.name || 'Patroon')}" />`;
+    const version = currentPatternVersion(pattern);
+    if (version && version.image) return `<img src="${version.image}" alt="${esc(pattern.name || 'Patroon')}" />`;
+    if (version && version.plannerSnapshot) {
+      const snap = version.plannerSnapshot;
+      return generateLineDrawing(snap.basePattern || '', snap.models || {}, snap.garment || pattern.garment || '');
+    }
+    return `<div class="empty" style="border:0;background:transparent;">Geen patroonafbeelding</div>`;
+  }
+
+  function resetPatternForm() {
+    editingPatternId = '';
+    pendingPatternImages = [];
+    pendingPatternMainImageId = '';
+    document.getElementById('patternForm').reset();
+    document.getElementById('patternKind').value = 'Basispatroon';
+    document.getElementById('patternSource').value = 'Eigen ontwerp';
+    document.getElementById('patternStatus').value = 'Concept';
+    document.getElementById('patternFavorite').value = 'no';
+    document.getElementById('patternFormTitle').textContent = 'Nieuw patroon';
+    document.getElementById('patternSubmitBtn').textContent = 'Patroon opslaan';
+    document.getElementById('patternImagesInput').value = '';
+    renderPatternImageManager();
+  }
+
+  function renderPatternImageManager() {
+    const wrap = document.getElementById('patternImageManager');
+    if (!pendingPatternImages.length) {
+      wrap.innerHTML = `<div class="empty" style="grid-column:1/-1;">Nog geen patroonafbeeldingen toegevoegd.</div>`;
+      return;
+    }
+    wrap.innerHTML = pendingPatternImages.map(img => `<div class="pattern-image-tile">${img.id===pendingPatternMainImageId?'<span class="pattern-main-badge">Hoofdafbeelding</span>':''}<img src="${img.data}" alt="Patroonafbeelding" /><div class="pattern-image-actions"><select onchange="setPatternImageType('${img.id}', this.value)">${patternImageTypes.map(type=>`<option value="${esc(type)}" ${(img.type||'Anders')===type?'selected':''}>${esc(type)}</option>`).join('')}</select><div class="toolbar"><button type="button" class="btn ghost small" onclick="setPatternMainImage('${img.id}')">Hoofd</button><button type="button" class="btn danger small" onclick="removePatternImage('${img.id}')">Verwijderen</button></div></div></div>`).join('');
+  }
+
+  window.setPatternImageType = function(id, type) {
+    const img = pendingPatternImages.find(x => x.id === id); if (!img) return;
+    img.type = type;
+  };
+
+  window.setPatternMainImage = function(id) {
+    if (!pendingPatternImages.some(img => img.id === id)) return;
+    pendingPatternMainImageId = id;
+    renderPatternImageManager();
+  };
+
+  window.removePatternImage = function(id) {
+    pendingPatternImages = pendingPatternImages.filter(img => img.id !== id);
+    if (pendingPatternMainImageId === id) pendingPatternMainImageId = pendingPatternImages.length ? pendingPatternImages[0].id : '';
+    renderPatternImageManager();
+  };
+
+  document.getElementById('patternImagesInput').addEventListener('change', async e => {
+    const files = Array.from(e.target.files || []);
+    if (!files.length) return;
+    const room = Math.max(0, 12 - pendingPatternImages.length);
+    if (!room) { alert('Je kunt maximaal 12 afbeeldingen per patroon bewaren in deze versie.'); e.target.value=''; return; }
+    try {
+      const processed = [];
+      for (const file of files.slice(0, room)) {
+        const img = await resizeIdeaImage(file);
+        img.type = 'Anders';
+        processed.push(img);
+      }
+      pendingPatternImages = pendingPatternImages.concat(processed);
+      if (!pendingPatternMainImageId && pendingPatternImages.length) pendingPatternMainImageId = pendingPatternImages[0].id;
+      renderPatternImageManager();
+      if (files.length > room) alert(`Er zijn ${room} afbeeldingen toegevoegd; het maximum is 12 per patroon.`);
+    } catch (err) { alert('Een patroonafbeelding kon niet worden verwerkt. Probeer een andere afbeelding.'); }
+    e.target.value='';
+  });
+
+  function patternFormValues() {
+    return {
+      name: document.getElementById('patternName').value.trim(),
+      garment: document.getElementById('patternGarment').value,
+      kind: document.getElementById('patternKind').value || 'Anders',
+      source: document.getElementById('patternSource').value || 'Anders',
+      status: document.getElementById('patternStatus').value || 'Concept',
+      favorite: document.getElementById('patternFavorite').value === 'yes',
+      brand: document.getElementById('patternBrand').value.trim(),
+      patternNumber: document.getElementById('patternNumber').value.trim(),
+      url: document.getElementById('patternUrl').value.trim(),
+      description: document.getElementById('patternDescription').value.trim(),
+      notes: document.getElementById('patternNotes').value.trim(),
+      images: pendingPatternImages.map(img => ({...img})),
+      mainImageId: pendingPatternMainImageId
+    };
+  }
+
+  document.getElementById('patternForm').addEventListener('submit', e => {
+    e.preventDefault();
+    const values = patternFormValues();
+    if (!values.name) { alert('Geef het patroon minimaal een naam.'); return; }
+    if (editingPatternId) {
+      const pattern = normalizePattern(data.patterns.find(x => x.id === editingPatternId));
+      if (!pattern) return;
+      Object.assign(pattern, values, {updatedAt:todayISO()});
+      activePatternId = pattern.id;
+      saveData();
+      showPatternPanel('detail');
+      showToast('Patroon bijgewerkt');
+    } else {
+      const firstVersion = {
+        id:uid(), number:'1.0', title:'Origineel', date:todayISO(), status:values.status || 'Concept', usedSize:'', measurementId:'',
+        changes:'Originele versie.', fitNotes:'', adjustments:'', notes:'', image:'', file:null,
+        rating:{fit:'', difficulty:'', adjustmentAmount:'', reuse:'', nextChange:'', experience:''},
+        plannerSnapshot:{basePattern:'', models:{}, garment:values.garment || ''}, fitProfileId:'', standardAdjustmentIds:[], fabricAdviceIds:[], analytics:{}, createdAt:todayISO(), updatedAt:todayISO()
+      };
+      const pattern = {id:uid(), ...values, versions:[firstVersion], currentVersionId:firstVersion.id, createdAt:todayISO(), updatedAt:todayISO()};
+      data.patterns.unshift(pattern);
+      activePatternId = pattern.id;
+      activePatternVersionId = firstVersion.id;
+      saveData();
+      showPatternPanel('detail');
+      showToast('Patroon met versie 1.0 opgeslagen');
+    }
+  });
+
+  window.editPattern = function(id) {
+    const pattern = normalizePattern(data.patterns.find(x => x.id === id)); if (!pattern) return;
+    editingPatternId = id;
+    activePatternId = id;
+    pendingPatternImages = pattern.images.map(img => ({...img}));
+    pendingPatternMainImageId = pattern.mainImageId || (pendingPatternImages[0] ? pendingPatternImages[0].id : '');
+    document.getElementById('patternName').value = pattern.name || '';
+    document.getElementById('patternGarment').value = pattern.garment || '';
+    document.getElementById('patternKind').value = pattern.kind || 'Anders';
+    document.getElementById('patternSource').value = pattern.source || 'Anders';
+    document.getElementById('patternStatus').value = pattern.status || 'Concept';
+    document.getElementById('patternFavorite').value = pattern.favorite ? 'yes':'no';
+    document.getElementById('patternBrand').value = pattern.brand || '';
+    document.getElementById('patternNumber').value = pattern.patternNumber || '';
+    document.getElementById('patternUrl').value = pattern.url || '';
+    document.getElementById('patternDescription').value = pattern.description || '';
+    document.getElementById('patternNotes').value = pattern.notes || '';
+    document.getElementById('patternFormTitle').textContent = 'Patroon aanpassen';
+    document.getElementById('patternSubmitBtn').textContent = 'Wijzigingen opslaan';
+    renderPatternImageManager();
+    showPatternPanel('form');
+    window.scrollTo({top:0, behavior:'smooth'});
+  };
+
+  window.togglePatternFavorite = function(id) {
+    const pattern = data.patterns.find(x => x.id === id); if (!pattern) return;
+    pattern.favorite = !pattern.favorite;
+    pattern.updatedAt = todayISO();
+    saveData();
+    if (patternPanelMode === 'detail') renderPatternDetail(id);
+  };
+
+  window.setPatternStatus = function(id, status) {
+    const pattern = data.patterns.find(x => x.id === id); if (!pattern) return;
+    pattern.status = status;
+    pattern.updatedAt = todayISO();
+    saveData();
+    if (patternPanelMode === 'detail') renderPatternDetail(id);
+  };
+
+  window.deletePattern = function(id) {
+    const pattern = data.patterns.find(x => x.id === id); if (!pattern) return;
+    const projectCount = data.projects.filter(p => p.patternId === id).length;
+    const ideaCount = data.ideas.filter(i => (i.linkedPatternIds || []).includes(id)).length;
+    const msg = projectCount || ideaCount ? `Dit patroon is gekoppeld aan ${projectCount} project(en) en ${ideaCount} idee(ën). De projecten/ideeën blijven bestaan, maar de koppeling wordt verwijderd. Patroon verwijderen?` : 'Dit patroon en alle versiegeschiedenis verwijderen?';
+    if (!confirm(msg)) return;
+    data.projects.forEach(project => {
+      if (project.patternId === id) { project.patternId=''; project.patternVersionId=''; }
+    });
+    data.ideas.forEach(idea => { idea.linkedPatternIds = (idea.linkedPatternIds || []).filter(pid => pid !== id); });
+    data.patterns = data.patterns.filter(x => x.id !== id);
+    activePatternId=''; activePatternVersionId='';
+    saveData(); showPatternPanel('overview');
+  };
+
+  function updatePatternFilterOptions() {
+    const configs = [
+      ['patternFilterGarment', patternGarmentTypes, 'Alle kledingstukken'],
+      ['patternFilterSource', patternSources, 'Alle bronnen'],
+      ['patternFilterStatus', patternStatuses, 'Alle statussen'],
+      ['patternFilterKind', patternKinds, 'Alle patroonsoorten']
+    ];
+    configs.forEach(([id, values, label]) => {
+      const el=document.getElementById(id); const cur=el.value;
+      el.innerHTML=`<option value="">${label}</option>`+values.map(v=>`<option value="${esc(v)}">${esc(v)}</option>`).join('');
+      if ([...el.options].some(o=>o.value===cur)) el.value=cur;
+    });
+  }
+
+  function patternIsRecent(pattern, days) {
+    if (!days) return true;
+    const iso = pattern.updatedAt || pattern.createdAt || '';
+    const d = new Date(iso + 'T12:00:00');
+    if (Number.isNaN(d.getTime())) return false;
+    return (Date.now() - d.getTime()) <= Number(days)*86400000;
+  }
+
+  function renderPatterns() {
+    updatePatternFilterOptions();
+    const q=document.getElementById('patternSearchText').value.trim().toLocaleLowerCase('nl-NL');
+    const garment=document.getElementById('patternFilterGarment').value;
+    const source=document.getElementById('patternFilterSource').value;
+    const status=document.getElementById('patternFilterStatus').value;
+    const favorite=document.getElementById('patternFilterFavorite').value;
+    const kind=document.getElementById('patternFilterKind').value;
+    const recent=document.getElementById('patternFilterRecent').value;
+    let items=data.patterns.map(normalizePattern).filter(pattern=>{
+      const hay=`${pattern.name||''} ${pattern.brand||''} ${pattern.patternNumber||''} ${pattern.description||''}`.toLocaleLowerCase('nl-NL');
+      if (q && !hay.includes(q)) return false;
+      if (garment && pattern.garment!==garment) return false;
+      if (source && pattern.source!==source) return false;
+      if (status && pattern.status!==status) return false;
+      if (kind && pattern.kind!==kind) return false;
+      if (favorite==='yes' && !pattern.favorite) return false;
+      if (favorite==='no' && pattern.favorite) return false;
+      if (recent && !patternIsRecent(pattern,recent)) return false;
+      return true;
+    });
+    items.sort((a,b)=>Number(!!b.favorite)-Number(!!a.favorite)||String(b.updatedAt||b.createdAt||'').localeCompare(String(a.updatedAt||a.createdAt||'')));
+    document.getElementById('patternResultCount').textContent=`${items.length} van ${data.patterns.length} ${data.patterns.length===1?'patroon':'patronen'}`;
+    const list=document.getElementById('patternList');
+    if (!items.length) { list.innerHTML=`<div class="empty" style="grid-column:1/-1;">Geen patronen gevonden. Voeg een patroon toe of pas de filters aan.</div>`; return; }
+    list.innerHTML=items.map(pattern=>{
+      const current=currentPatternVersion(pattern);
+      const projects=data.projects.filter(p=>p.patternId===pattern.id);
+      return `<article class="pattern-card"><div class="pattern-card-media">${patternPreviewHtml(pattern,true)}</div><div class="pattern-card-body"><div class="pattern-card-title"><div><div class="meta">${esc(pattern.garment||'Type niet gekozen')} · ${esc(pattern.source||'Bron onbekend')}</div><h3>${esc(pattern.name)}</h3></div><button class="favorite-btn ${pattern.favorite?'active':''}" onclick="togglePatternFavorite('${pattern.id}')" aria-label="Favoriet">${pattern.favorite?'★':'☆'}</button></div><div class="idea-description">${esc(pattern.description||'Geen omschrijving')}</div><div class="chip-row"><span class="chip">${esc(pattern.kind||'Anders')}</span><span class="chip">${esc(pattern.status||'Concept')}</span></div><div class="details"><div><span>Huidige versie</span>${esc(current?current.number:'—')}</div><div><span>Versies</span>${pattern.versions.length}</div><div><span>Projecten</span>${projects.length}</div></div><div class="toolbar" style="margin-top:auto;"><button class="btn secondary small" onclick="openPatternDetail('${pattern.id}')">Open patroon</button><button class="btn ghost small" onclick="editPattern('${pattern.id}')">Aanpassen</button></div></div></article>`;
+    }).join('');
+  }
+
+  window.openPatternDetail = function(id) {
+    const pattern = data.patterns.find(x=>x.id===id); if (!pattern) return;
+    activePatternId=id;
+    activePatternVersionId=(currentPatternVersion(pattern)||{}).id||'';
+    showPatternPanel('detail');
+    window.scrollTo({top:0,behavior:'smooth'});
+  };
+
+  function renderPatternDetail(id) {
+    const pattern=normalizePattern(data.patterns.find(x=>x.id===id));
+    const root=document.getElementById('patternDetail');
+    if (!pattern) { root.innerHTML='<div class="empty">Dit patroon bestaat niet meer.</div>'; return; }
+    activePatternId=pattern.id;
+    const current=currentPatternVersion(pattern);
+    const main=patternMainImage(pattern);
+    const linkedProjects=data.projects.filter(p=>p.patternId===pattern.id);
+    const linkedIdeas=data.ideas.filter(idea=>(idea.linkedPatternIds||[]).includes(pattern.id));
+    const website=safeHttpUrl(pattern.url);
+    const media=main?`<img class="pattern-detail-main" src="${main.data}" alt="${esc(pattern.name)}" />`:`<div class="pattern-detail-drawing">${current?patternPreviewHtml(pattern,false):'<div class="empty">Geen afbeelding</div>'}</div>`;
+    const versionRows=pattern.versions.slice().sort((a,b)=>String(b.date||b.createdAt||'').localeCompare(String(a.date||a.createdAt||''))).map(v=>`<div class="version-card ${v.id===pattern.currentVersionId?'current':''}"><div class="version-head"><div><h4>${esc(versionLabel(v))}</h4><div class="meta">${formatDate(v.date||v.createdAt)} · ${esc(v.status||'Concept')}</div></div>${v.id===pattern.currentVersionId?'<span class="version-current-badge">Huidige versie</span>':''}</div>${v.changes?`<div style="line-height:1.5;">${esc(v.changes)}</div>`:''}<div class="toolbar"><button class="btn secondary small" onclick="openPatternVersionDetail('${pattern.id}','${v.id}')">Versie bekijken</button>${v.id!==pattern.currentVersionId?`<button class="btn ghost small" onclick="setCurrentPatternVersion('${pattern.id}','${v.id}')">Maak huidig</button>`:''}</div></div>`).join('');
+    const ideaRows=linkedIdeas.length?linkedIdeas.map(idea=>`<div class="pattern-relation-item"><div><strong>${esc(idea.name)}</strong><div class="meta">${esc(idea.status||'Idee')}</div></div><div class="toolbar"><button class="btn ghost small" onclick="goToPatternIdea('${idea.id}')">Open</button><button class="btn danger small" onclick="unlinkIdeaFromPattern('${pattern.id}','${idea.id}')">Ontkoppel</button></div></div>`).join(''):'<div class="empty">Nog geen ideeën gekoppeld.</div>';
+    const projectRows=linkedProjects.length?linkedProjects.map(project=>`<div class="pattern-relation-item"><div><strong>${esc(project.name)}</strong><div class="meta">${esc(project.patternVersionNumber?`Versie ${project.patternVersionNumber}`:'Versie niet vastgelegd')} · ${esc(project.status||'Idee')}</div></div><button class="btn ghost small" onclick="goToPatternProject('${project.id}')">Open project</button></div>`).join(''):'<div class="empty">Nog geen projecten met dit patroon.</div>';
+    const availableIdeas=data.ideas.filter(idea=>!(idea.linkedPatternIds||[]).includes(pattern.id));
+    document.getElementById('patternDetailTopActions').innerHTML=`<button class="favorite-btn ${pattern.favorite?'active':''}" onclick="togglePatternFavorite('${pattern.id}')" aria-label="Favoriet">${pattern.favorite?'★':'☆'}</button><button class="btn secondary small" onclick="editPattern('${pattern.id}')">Patroon aanpassen</button><button class="btn danger small" onclick="deletePattern('${pattern.id}')">Verwijderen</button>`;
+    root.innerHTML=`<div class="pattern-detail-hero"><div>${media}</div><div class="pattern-detail-title"><div class="meta">${esc(pattern.garment||'Geen type')} · ${esc(pattern.kind||'Geen patroonsoort')}</div><h2>${esc(pattern.name)}</h2><div class="field" style="max-width:260px;"><label>Status</label><select onchange="setPatternStatus('${pattern.id}',this.value)">${patternStatuses.map(st=>`<option value="${esc(st)}" ${pattern.status===st?'selected':''}>${esc(st)}</option>`).join('')}</select></div><div class="chip-row" style="margin-top:10px;"><span class="chip">${esc(pattern.source||'Bron onbekend')}</span>${pattern.brand?`<span class="chip">${esc(pattern.brand)}</span>`:''}${pattern.patternNumber?`<span class="chip">#${esc(pattern.patternNumber)}</span>`:''}</div>${pattern.description?`<p style="line-height:1.65;color:var(--muted);">${esc(pattern.description)}</p>`:''}${website?`<div><a class="btn ghost small" href="${esc(website)}" target="_blank" rel="noopener">Open patroonwebsite</a></div>`:''}<div class="idea-flow"><span class="idea-flow-step">Idee</span><span>→</span><span class="idea-flow-step current">Patroon</span><span>→</span><span class="idea-flow-step">Versie</span><span>→</span><span class="idea-flow-step">Project</span></div><div class="toolbar" style="margin-top:18px;"><button class="btn" onclick="openNewPatternVersion('${pattern.id}','${current?current.id:''}')">Nieuwe versie maken</button>${current?`<button class="btn secondary" onclick="createProjectFromPattern('${pattern.id}','${current.id}')">Maak project van dit patroon</button>`:''}</div></div></div>
+    <div class="pattern-detail-sections">
+      <section class="pattern-detail-section"><h3>Huidige versie</h3>${current?`<div class="version-detail-grid"><div class="pattern-meta-item"><span>Versie</span>${esc(current.number||'—')}</div><div class="pattern-meta-item"><span>Titel</span>${esc(current.title||'—')}</div><div class="pattern-meta-item"><span>Status</span>${esc(current.status||'—')}</div><div class="pattern-meta-item"><span>Gebruikte maat</span>${esc(current.usedSize||'—')}</div><div class="pattern-meta-item"><span>Matenprofiel</span>${esc(measurementProfileLabel(current.measurementId))}</div><div class="pattern-meta-item"><span>Belangrijkste aanpassingen</span>${esc(current.adjustments||current.changes||'—')}</div></div><div class="toolbar" style="margin-top:12px;"><button class="btn secondary small" onclick="openPatternVersionDetail('${pattern.id}','${current.id}')">Bekijk huidige versie</button><button class="btn ghost small" onclick="openPatternVersionInPlanner('${pattern.id}','${current.id}')">Open in Patroonplanner</button></div>`:'<div class="empty">Nog geen versie.</div>'}</section>
+      <section class="pattern-detail-section"><h3>Versiegeschiedenis</h3><div class="version-timeline">${versionRows||'<div class="empty">Nog geen versies.</div>'}</div></section>
+      <section class="pattern-detail-section"><h3>Patroonafbeeldingen</h3>${pattern.images.length?`<div class="pattern-gallery">${pattern.images.map(img=>`<figure><img src="${img.data}" alt="${esc(img.type||'Patroonafbeelding')}" /><figcaption>${esc(img.id===pattern.mainImageId?'Hoofdafbeelding · ':'')}${esc(img.type||'Afbeelding')}</figcaption></figure>`).join('')}</div>`:'<div class="empty">Nog geen patroonafbeeldingen.</div>'}</section>
+      <section class="pattern-detail-section"><h3>Relaties</h3><div class="pattern-relations"><div><h4>Gekoppelde ideeën</h4><div class="pattern-relation-list">${ideaRows}</div><div class="toolbar" style="margin-top:10px;"><select id="patternIdeaLinkSelect" style="min-width:220px;"><option value="">Kies idee om te koppelen…</option>${availableIdeas.map(idea=>`<option value="${idea.id}">${esc(idea.name)}</option>`).join('')}</select><button class="btn ghost small" onclick="linkSelectedIdeaToPattern('${pattern.id}')">Idee koppelen</button></div></div><div><h4>Gekoppelde projecten</h4><div class="pattern-relation-list">${projectRows}</div></div></div></section>
+      ${pattern.notes?`<section class="pattern-detail-section"><h3>Algemene notities</h3><div style="white-space:pre-wrap;line-height:1.6;">${esc(pattern.notes)}</div></section>`:''}
+    </div>`;
+  }
+
+  function measurementProfileLabel(id) {
+    if (!id) return 'Niet gekoppeld';
+    const m=data.measurements.find(x=>x.id===id);
+    return m ? `${m.label || 'Meting'} · ${formatDate(m.date)}` : 'Matenprofiel niet meer beschikbaar';
+  }
+
+  function nextVersionNumber(number) {
+    const m=String(number||'').match(/^(\d+)(?:\.(\d+))?$/);
+    if (!m) return '1.1';
+    return `${Number(m[1])}.${Number(m[2]||0)+1}`;
+  }
+
+  function resetPatternVersionForm() {
+    editingPatternVersionId='';
+    pendingPatternVersionImage='';
+    pendingPatternVersionFile=null;
+    pendingPatternPlannerSnapshot=null;
+    document.getElementById('patternVersionForm').reset();
+    document.getElementById('patternVersionDate').value=todayISO();
+    document.getElementById('patternVersionStatus').value='In ontwikkeling';
+    document.getElementById('patternVersionFormTitle').textContent='Nieuwe patroonversie';
+    document.getElementById('patternVersionSubmitBtn').textContent='Versie opslaan';
+    updatePatternVersionImagePreview();
+    updatePatternVersionFileInfo();
+    renderPatternMeasurementOptions('');
+  }
+
+  function renderPatternMeasurementOptions(selectedId) {
+    const select=document.getElementById('patternVersionMeasurement');
+    select.innerHTML='<option value="">Geen matenprofiel gekoppeld</option>'+data.measurements.map(m=>`<option value="${m.id}">${esc(m.label||'Meting')} · ${formatDate(m.date)}</option>`).join('');
+    if ([...select.options].some(o=>o.value===selectedId)) select.value=selectedId;
+  }
+
+  function updatePatternVersionImagePreview() {
+    const img=document.getElementById('patternVersionImagePreview');
+    const btn=document.getElementById('removePatternVersionImageBtn');
+    if (pendingPatternVersionImage) { img.src=pendingPatternVersionImage; img.style.display='block'; btn.style.display='inline-flex'; }
+    else { img.removeAttribute('src'); img.style.display='none'; btn.style.display='none'; }
+  }
+
+  function updatePatternVersionFileInfo() {
+    const info=document.getElementById('patternVersionFileInfo');
+    const btn=document.getElementById('removePatternVersionFileBtn');
+    if (pendingPatternVersionFile) { info.textContent=`${pendingPatternVersionFile.name} · ${Math.round((pendingPatternVersionFile.size||0)/1024)} KB`; btn.style.display='inline-flex'; }
+    else { info.textContent='Geen bestand geselecteerd.'; btn.style.display='none'; }
+  }
+
+  document.getElementById('patternVersionImageInput').addEventListener('change', async e=>{
+    const file=e.target.files&&e.target.files[0]; if(!file)return;
+    try { pendingPatternVersionImage=await resizeProjectPhoto(file); updatePatternVersionImagePreview(); }
+    catch(err){ alert('De versie-afbeelding kon niet worden verwerkt.'); }
+    e.target.value='';
+  });
+  document.getElementById('removePatternVersionImageBtn').addEventListener('click',()=>{pendingPatternVersionImage='';updatePatternVersionImagePreview();});
+  document.getElementById('patternVersionFileInput').addEventListener('change',e=>{
+    const file=e.target.files&&e.target.files[0]; if(!file)return;
+    if(file.size>900*1024){alert('Dit bestand is groter dan 900 KB. Omdat de app lokaal in de browser bewaart, is deze versie bewust beperkt tot 900 KB per patroonbestand.');e.target.value='';return;}
+    const reader=new FileReader();
+    reader.onload=()=>{pendingPatternVersionFile={name:file.name,type:file.type||'application/octet-stream',size:file.size,data:String(reader.result||'')};updatePatternVersionFileInfo();};
+    reader.onerror=()=>alert('Het patroonbestand kon niet worden gelezen.');
+    reader.readAsDataURL(file); e.target.value='';
+  });
+  document.getElementById('removePatternVersionFileBtn').addEventListener('click',()=>{pendingPatternVersionFile=null;updatePatternVersionFileInfo();});
+
+  window.openNewPatternVersion = function(patternId, sourceVersionId, plannerSnapshot) {
+    const pattern=normalizePattern(data.patterns.find(x=>x.id===patternId)); if(!pattern)return;
+    activePatternId=patternId;
+    resetPatternVersionForm();
+    const source=pattern.versions.find(v=>v.id===sourceVersionId)||currentPatternVersion(pattern);
+    document.getElementById('patternVersionNumber').value=nextVersionNumber(source?source.number:'1.0');
+    document.getElementById('patternVersionTitle').value='';
+    document.getElementById('patternVersionStatus').value='In ontwikkeling';
+    if(source){
+      document.getElementById('patternVersionSize').value=source.usedSize||'';
+      renderPatternMeasurementOptions(source.measurementId||'');
+      document.getElementById('patternVersionFitNotes').value=source.fitNotes||'';
+      document.getElementById('patternVersionNotes').value=source.notes||'';
+      pendingPatternPlannerSnapshot=source.plannerSnapshot?structuredCloneSafe(source.plannerSnapshot):null;
+    }
+    if(plannerSnapshot){
+      pendingPatternPlannerSnapshot=structuredCloneSafe(plannerSnapshot);
+      document.getElementById('patternVersionChanges').value=plannerSnapshot.changeNote||'';
+    }
+    showPatternPanel('versionForm'); window.scrollTo({top:0,behavior:'smooth'});
+  };
+
+  window.editPatternVersion = function(patternId, versionId) {
+    const {pattern,version}=findPatternVersion(patternId,versionId); if(!pattern||!version)return;
+    activePatternId=patternId; activePatternVersionId=versionId; editingPatternVersionId=versionId;
+    pendingPatternVersionImage=version.image||'';
+    pendingPatternVersionFile=version.file?structuredCloneSafe(version.file):null;
+    pendingPatternPlannerSnapshot=version.plannerSnapshot?structuredCloneSafe(version.plannerSnapshot):null;
+    document.getElementById('patternVersionNumber').value=version.number||'';
+    document.getElementById('patternVersionTitle').value=version.title||'';
+    document.getElementById('patternVersionDate').value=version.date||todayISO();
+    document.getElementById('patternVersionStatus').value=version.status||'Concept';
+    document.getElementById('patternVersionSize').value=version.usedSize||'';
+    renderPatternMeasurementOptions(version.measurementId||'');
+    document.getElementById('patternVersionChanges').value=version.changes||'';
+    document.getElementById('patternVersionFitNotes').value=version.fitNotes||'';
+    document.getElementById('patternVersionAdjustments').value=version.adjustments||'';
+    document.getElementById('patternVersionNotes').value=version.notes||'';
+    document.getElementById('patternVersionFitRating').value=version.rating.fit||'';
+    document.getElementById('patternVersionDifficulty').value=version.rating.difficulty||'';
+    document.getElementById('patternVersionAdjustmentAmount').value=version.rating.adjustmentAmount||'';
+    document.getElementById('patternVersionReuse').value=version.rating.reuse||'';
+    document.getElementById('patternVersionNextChange').value=version.rating.nextChange||'';
+    document.getElementById('patternVersionExperience').value=version.rating.experience||'';
+    document.getElementById('patternVersionFormTitle').textContent=`${versionLabel(version)} bijwerken`;
+    document.getElementById('patternVersionSubmitBtn').textContent='Versiegegevens opslaan';
+    updatePatternVersionImagePreview(); updatePatternVersionFileInfo(); showPatternPanel('versionForm'); window.scrollTo({top:0,behavior:'smooth'});
+  };
+
+  document.getElementById('patternVersionForm').addEventListener('submit',e=>{
+    e.preventDefault();
+    const pattern=normalizePattern(data.patterns.find(x=>x.id===activePatternId)); if(!pattern)return;
+    const number=document.getElementById('patternVersionNumber').value.trim();
+    if(!number){alert('Geef de versie een versienummer.');return;}
+    if(pattern.versions.some(v=>v.number===number && v.id!==editingPatternVersionId)){alert('Dit versienummer bestaat al binnen dit patroon. Kies een ander versienummer.');return;}
+    const values={
+      number, title:document.getElementById('patternVersionTitle').value.trim(), date:document.getElementById('patternVersionDate').value||todayISO(),
+      status:document.getElementById('patternVersionStatus').value||'Concept', usedSize:document.getElementById('patternVersionSize').value.trim(),
+      measurementId:document.getElementById('patternVersionMeasurement').value, changes:document.getElementById('patternVersionChanges').value.trim(),
+      fitNotes:document.getElementById('patternVersionFitNotes').value.trim(), adjustments:document.getElementById('patternVersionAdjustments').value.trim(),
+      notes:document.getElementById('patternVersionNotes').value.trim(), image:pendingPatternVersionImage, file:pendingPatternVersionFile?structuredCloneSafe(pendingPatternVersionFile):null,
+      rating:{fit:document.getElementById('patternVersionFitRating').value,difficulty:document.getElementById('patternVersionDifficulty').value,adjustmentAmount:document.getElementById('patternVersionAdjustmentAmount').value,reuse:document.getElementById('patternVersionReuse').value,nextChange:document.getElementById('patternVersionNextChange').value.trim(),experience:document.getElementById('patternVersionExperience').value.trim()},
+      plannerSnapshot:pendingPatternPlannerSnapshot?structuredCloneSafe(pendingPatternPlannerSnapshot):{basePattern:'',models:{},garment:pattern.garment||''},
+      fitProfileId:'', standardAdjustmentIds:[], fabricAdviceIds:[], analytics:{}, updatedAt:todayISO()
+    };
+    if(editingPatternVersionId){
+      const version=pattern.versions.find(v=>v.id===editingPatternVersionId); if(!version)return;
+      Object.assign(version,values);
+      activePatternVersionId=version.id;
+      showToast('Versiegegevens bijgewerkt');
+    } else {
+      const version={id:uid(),...values,createdAt:todayISO()};
+      pattern.versions.unshift(version); pattern.currentVersionId=version.id; activePatternVersionId=version.id;
+      showToast('Nieuwe patroonversie opgeslagen');
+    }
+    pattern.updatedAt=todayISO();
+    saveData(); showPatternPanel('versionDetail');
+  });
+
+  window.setCurrentPatternVersion = function(patternId,versionId){
+    const pattern=normalizePattern(data.patterns.find(x=>x.id===patternId)); if(!pattern||!pattern.versions.some(v=>v.id===versionId))return;
+    pattern.currentVersionId=versionId; pattern.updatedAt=todayISO(); saveData(); renderPatternDetail(patternId); showToast('Huidige versie aangepast');
+  };
+
+  window.openPatternVersionDetail = function(patternId,versionId){
+    const found=findPatternVersion(patternId,versionId); if(!found.pattern||!found.version)return;
+    activePatternId=patternId; activePatternVersionId=found.version.id; showPatternPanel('versionDetail'); window.scrollTo({top:0,behavior:'smooth'});
+  };
+
+  function renderPatternVersionDetail(patternId,versionId){
+    const {pattern,version}=findPatternVersion(patternId,versionId);
+    const root=document.getElementById('patternVersionDetail');
+    if(!pattern||!version){root.innerHTML='<div class="empty">Deze patroonversie bestaat niet meer.</div>';return;}
+    activePatternId=pattern.id;activePatternVersionId=version.id;
+    const media=version.image?`<img class="pattern-detail-main" src="${version.image}" alt="${esc(versionLabel(version))}" />`:(version.plannerSnapshot?`<div class="pattern-detail-drawing">${generateLineDrawing(version.plannerSnapshot.basePattern||'',version.plannerSnapshot.models||{},version.plannerSnapshot.garment||pattern.garment||'')}</div>`:`<div class="pattern-detail-placeholder">Geen versie-afbeelding</div>`);
+    const projects=data.projects.filter(p=>p.patternId===pattern.id&&p.patternVersionId===version.id);
+    const fileButton=version.file&&version.file.data?`<button class="btn ghost small" onclick="downloadPatternVersionFile('${pattern.id}','${version.id}')">Download ${esc(version.file.name||'patroonbestand')}</button>`:'Geen patroonbestand gekoppeld.';
+    document.getElementById('patternVersionDetailActions').innerHTML=`${version.id!==pattern.currentVersionId?`<button class="btn ghost small" onclick="setCurrentPatternVersion('${pattern.id}','${version.id}')">Maak huidige versie</button>`:''}<button class="btn secondary small" onclick="editPatternVersion('${pattern.id}','${version.id}')">Versiegegevens bijwerken</button><button class="btn ghost small" onclick="openPatternVersionInPlanner('${pattern.id}','${version.id}')">Open in Patroonplanner</button><button class="btn" onclick="createProjectFromPattern('${pattern.id}','${version.id}')">Maak project van deze versie</button>`;
+    root.innerHTML=`<div class="pattern-detail-hero"><div>${media}</div><div class="pattern-detail-title"><div class="meta">${esc(pattern.name)} · ${esc(pattern.garment||'Geen type')}</div><h2>${esc(versionLabel(version))}</h2>${version.id===pattern.currentVersionId?'<span class="version-current-badge">Huidige versie</span>':''}<div class="chip-row" style="margin-top:12px;"><span class="chip">${esc(version.status||'Concept')}</span><span class="chip">${formatDate(version.date||version.createdAt)}</span></div>${version.changes?`<p style="line-height:1.65;color:var(--muted);">${esc(version.changes)}</p>`:''}</div></div>
+      <div class="pattern-detail-sections"><section class="pattern-detail-section"><h3>Versiegegevens</h3><div class="version-detail-grid"><div class="pattern-meta-item"><span>Gebruikte maat</span>${esc(version.usedSize||'—')}</div><div class="pattern-meta-item"><span>Matenprofiel</span>${esc(measurementProfileLabel(version.measurementId))}</div><div class="pattern-meta-item"><span>Status</span>${esc(version.status||'—')}</div><div class="pattern-meta-item"><span>Pasvormnotities</span>${esc(version.fitNotes||'—')}</div><div class="pattern-meta-item"><span>Aanpassingen</span><div style="white-space:pre-wrap;">${esc(version.adjustments||'—')}</div></div><div class="pattern-meta-item"><span>Algemene notities</span>${esc(version.notes||'—')}</div></div></section>
+      <section class="pattern-detail-section"><h3>Persoonlijke beoordeling</h3><div class="version-detail-grid"><div class="pattern-meta-item"><span>Pasvorm</span>${ratingStars(version.rating.fit)}</div><div class="pattern-meta-item"><span>Moeilijkheid</span>${ratingStars(version.rating.difficulty)}</div><div class="pattern-meta-item"><span>Aanpassingen nodig</span>${esc(version.rating.adjustmentAmount||'—')}</div><div class="pattern-meta-item"><span>Opnieuw gebruiken?</span>${esc(version.rating.reuse||'—')}</div><div class="pattern-meta-item"><span>Volgende keer veranderen</span>${esc(version.rating.nextChange||'—')}</div><div class="pattern-meta-item"><span>Algemene ervaring</span>${esc(version.rating.experience||'—')}</div></div></section>
+      <section class="pattern-detail-section"><h3>Patroonbestand</h3><div>${fileButton}</div></section>
+      <section class="pattern-detail-section"><h3>Gekoppelde projecten</h3>${projects.length?`<div class="pattern-relation-list">${projects.map(p=>`<div class="pattern-relation-item"><div><strong>${esc(p.name)}</strong><div class="meta">${esc(p.status||'Idee')}</div></div><button class="btn ghost small" onclick="goToPatternProject('${p.id}')">Open project</button></div>`).join('')}</div>`:'<div class="empty">Nog geen projecten met deze versie.</div>'}</section></div>`;
+  }
+
+  window.downloadPatternVersionFile=function(patternId,versionId){
+    const {version}=findPatternVersion(patternId,versionId);if(!version||!version.file||!version.file.data)return;
+    const a=document.createElement('a');a.href=version.file.data;a.download=version.file.name||'patroonbestand';a.click();
+  };
+
+  window.linkSelectedIdeaToPattern=function(patternId){
+    const select=document.getElementById('patternIdeaLinkSelect');const ideaId=select?select.value:'';if(!ideaId)return;
+    const idea=data.ideas.find(x=>x.id===ideaId);if(!idea)return;
+    if(!Array.isArray(idea.linkedPatternIds))idea.linkedPatternIds=[];
+    if(!idea.linkedPatternIds.includes(patternId))idea.linkedPatternIds.push(patternId);
+    idea.updatedAt=todayISO();saveData();renderPatternDetail(patternId);showToast('Idee gekoppeld aan patroon');
+  };
+
+  window.unlinkIdeaFromPattern=function(patternId,ideaId){
+    const idea=data.ideas.find(x=>x.id===ideaId);if(!idea)return;
+    idea.linkedPatternIds=(idea.linkedPatternIds||[]).filter(id=>id!==patternId);idea.updatedAt=todayISO();saveData();renderPatternDetail(patternId);
+  };
+
+  window.goToPatternIdea=function(ideaId){navigate('ideas');activeIdeaId=ideaId;showIdeaPanel('detail');};
+  window.goToIdeaPattern=function(patternId){navigate('patterns');activePatternId=patternId;showPatternPanel('detail');};
+  window.goToPatternProject=function(projectId){highlightProjectId=projectId;navigate('projects');setTimeout(()=>{const card=document.getElementById('project-card-'+projectId);if(card){card.classList.add('project-highlight');card.scrollIntoView({behavior:'smooth',block:'center'});setTimeout(()=>card.classList.remove('project-highlight'),2200);}},80);};
+  window.goToProjectPattern=function(patternId,versionId){navigate('patterns');activePatternId=patternId;if(versionId){activePatternVersionId=versionId;showPatternPanel('versionDetail');}else showPatternPanel('detail');};
+
+  window.createProjectFromPattern=function(patternId,versionId){
+    const {pattern,version}=findPatternVersion(patternId,versionId);if(!pattern||!version)return;
+    const snap=version.plannerSnapshot||{basePattern:'',models:{},garment:pattern.garment||''};
+    const project={id:uid(),name:pattern.name,garment:snap.garment||pattern.garment||'Anders',basePattern:snap.basePattern||'',models:structuredCloneSafe(snap.models||{}),fabricId:'',fabricLabel:'',note:'',inspirationPhoto:'',ideaId:'',patternId:pattern.id,patternVersionId:version.id,patternName:pattern.name,patternVersionNumber:version.number||'',status:'Idee',createdAt:todayISO(),measurementId:version.measurementId||(data.measurements.length?data.measurements[0].id:'')};
+    data.projects.unshift(project);
+    const tasks=['Model en patroonversie controleren','Patroondelen controleren','Stof kiezen en knippen','Kledingstuk naaien','Doorpassen','Resultaat en patroonversie beoordelen'];
+    tasks.forEach(text=>data.todos.push({id:uid(),text,projectId:project.id,dueDate:'',done:false,createdAt:todayISO()}));
+    saveData();showToast('Project aangemaakt vanuit patroonversie');goToPatternProject(project.id);
+  };
+
+  function plannerSnapshotFromCurrent(){
+    return {basePattern:document.getElementById('plannerBasePattern').value||'',models:getPlannerModels(),garment:document.getElementById('plannerGarment').value||'',changeNote:document.getElementById('plannerNote').value.trim()};
+  }
+
+  function renderPlannerPatternVersions(){
+    const patternId=document.getElementById('plannerPattern').value;
+    const select=document.getElementById('plannerPatternVersion');
+    const pattern=normalizePattern(data.patterns.find(x=>x.id===patternId));
+    const cur=select.value;
+    if(!pattern){select.innerHTML='<option value="">Geen patroon gekozen</option>';document.getElementById('plannerPatternHint').textContent='Optioneel. Koppel dit ontwerp of project aan een bestaand patroon en een specifieke versie.';return;}
+    select.innerHTML='<option value="">Geen specifieke versie</option>'+pattern.versions.map(v=>`<option value="${v.id}">${esc(versionLabel(v))}${v.id===pattern.currentVersionId?' · huidig':''}</option>`).join('');
+    if(pattern.versions.some(v=>v.id===cur))select.value=cur;else if(pattern.currentVersionId)select.value=pattern.currentVersionId;
+    document.getElementById('plannerPatternHint').textContent=`Gekoppeld aan ${pattern.name}. Kies de exacte versie die voor dit project wordt gebruikt.`;
+  }
+
+  function loadPatternVersionIntoPlanner(patternId,versionId){
+    const {pattern,version}=findPatternVersion(patternId,versionId);if(!pattern||!version)return;
+    const snap=version.plannerSnapshot||{};
+    if(snap.basePattern && basePatterns.includes(snap.basePattern) && !data.selectedBasePatterns.includes(snap.basePattern)) data.selectedBasePatterns.push(snap.basePattern);
+    const snapModels=snap.models||{};
+    Object.keys(snapModels).forEach(category=>{ const value=snapModels[category]; if(modelCategories[category] && modelCategories[category].includes(value) && !data.selectedModels.includes(value)) data.selectedModels.push(value); });
+    safeStorageSet(STORAGE_KEY, JSON.stringify(data));
+    renderPlanner();
+    document.getElementById('plannerPattern').value=pattern.id;renderPlannerPatternVersions();document.getElementById('plannerPatternVersion').value=version.id;
+    if(snap.garment&&[...document.getElementById('plannerGarment').options].some(o=>o.value===snap.garment))document.getElementById('plannerGarment').value=snap.garment;
+    renderPlannerFabricOptions();
+    if(snap.basePattern&&data.selectedBasePatterns.includes(snap.basePattern))document.getElementById('plannerBasePattern').value=snap.basePattern;
+    const models=snapModels;
+    document.querySelectorAll('select[data-planner-model]').forEach(sel=>{const value=models[sel.dataset.plannerModel];if(value&&[...sel.options].some(o=>o.value===value))sel.value=value;});
+    updatePlannerSummary();showToast('Patroonversie geladen in de Patroonplanner');
+  }
+
+  window.openPatternVersionInPlanner=function(patternId,versionId){
+    navigate('planner');
+    setTimeout(()=>{renderPlanner();loadPatternVersionIntoPlanner(patternId,versionId);},30);
+  };
+
+  document.getElementById('plannerPattern').addEventListener('change',()=>{renderPlannerPatternVersions();updatePlannerSummary();});
+  document.getElementById('plannerPatternVersion').addEventListener('change',updatePlannerSummary);
+  document.getElementById('loadPlannerPatternVersionBtn').addEventListener('click',()=>{
+    const pid=document.getElementById('plannerPattern').value,vid=document.getElementById('plannerPatternVersion').value;
+    if(!pid||!vid){alert('Kies eerst een patroon en een specifieke versie.');return;}
+    loadPatternVersionIntoPlanner(pid,vid);
+  });
+  document.getElementById('openPlannerPatternVersionBtn').addEventListener('click',()=>{
+    const pid=document.getElementById('plannerPattern').value,vid=document.getElementById('plannerPatternVersion').value;
+    if(!pid){alert('Kies eerst een patroon uit de Patroonbibliotheek.');return;}
+    navigate('patterns');activePatternId=pid;if(vid){activePatternVersionId=vid;showPatternPanel('versionDetail');}else showPatternPanel('detail');
+  });
+  document.getElementById('savePlannerAsVersionBtn').addEventListener('click',()=>{
+    const pid=document.getElementById('plannerPattern').value,vid=document.getElementById('plannerPatternVersion').value;
+    if(!pid){alert('Kies eerst bij welk patroon dit ontwerp hoort.');return;}
+    const snapshot=plannerSnapshotFromCurrent();
+    navigate('patterns');openNewPatternVersion(pid,vid,snapshot);
+  });
+
+  document.getElementById('newPatternBtn').addEventListener('click',()=>{resetPatternForm();showPatternPanel('form');window.scrollTo({top:0,behavior:'smooth'});});
+  document.getElementById('backFromPatternFormBtn').addEventListener('click',()=>showPatternPanel(editingPatternId?'detail':'overview'));
+  document.getElementById('cancelPatternBtn').addEventListener('click',()=>showPatternPanel(editingPatternId?'detail':'overview'));
+  document.getElementById('backFromPatternDetailBtn').addEventListener('click',()=>showPatternPanel('overview'));
+  document.getElementById('backFromVersionFormBtn').addEventListener('click',()=>showPatternPanel('detail'));
+  document.getElementById('cancelPatternVersionBtn').addEventListener('click',()=>showPatternPanel('detail'));
+  document.getElementById('backFromVersionDetailBtn').addEventListener('click',()=>showPatternPanel('detail'));
+  ['patternFilterGarment','patternFilterSource','patternFilterStatus','patternFilterFavorite','patternFilterKind','patternFilterRecent'].forEach(id=>document.getElementById(id).addEventListener('change',renderPatterns));
+  document.getElementById('patternSearchText').addEventListener('input',renderPatterns);
+  document.getElementById('clearPatternFiltersBtn').addEventListener('click',()=>{document.getElementById('patternSearchText').value='';['patternFilterGarment','patternFilterSource','patternFilterStatus','patternFilterFavorite','patternFilterKind','patternFilterRecent'].forEach(id=>document.getElementById(id).value='');renderPatterns();});
 
   function modelValue(models, category) { return models && models[category] ? models[category] : ''; }
 
@@ -1997,6 +2808,12 @@
     baseSelect.innerHTML = `<option value="">Geen keuze</option>` + data.selectedBasePatterns.map(p => `<option value="${esc(p)}">${esc(p)}</option>`).join('');
     if (data.selectedBasePatterns.includes(currentBase)) baseSelect.value = currentBase;
 
+    const patternSelect = document.getElementById('plannerPattern');
+    const currentPatternId = patternSelect.value;
+    patternSelect.innerHTML = `<option value="">Geen patroon gekoppeld</option>` + data.patterns.map(normalizePattern).map(p => `<option value="${p.id}">${esc(p.name)}</option>`).join('');
+    if (data.patterns.some(p => p.id === currentPatternId)) patternSelect.value = currentPatternId;
+    renderPlannerPatternVersions();
+
     const wrap = document.getElementById('plannerModelFields');
     const old = {};
     wrap.querySelectorAll('select[data-planner-model]').forEach(s => old[s.dataset.plannerModel] = s.value);
@@ -2029,6 +2846,10 @@
     const base = document.getElementById('plannerBasePattern').value;
     const fabricId = document.getElementById('plannerFabric').value;
     const fabric = data.fabrics.find(f => f.id === fabricId);
+    const linkedPatternId = document.getElementById('plannerPattern').value;
+    const linkedVersionId = document.getElementById('plannerPatternVersion').value;
+    const linkedPattern = data.patterns.find(p => p.id === linkedPatternId);
+    const linkedVersion = linkedPattern ? normalizePattern(linkedPattern).versions.find(v => v.id === linkedVersionId) : null;
     const models = getPlannerModels();
     const modelLines = Object.entries(models).map(([c,v]) => `<div><strong>${esc(c)}:</strong> ${esc(v)}</div>`).join('');
     document.getElementById('plannerDrawing').innerHTML = generateLineDrawing(base, models, garment);
@@ -2037,6 +2858,7 @@
       <div class="planner-summary">
         <div><strong>Kledingstuk:</strong> ${esc(garment || 'Nog niet gekozen')}</div>
         <div><strong>Basispatroon:</strong> ${esc(base || 'Geen keuze')}</div>
+        <div><strong>Patroonbibliotheek:</strong> ${linkedPattern ? esc(linkedPattern.name + (linkedVersion ? ' · ' + versionLabel(linkedVersion) : '')) : 'Niet gekoppeld'}</div>
         ${modelLines || '<div><strong>Modelintekeningen:</strong> Geen gekozen</div>'}
         <div><strong>Stof:</strong> ${fabric ? esc(fabricTitle(fabric)) : 'Geen keuze'}</div>
       </div>`;
@@ -2049,11 +2871,17 @@
     const basePattern = document.getElementById('plannerBasePattern').value;
     const fabricId = document.getElementById('plannerFabric').value;
     const fabric = data.fabrics.find(f => f.id === fabricId);
+    const patternId = document.getElementById('plannerPattern').value;
+    const patternVersionId = document.getElementById('plannerPatternVersion').value;
+    const linkedPattern = data.patterns.find(p => p.id === patternId);
+    const linkedVersion = linkedPattern ? normalizePattern(linkedPattern).versions.find(v => v.id === patternVersionId) : null;
     const project = {
       id: uid(), name, garment, basePattern, models: getPlannerModels(), fabricId,
       fabricLabel: fabric ? fabricTitle(fabric) : '', note: document.getElementById('plannerNote').value.trim(),
       inspirationPhoto: pendingPlannerInspiration,
-      status: 'Idee', createdAt: todayISO(), measurementId: data.measurements.length ? data.measurements[0].id : ''
+      patternId: linkedPattern ? linkedPattern.id : '', patternVersionId: linkedVersion ? linkedVersion.id : '',
+      patternName: linkedPattern ? linkedPattern.name : '', patternVersionNumber: linkedVersion ? linkedVersion.number : '',
+      status: 'Idee', createdAt: todayISO(), measurementId: linkedVersion && linkedVersion.measurementId ? linkedVersion.measurementId : (data.measurements.length ? data.measurements[0].id : '')
     };
     data.projects.unshift(project);
     const defaultTasks = ['Basispatroon overnemen', 'Modelintekeningen uitwerken', 'Patroondelen controleren', 'Stof knippen', 'Kledingstuk naaien', 'Doorpassen en afwerken'];
@@ -2182,7 +3010,10 @@
       const photo = fabric && fabric.photo ? fabric.photo : '';
       const sourceIdea = p.ideaId ? data.ideas.find(idea => idea.id === p.ideaId) : null;
       const sourceIdeaImage = sourceIdea ? ideaMainImage(normalizeIdea(sourceIdea)) : null;
-      const projectInspiration = p.inspirationPhoto || (sourceIdeaImage ? sourceIdeaImage.data : '');
+      const linkedPattern = p.patternId ? normalizePattern(data.patterns.find(pattern => pattern.id === p.patternId)) : null;
+      const linkedPatternVersion = linkedPattern && p.patternVersionId ? linkedPattern.versions.find(v => v.id === p.patternVersionId) : null;
+      const linkedPatternImage = linkedPattern ? patternMainImage(linkedPattern) : null;
+      const projectInspiration = p.inspirationPhoto || (sourceIdeaImage ? sourceIdeaImage.data : '') || (linkedPatternImage ? linkedPatternImage.data : '');
       const currentFabricLabel = fabric ? fabricTitle(fabric) : (p.fabricLabel || 'Geen keuze');
       return `<div class="item-card ${highlightProjectId===p.id?'project-highlight':''}" id="project-card-${p.id}" data-project-card="${p.id}">
         <div class="item-head">
@@ -2201,6 +3032,7 @@
             <div class="details" style="margin-top:12px;"><div><span>Basispatroon</span>${esc(p.basePattern || 'Geen keuze')}</div><div><span>Stof</span>${esc(currentFabricLabel)}</div><div><span>Maten</span>${measurement ? formatDate(measurement.date) : 'Niet gekoppeld'}</div></div>
             ${p.note ? `<div class="meta" style="margin-top:10px;"><strong>Notitie:</strong> ${esc(p.note)}</div>` : ''}
             ${sourceIdea ? `<div class="project-source-note">Ontstaan uit idee <strong>${esc(sourceIdea.name)}</strong>. <button class="btn ghost small" style="margin-left:6px;" onclick="goToProjectIdea('${sourceIdea.id}')">Bekijk bronidee</button></div>` : ''}
+            ${(p.patternName || linkedPattern) ? `<div class="project-pattern-note">Gebruikt patroon: <strong>${esc(p.patternName || linkedPattern.name)}</strong>${p.patternVersionNumber ? ` · versie ${esc(p.patternVersionNumber)}` : (linkedPatternVersion ? ` · versie ${esc(linkedPatternVersion.number||'—')}` : '')}. ${linkedPattern ? `<button class="btn ghost small" style="margin-left:6px;" onclick="goToProjectPattern('${linkedPattern.id}','${linkedPatternVersion?linkedPatternVersion.id:''}')">Bekijk patroon</button>` : ''}</div>` : ''}
           </div>
         </div>
       </div>`;
@@ -2237,7 +3069,8 @@
     const last = data.measurements[0];
     document.getElementById('metricMeasurement').textContent = last ? formatDate(last.date) : '—';
     document.getElementById('metricMeasurementSub').textContent = last ? (last.label || 'Laatste opgeslagen meting') : 'Nog geen meting opgeslagen';
-    document.getElementById('metricPatterns').textContent = data.selectedBasePatterns.length;
+    document.getElementById('metricPatterns').textContent = data.patterns.length;
+    document.getElementById('metricPatternsSub').textContent = `${data.selectedBasePatterns.length} van 6 basispatronen geselecteerd`;
     document.getElementById('metricFabrics').textContent = data.fabrics.length;
     document.getElementById('metricTodos').textContent = data.todos.filter(t => !t.done).length;
 
@@ -2253,6 +3086,7 @@
     renderMeasurements();
     renderFabrics();
     renderIdeas();
+    renderPatterns();
     renderPlanner();
     renderProjects();
     renderTodos();
