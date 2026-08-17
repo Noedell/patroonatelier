@@ -643,6 +643,63 @@
       .flat-history-item { grid-template-columns:1fr; }
     }
 
+    .app-version-badge { display:inline-flex; align-items:center; border:1px solid var(--line); background:var(--panel-soft); color:var(--muted); border-radius:999px; padding:5px 9px; font-size:11px; font-weight:800; white-space:nowrap; }
+
+    .project-panel { display:none; }
+    .project-panel.active { display:block; }
+    .project-overview-grid { display:grid; grid-template-columns:repeat(2,minmax(0,1fr)); gap:14px; }
+    .project-overview-card { border:1px solid var(--line); background:var(--panel); border-radius:16px; padding:14px; display:grid; grid-template-columns:110px minmax(0,1fr); gap:14px; align-items:start; }
+    .project-overview-card img { width:110px; height:110px; object-fit:cover; border-radius:12px; border:1px solid var(--line); background:var(--panel-soft); }
+    .project-overview-card .project-mini-flat { width:110px; height:110px; overflow:hidden; display:grid; place-items:center; border:1px solid var(--line); border-radius:12px; background:#fff; }
+    .project-overview-card .project-mini-flat svg { width:100%; height:auto; }
+    .status-badge { display:inline-flex; align-items:center; border-radius:999px; padding:5px 9px; font-size:11px; font-weight:800; border:1px solid var(--line); }
+    .status-badge.idea { background:var(--panel-soft); color:var(--muted); }
+    .status-badge.progress { background:#fff2cf; color:#70571a; border-color:#e9cd77; }
+    .status-badge.done { background:#e6f2e8; color:#3f6847; border-color:#bdd6c1; }
+    body[data-theme="dark"] .status-badge.progress { background:#3a3321; color:#ead395; border-color:#665a32; }
+    body[data-theme="dark"] .status-badge.done { background:#26382a; color:#a9d4b0; border-color:#405c45; }
+    .progress-track { height:8px; border-radius:999px; background:var(--panel-soft); overflow:hidden; border:1px solid var(--line); }
+    .progress-bar { height:100%; background:var(--accent); border-radius:999px; min-width:0; }
+    .project-detail-hero { display:grid; grid-template-columns:minmax(240px,360px) minmax(0,1fr); gap:20px; align-items:start; }
+    .project-detail-image { width:100%; max-height:420px; object-fit:contain; border:1px solid var(--line); border-radius:16px; background:var(--panel-soft); }
+    .project-detail-flat { border:1px solid var(--line); border-radius:16px; background:#fff; padding:8px; min-height:260px; display:grid; place-items:center; }
+    .project-detail-flat svg { width:100%; max-width:720px; height:auto; }
+    .project-task-table { width:100%; border-collapse:collapse; font-size:13px; }
+    .project-task-table th, .project-task-table td { text-align:left; padding:9px 7px; border-bottom:1px solid var(--line); vertical-align:middle; }
+    .project-task-table th { color:var(--muted); font-size:11px; }
+    .collection-grid { display:grid; grid-template-columns:repeat(3,minmax(0,1fr)); gap:14px; }
+    .collection-card { border:1px solid var(--line); background:var(--panel); border-radius:17px; overflow:hidden; display:flex; flex-direction:column; }
+    .collection-cover { width:100%; aspect-ratio:16/10; object-fit:cover; background:var(--panel-soft); display:block; }
+    .collection-cover-placeholder { aspect-ratio:16/10; display:grid; place-items:center; background:var(--panel-soft); color:var(--muted); border-bottom:1px dashed var(--line); }
+    .collection-card-body { padding:14px; display:grid; gap:9px; }
+    .collection-project-picker { display:grid; grid-template-columns:repeat(2,minmax(0,1fr)); gap:8px; max-height:360px; overflow:auto; }
+    .collection-project-option { border:1px solid var(--line); border-radius:12px; padding:9px; background:var(--panel-soft); display:flex; gap:9px; align-items:flex-start; }
+    .collection-project-option input { width:20px; height:20px; }
+    .collection-project-thumbs { display:grid; grid-template-columns:repeat(4,minmax(0,1fr)); gap:8px; }
+    .collection-project-thumbs img { width:100%; aspect-ratio:1; object-fit:cover; border-radius:10px; border:1px solid var(--line); }
+    .kanban-board { display:grid; grid-template-columns:repeat(3,minmax(0,1fr)); gap:14px; align-items:start; }
+    .kanban-column { border:1px solid var(--line); border-radius:16px; background:var(--panel-soft); padding:12px; min-height:280px; }
+    .kanban-column.drag-over { outline:2px dashed var(--accent); outline-offset:2px; }
+    .kanban-head { display:flex; justify-content:space-between; align-items:center; gap:8px; margin-bottom:10px; }
+    .kanban-head h3 { margin:0; font-size:14px; }
+    .kanban-count { border-radius:999px; background:var(--panel); border:1px solid var(--line); padding:3px 7px; font-size:10px; color:var(--muted); }
+    .kanban-stack { display:grid; gap:9px; }
+    .kanban-card { border:1px solid var(--line); border-radius:13px; background:var(--panel); padding:11px; display:grid; gap:8px; box-shadow:0 2px 8px rgba(64,48,39,.04); }
+    .kanban-card.dragging { opacity:.55; }
+    .kanban-card-title { font-weight:800; font-size:13px; }
+    .kanban-meta { display:grid; gap:3px; color:var(--muted); font-size:11px; }
+    .priority-high { color:#a04d4d; font-weight:800; }
+    .priority-low { color:#537a5a; }
+
+    @media (max-width:1100px) { .collection-grid { grid-template-columns:repeat(2,minmax(0,1fr)); } }
+    @media (max-width:760px) {
+      .project-overview-grid, .collection-grid, .kanban-board, .project-detail-hero, .collection-project-picker { grid-template-columns:1fr; }
+      .project-overview-card { grid-template-columns:86px minmax(0,1fr); }
+      .project-overview-card img, .project-overview-card .project-mini-flat { width:86px; height:86px; }
+      .project-task-table { display:block; overflow-x:auto; white-space:nowrap; }
+      .collection-project-thumbs { grid-template-columns:repeat(2,minmax(0,1fr)); }
+    }
+
     .mobile-nav { display: none; }
 
     @media (max-width: 1050px) {
@@ -715,7 +772,7 @@
   <main class="main">
     <header class="topbar">
       <h1 id="pageTitle">Overzicht</h1>
-      <div class="top-actions"><span id="jsStatus" class="meta" style="align-self:center;">App wordt gestart…</span>
+      <div class="top-actions"><span id="jsStatus" class="meta" style="align-self:center;">App wordt gestart…</span><span class="app-version-badge" id="appVersionBadge">v0.5</span>
         <label class="theme-picker">Thema <select id="themeSelect" aria-label="Kleurthema"><option value="atelier">Atelier</option><option value="rose">Rozenstof</option><option value="sage">Saliegroen</option><option value="ocean">Noordzee</option><option value="dark">Donker</option></select></label>
         <button class="btn ghost small" id="exportBtn">Exporteren</button>
         <button class="btn ghost small" id="importBtn">Importeren</button>
@@ -951,6 +1008,7 @@
                 <div class="field"><label>Bron</label><select id="patternSource"></select></div>
                 <div class="field"><label>Status</label><select id="patternStatus"></select></div>
                 <div class="field"><label>Favoriet</label><select id="patternFavorite"><option value="no">Nee</option><option value="yes">Ja</option></select></div>
+                <div class="field"><label>Gebruikt matenprofiel</label><select id="patternMeasurement"><option value="">Geen matenprofiel gekoppeld</option></select></div>
                 <div class="field"><label>Merk / ontwerper</label><input type="text" id="patternBrand" placeholder="Optioneel, vooral bij aangekochte patronen" /></div>
                 <div class="field"><label>Patroonnummer</label><input type="text" id="patternNumber" placeholder="Bijv. 1234" /></div>
                 <div class="field full"><label>Link naar patroon / website</label><input type="text" id="patternUrl" inputmode="url" placeholder="https://…" /></div>
@@ -1043,8 +1101,9 @@
                   <div class="field"><label>Halslijn</label><select id="plannerFlatNeckline"><option value="auto">Automatisch / neutraal</option><option value="round">Ronde hals</option><option value="v">V-hals</option><option value="boat">Boothals</option><option value="square">Vierkante hals</option><option value="wrap">Wikkel / overslag</option><option value="high">Hoge hals</option></select></div>
                   <div class="field"><label>Kraag</label><select id="plannerFlatCollar"><option value="auto">Automatisch / geen</option><option value="none">Geen kraag</option><option value="shirt">Overhemdkraag</option><option value="lapel">Reverskraag</option><option value="peterpan">Peter Pan-kraag</option><option value="turtleneck">Col / rolkraag</option><option value="hood">Capuchon</option></select></div>
                   <div class="field"><label>Pasvorm</label><select id="plannerFlatFit"><option value="auto">Automatisch / neutraal</option><option value="fitted">Aansluitend</option><option value="straight">Recht</option><option value="relaxed">Losvallend</option><option value="oversized">Oversized</option><option value="aline">A-lijn</option></select></div>
+                  <div class="field"><label>Broekpasvorm <span class="hint">bij broek/jumpsuit</span></label><select id="plannerFlatTrouserFit"><option value="auto">Automatisch / straight</option><option value="skinny">Skinny</option><option value="slim">Slim</option><option value="straight">Straight</option><option value="wide">Wide leg</option><option value="palazzo">Palazzo</option><option value="tapered">Tapered</option><option value="bootcut">Bootcut</option><option value="flare">Flare</option><option value="jogger">Jogger</option><option value="other">Andere / neutraal</option></select></div>
                   <div class="field"><label>Schoudervorm</label><select id="plannerFlatShoulder"><option value="auto">Automatisch / normaal</option><option value="regular">Normale schouder</option><option value="dropped">Verlaagde schouder</option><option value="narrow">Smallere schouder</option><option value="wide">Brede / rechte schouder</option></select></div>
-                  <div class="field"><label>Mouwtype</label><select id="plannerFlatSleeveType"><option value="auto">Automatisch / neutraal</option><option value="sleeveless">Mouwloos</option><option value="setin">Ingezette mouw</option><option value="cap">Kapmouw</option><option value="puff">Pofmouw</option><option value="balloon">Ballonmouw</option><option value="raglan">Raglanmouw</option><option value="batwing">Vleermuismouw</option><option value="kimono">Aangeknipte / kimonomouw</option><option value="flutter">Vlindermouw</option><option value="shirt">Hemdsblousemouw</option></select></div>
+                  <div class="field"><label>Mouwtype</label><select id="plannerFlatSleeveType"><option value="auto">Automatisch / neutraal</option><option value="sleeveless">Mouwloos</option><option value="setin">Normale ingezette mouw</option><option value="fitted">Aansluitende ingezette mouw</option><option value="wide">Wijde ingezette mouw</option><option value="cap">Kapmouw</option><option value="puff">Pofmouw</option><option value="balloon">Ballonmouw</option><option value="raglan">Raglanmouw</option><option value="batwing">Vleermuismouw</option><option value="kimono">Aangeknipte / kimonomouw</option><option value="flutter">Vlindermouw</option><option value="shirt">Hemdsblousemouw</option></select></div>
                   <div class="field"><label>Mouwlengte</label><select id="plannerFlatSleeveLength"><option value="auto">Automatisch / neutraal</option><option value="short">Kort</option><option value="elbow">Ellebooglengte</option><option value="threequarter">Driekwart</option><option value="long">Lang</option></select></div>
                   <div class="field"><label>Taille / silhouet</label><select id="plannerFlatWaist"><option value="auto">Automatisch / neutraal</option><option value="none">Geen speciale taille</option><option value="shaped">Getailleerd</option><option value="waistband">Tailleband</option><option value="elastic">Elastische taille</option><option value="belt">Ceintuur / riem</option></select></div>
                   <div class="field"><label>Zoom / lengte</label><select id="plannerFlatHem"><option value="auto">Automatisch uit kledingstuk/model</option><option value="waist">Taillelengte</option><option value="hip">Heuplengte</option><option value="above-knee">Boven de knie</option><option value="knee">Knielengte</option><option value="midi">Midi</option><option value="ankle">Enkellengte</option><option value="curved">Afgeronde zoom</option><option value="asym-left">Asymmetrisch · links lager</option><option value="asym-right">Asymmetrisch · rechts lager</option></select></div>
@@ -1096,26 +1155,61 @@
       </section>
 
       <section class="view" id="view-projects">
-        <div class="section-head"><div><h2>Projecten</h2><p>Je opgeslagen kledingideeën, inclusief gekozen basispatroon, modelintekeningen en stof.</p></div></div>
-        <div id="projectList" class="project-list"></div>
+        <div id="projectsOverviewPanel" class="project-panel active">
+          <div class="section-head"><div><h2>Projecten</h2><p>Bekijk voortgang, gebruikte stof en patroon, openstaande taken en de collectie waar ieder project bij hoort.</p></div><div class="toolbar"><button type="button" class="btn ghost" id="openCollectionsBtn">Collecties</button></div></div>
+          <div id="projectList" class="project-overview-grid"></div>
+        </div>
+
+        <div id="projectDetailPanel" class="project-panel">
+          <div class="idea-toolbar"><button type="button" class="btn ghost" id="backFromProjectDetailBtn">← Alle projecten</button><div class="toolbar" id="projectDetailActions"></div></div>
+          <div id="projectDetail"></div>
+        </div>
+
+        <div id="collectionsOverviewPanel" class="project-panel">
+          <div class="section-head"><div><h2>Collecties</h2><p>Groepeer projecten in een kleine collectie zonder projectgegevens te dupliceren.</p></div><div class="toolbar"><button type="button" class="btn ghost" id="backFromCollectionsBtn">← Projecten</button><button type="button" class="btn" id="newCollectionBtn">+ Nieuwe collectie</button></div></div>
+          <div id="collectionList" class="collection-grid"></div>
+        </div>
+
+        <div id="collectionFormPanel" class="project-panel">
+          <div class="section-head"><div><h2 id="collectionFormTitle">Nieuwe collectie</h2><p>Een project kan aan maximaal één collectie gekoppeld zijn.</p></div><button type="button" class="btn ghost" id="cancelCollectionBtn">← Terug</button></div>
+          <form id="collectionForm" class="card">
+            <div class="form-grid two">
+              <div class="field full"><label>Collectienaam <span class="hint">verplicht</span></label><input type="text" id="collectionName" required placeholder="Bijv. Najaarscollectie 2026" /></div>
+              <div class="field"><label>Seizoen</label><select id="collectionSeason"><option value="">Geen keuze</option><option>Lente</option><option>Zomer</option><option>Herfst</option><option>Winter</option><option>Alle seizoenen</option></select></div>
+              <div class="field"><label>Status</label><select id="collectionStatus"><option>Concept</option><option>Actief</option><option>Afgerond</option><option>Gearchiveerd</option></select></div>
+              <div class="field full"><label>Omschrijving</label><textarea id="collectionDescription" placeholder="Wat verbindt deze projecten?"></textarea></div>
+              <div class="field full"><label>Cover <span class="hint">optioneel</span></label><input type="file" id="collectionCoverInput" accept="image/*" /><img id="collectionCoverPreview" class="fabric-photo-preview" alt="Collectiecover" /><div class="toolbar"><button type="button" class="btn ghost small" id="removeCollectionCoverBtn" style="display:none;">Cover verwijderen</button></div></div>
+              <div class="field full"><label>Gekoppelde projecten</label><div id="collectionProjectPicker" class="collection-project-picker"></div></div>
+            </div>
+            <div class="toolbar" style="margin-top:18px;"><button class="btn" type="submit">Collectie opslaan</button></div>
+          </form>
+        </div>
+
+        <div id="collectionDetailPanel" class="project-panel">
+          <div class="idea-toolbar"><button type="button" class="btn ghost" id="backFromCollectionDetailBtn">← Alle collecties</button><div class="toolbar" id="collectionDetailActions"></div></div>
+          <div id="collectionDetail"></div>
+        </div>
       </section>
 
       <section class="view" id="view-todos">
-        <div class="section-head"><div><h2>To-do</h2><p>Plan losse taken of koppel een taak aan een kledingproject.</p></div></div>
-        <div class="grid two">
-          <div class="card">
-            <h3>Taak toevoegen</h3>
-            <form id="todoForm" class="form-grid two" style="margin-top:14px;">
-              <div class="field full"><label>Taak</label><input type="text" id="todoText" required placeholder="Bijv. proefmodel knippen" /></div>
-              <div class="field"><label>Project <span class="hint">optioneel</span></label><select id="todoProject"></select></div>
-              <div class="field"><label>Gewenste datum <span class="hint">optioneel</span></label><input type="date" id="todoDate" /></div>
-              <div class="field full"><button class="btn" type="submit">Taak toevoegen</button></div>
-            </form>
-          </div>
-          <div class="card">
-            <div class="toolbar" style="justify-content:space-between; margin-bottom:10px;"><h3 style="margin:0;">Taken</h3><button class="btn ghost small" id="clearDoneTodosBtn">Afgeronde verwijderen</button></div>
-            <div id="todoList" class="todo-list"></div>
-          </div>
+        <div class="section-head"><div><h2>To-do · Kanban</h2><p>Alle taken gebruiken dezelfde onderliggende status als op de projectpagina. Verplaats kaarten of gebruik de pijlen/statuskeuze.</p></div></div>
+        <div class="card" style="margin-bottom:16px;">
+          <h3>Taak toevoegen</h3>
+          <form id="todoForm" class="form-grid" style="margin-top:14px;">
+            <div class="field"><label>Taak</label><input type="text" id="todoText" required placeholder="Bijv. proefmodel knippen" /></div>
+            <div class="field"><label>Project <span class="hint">optioneel</span></label><select id="todoProject"></select></div>
+            <div class="field"><label>Gewenste datum <span class="hint">optioneel</span></label><input type="date" id="todoDate" /></div>
+            <div class="field"><label>Prioriteit</label><select id="todoPriority"><option>Laag</option><option selected>Normaal</option><option>Hoog</option></select></div>
+            <div class="field"><label>Startstatus</label><select id="todoStartStatus"><option value="todo">TO DO</option><option value="inprogress">IN UITVOERING</option><option value="done">GEREED</option></select></div>
+            <label class="check-item"><input type="checkbox" id="todoRequired" checked /> Vereist voor projectafronding</label>
+            <div class="field full"><button class="btn" type="submit">Taak toevoegen</button></div>
+          </form>
+        </div>
+        <div class="toolbar" style="justify-content:flex-end;margin-bottom:10px;"><button class="btn ghost small" id="clearDoneTodosBtn">Afgeronde losse taken opruimen</button></div>
+        <div id="todoKanban" class="kanban-board">
+          <section class="kanban-column" data-kanban-column="todo"><div class="kanban-head"><h3>TO DO</h3><span class="kanban-count" id="kanbanCountTodo">0</span></div><div class="kanban-stack" id="kanbanTodo"></div></section>
+          <section class="kanban-column" data-kanban-column="inprogress"><div class="kanban-head"><h3>IN UITVOERING</h3><span class="kanban-count" id="kanbanCountProgress">0</span></div><div class="kanban-stack" id="kanbanProgress"></div></section>
+          <section class="kanban-column" data-kanban-column="done"><div class="kanban-head"><h3>GEREED</h3><span class="kanban-count" id="kanbanCountDone">0</span></div><div class="kanban-stack" id="kanbanDone"></div></section>
         </div>
       </section>
     </div>
@@ -1140,6 +1234,7 @@
 <script>
 (() => {
   const STORAGE_KEY = 'patroonAtelierData_v1';
+  const APP_VERSION = '0.5';
 
   const measurementDefinitions = [
     ['bust','Borstomtrek'], ['frontWidth','Voorbreedte'], ['armholeWidth','Armsgatbreedte'],
@@ -1156,7 +1251,10 @@
     'Basismouw met 2 cm toegift',
     'Basismouw met 4 cm toegift',
     'Basisjurk met neep',
-    'Basisjurk zonder neep'
+    'Basisjurk zonder neep',
+    'Basisbroek',
+    'Basisvest',
+    'Basisgilet'
   ];
 
   const modelCategories = {
@@ -1169,7 +1267,10 @@
   };
 
   const garmentTypes = ['Broek', 'Blouse', 'Overhemd', 'Jurk', 'Rok', 'Top', 'T-shirt', 'Jumpsuit', 'Jas', 'Mantel', 'Vest', 'Gilet', 'Anders'];
-  const projectStatuses = ['Idee', 'Patroon maken', 'Patroon klaar', 'Knippen', 'Naaien', 'Afgerond'];
+  const projectStatuses = ['Idee', 'In uitvoering', 'Afgerond'];
+  const taskStatuses = ['todo', 'inprogress', 'done'];
+  const taskPriorities = ['Laag', 'Normaal', 'Hoog'];
+  const collectionStatuses = ['Concept', 'Actief', 'Afgerond', 'Gearchiveerd'];
   const ideaStatuses = ['Idee', 'Uitwerken', 'Klaar voor patroon', 'Omgezet naar project', 'Geparkeerd'];
   const ideaGarmentTypes = ['Top', 'Blouse', 'Jurk', 'Rok', 'Broek', 'Jas', 'Vest', 'Gilet', 'Anders'];
   const ideaSeasons = ['Lente', 'Zomer', 'Herfst', 'Winter', 'Alle seizoenen'];
@@ -1187,9 +1288,11 @@
     ideas: [],
     patterns: [],
     technicalFlats: [],
+    collections: [],
     projects: [],
     todos: [],
-    theme: 'atelier'
+    theme: 'atelier',
+    appVersion: APP_VERSION
   };
 
   let storageAvailable = true;
@@ -1216,7 +1319,13 @@
   let activePlannerFlatId = '';
   let plannerPreviewSvg = '';
   let plannerFlatDirty = true;
+  let projectPanelMode = 'overview';
+  let activeProjectId = '';
+  let activeCollectionId = '';
+  let editingCollectionId = '';
+  let pendingCollectionCover = '';
   let draggedProjectId = '';
+  let draggedKanbanTaskId = '';
   let touchDraggedProjectId = '';
   let touchDragTargetId = ''; 
 
@@ -1254,8 +1363,10 @@
         ideas: Array.isArray(parsed.ideas) ? parsed.ideas : [],
         patterns: Array.isArray(parsed.patterns) ? parsed.patterns : [],
         technicalFlats: Array.isArray(parsed.technicalFlats) ? parsed.technicalFlats : [],
+        collections: Array.isArray(parsed.collections) ? parsed.collections : [],
         projects: Array.isArray(parsed.projects) ? parsed.projects : [],
-        todos: Array.isArray(parsed.todos) ? parsed.todos : []
+        todos: Array.isArray(parsed.todos) ? parsed.todos : [],
+        appVersion: APP_VERSION
       };
     } catch (e) {
       console.warn('Kon opgeslagen gegevens niet laden:', e);
@@ -1265,6 +1376,7 @@
 
   function structuredCloneSafe(obj) { return JSON.parse(JSON.stringify(obj)); }
   function saveData() {
+    data.appVersion = APP_VERSION;
     safeStorageSet(STORAGE_KEY, JSON.stringify(data));
     renderAll();
     updateStorageWarning();
@@ -1324,11 +1436,13 @@
     if (view === 'planner') renderPlanner();
     if (view === 'ideas') showIdeaPanel('overview');
     if (view === 'patterns') showPatternPanel('overview');
+    if (view === 'projects') showProjectPanel('overview');
   }
 
   document.querySelectorAll('[data-view]').forEach(btn => btn.addEventListener('click', () => { if (Date.now() - lastTouchNavigation > 450) navigate(btn.dataset.view); }));
 
   function buildStaticUI() {
+    const versionBadge=document.getElementById('appVersionBadge'); if(versionBadge) versionBadge.textContent='v'+APP_VERSION;
     document.getElementById('measurementDate').value = todayISO();
 
     document.getElementById('measurementFields').innerHTML = measurementDefinitions.map(([key,label,standard]) => `
@@ -1369,6 +1483,7 @@
     document.getElementById('patternSource').innerHTML = patternSources.map(x => `<option value="${esc(x)}">${esc(x)}</option>`).join('');
     document.getElementById('patternStatus').innerHTML = patternStatuses.map(x => `<option value="${esc(x)}">${esc(x)}</option>`).join('');
     document.getElementById('patternVersionStatus').innerHTML = patternStatuses.map(x => `<option value="${esc(x)}">${esc(x)}</option>`).join('');
+    renderPatternBaseMeasurementOptions('');
   }
 
   function syncSelectionsToInputs() {
@@ -2031,7 +2146,7 @@
     const ideaPatternSnapshot = ideaPatternVersion && ideaPatternVersion.plannerSnapshot ? ideaPatternVersion.plannerSnapshot : null;
     const project = {
       id: uid(), name: idea.name, garment: (ideaPatternSnapshot && ideaPatternSnapshot.garment) || idea.garment || 'Anders', basePattern:(ideaPatternSnapshot && ideaPatternSnapshot.basePattern)||'', models:Object.keys(mappedIdeaModels(idea)).length ? mappedIdeaModels(idea) : structuredCloneSafe((ideaPatternSnapshot&&ideaPatternSnapshot.models)||{}),
-      fabricId: fabric ? fabric.id : '', fabricLabel: fabric ? fabricTitle(fabric) : '', note:'', inspirationPhoto:'',
+      fabricId: fabric ? fabric.id : '', fabricLabel: fabric ? fabricTitle(fabric) : '', note:'', description:'', collectionId:'', inspirationPhoto:'',
       ideaId: idea.id, technicalDesign:structuredCloneSafe((ideaPatternSnapshot&&ideaPatternSnapshot.technicalDesign)||{}), technicalNotes:(ideaPatternSnapshot&&ideaPatternSnapshot.technicalNotes)||'', technicalFlatId:(ideaPatternSnapshot&&ideaPatternSnapshot.technicalFlatId)||'', patternId:ideaPattern?ideaPattern.id:'', patternVersionId:ideaPatternVersion?ideaPatternVersion.id:'', patternName:ideaPattern?ideaPattern.name:'', patternVersionNumber:ideaPatternVersion?ideaPatternVersion.number:'',
       status:'Idee', createdAt:todayISO(), measurementId:ideaPatternVersion&&ideaPatternVersion.measurementId?ideaPatternVersion.measurementId:(data.measurements.length ? data.measurements[0].id : '')
     };
@@ -2040,25 +2155,14 @@
     idea.status = 'Omgezet naar project';
     idea.updatedAt = todayISO();
     const defaultTasks = ['Basispatroon kiezen of overnemen', 'Modelintekeningen uitwerken', 'Patroondelen controleren', 'Stof knippen', 'Kledingstuk naaien', 'Doorpassen en afwerken'];
-    defaultTasks.forEach(text => data.todos.push({ id:uid(), text, projectId:project.id, dueDate:'', done:false, createdAt:todayISO() }));
+    defaultTasks.forEach(text => data.todos.push({ id:uid(), text, projectId:project.id, dueDate:'', status:'todo', done:false, priority:'Normaal', required:true, createdAt:todayISO() }));
     saveData();
     activeIdeaId = idea.id;
     showIdeaPanel('detail');
     showToast('Project aangemaakt vanuit idee');
   };
 
-  window.goToIdeaProject = function(projectId) {
-    highlightProjectId = projectId;
-    navigate('projects');
-    setTimeout(() => {
-      const card = document.getElementById('project-card-' + projectId);
-      if (card) {
-        card.classList.add('project-highlight');
-        card.scrollIntoView({behavior:'smooth', block:'center'});
-        setTimeout(() => card.classList.remove('project-highlight'), 2200);
-      }
-    }, 80);
-  };
+  window.goToIdeaProject = function(projectId) { navigate('projects'); setTimeout(()=>openProjectDetail(projectId),30); };
 
   window.goToProjectIdea = function(ideaId) {
     if (!data.ideas.some(i => i.id === ideaId)) return;
@@ -2097,6 +2201,7 @@
   function normalizePattern(pattern) {
     if (!pattern) return pattern;
     if (!Array.isArray(pattern.images)) pattern.images = [];
+    if (!pattern.measurementId) pattern.measurementId = '';
     if (!Array.isArray(pattern.versions)) pattern.versions = [];
     pattern.versions.forEach(v => {
       if (!v.id) v.id = uid();
@@ -2178,6 +2283,7 @@
     document.getElementById('patternSource').value = 'Eigen ontwerp';
     document.getElementById('patternStatus').value = 'Concept';
     document.getElementById('patternFavorite').value = 'no';
+    renderPatternBaseMeasurementOptions('');
     document.getElementById('patternFormTitle').textContent = 'Nieuw patroon';
     document.getElementById('patternSubmitBtn').textContent = 'Patroon opslaan';
     document.getElementById('patternImagesInput').value = '';
@@ -2238,6 +2344,7 @@
       source: document.getElementById('patternSource').value || 'Anders',
       status: document.getElementById('patternStatus').value || 'Concept',
       favorite: document.getElementById('patternFavorite').value === 'yes',
+      measurementId: document.getElementById('patternMeasurement').value,
       brand: document.getElementById('patternBrand').value.trim(),
       patternNumber: document.getElementById('patternNumber').value.trim(),
       url: document.getElementById('patternUrl').value.trim(),
@@ -2262,7 +2369,7 @@
       showToast('Patroon bijgewerkt');
     } else {
       const firstVersion = {
-        id:uid(), number:'1.0', title:'Origineel', date:todayISO(), status:values.status || 'Concept', usedSize:'', measurementId:'',
+        id:uid(), number:'1.0', title:'Origineel', date:todayISO(), status:values.status || 'Concept', usedSize:'', measurementId:values.measurementId || '',
         changes:'Originele versie.', fitNotes:'', adjustments:'', notes:'', image:'', file:null,
         rating:{fit:'', difficulty:'', adjustmentAmount:'', reuse:'', nextChange:'', experience:''},
         plannerSnapshot:{basePattern:'', models:{}, garment:values.garment || '', technicalDesign:{}, technicalNotes:'', technicalFlatId:''}, fitProfileId:'', standardAdjustmentIds:[], fabricAdviceIds:[], analytics:{}, createdAt:todayISO(), updatedAt:todayISO()
@@ -2289,6 +2396,7 @@
     document.getElementById('patternSource').value = pattern.source || 'Anders';
     document.getElementById('patternStatus').value = pattern.status || 'Concept';
     document.getElementById('patternFavorite').value = pattern.favorite ? 'yes':'no';
+    renderPatternBaseMeasurementOptions(pattern.measurementId || '');
     document.getElementById('patternBrand').value = pattern.brand || '';
     document.getElementById('patternNumber').value = pattern.patternNumber || '';
     document.getElementById('patternUrl').value = pattern.url || '';
@@ -2412,12 +2520,31 @@
     document.getElementById('patternDetailTopActions').innerHTML=`<button class="favorite-btn ${pattern.favorite?'active':''}" onclick="togglePatternFavorite('${pattern.id}')" aria-label="Favoriet">${pattern.favorite?'★':'☆'}</button><button class="btn secondary small" onclick="editPattern('${pattern.id}')">Patroon aanpassen</button><button class="btn danger small" onclick="deletePattern('${pattern.id}')">Verwijderen</button>`;
     root.innerHTML=`<div class="pattern-detail-hero"><div>${media}</div><div class="pattern-detail-title"><div class="meta">${esc(pattern.garment||'Geen type')} · ${esc(pattern.kind||'Geen patroonsoort')}</div><h2>${esc(pattern.name)}</h2><div class="field" style="max-width:260px;"><label>Status</label><select onchange="setPatternStatus('${pattern.id}',this.value)">${patternStatuses.map(st=>`<option value="${esc(st)}" ${pattern.status===st?'selected':''}>${esc(st)}</option>`).join('')}</select></div><div class="chip-row" style="margin-top:10px;"><span class="chip">${esc(pattern.source||'Bron onbekend')}</span>${pattern.brand?`<span class="chip">${esc(pattern.brand)}</span>`:''}${pattern.patternNumber?`<span class="chip">#${esc(pattern.patternNumber)}</span>`:''}</div>${pattern.description?`<p style="line-height:1.65;color:var(--muted);">${esc(pattern.description)}</p>`:''}${website?`<div><a class="btn ghost small" href="${esc(website)}" target="_blank" rel="noopener">Open patroonwebsite</a></div>`:''}<div class="idea-flow"><span class="idea-flow-step">Idee</span><span>→</span><span class="idea-flow-step current">Patroon</span><span>→</span><span class="idea-flow-step">Versie</span><span>→</span><span class="idea-flow-step">Project</span></div><div class="toolbar" style="margin-top:18px;"><button class="btn" onclick="openNewPatternVersion('${pattern.id}','${current?current.id:''}')">Nieuwe versie maken</button>${current?`<button class="btn secondary" onclick="createProjectFromPattern('${pattern.id}','${current.id}')">Maak project van dit patroon</button>`:''}</div></div></div>
     <div class="pattern-detail-sections">
+      <section class="pattern-detail-section"><h3>Gebruikt matenprofiel van patroon</h3>${measurementProfileSummaryHtml(pattern.measurementId)}<p class="meta" style="margin:10px 0 0;">Dit is een koppeling naar één specifieke meting uit het Matenarchief; de maatwaarden worden niet in het patroon gedupliceerd. Iedere patroonversie bewaart daarnaast zijn eigen matenprofielkoppeling.</p></section>
       <section class="pattern-detail-section"><h3>Huidige versie</h3>${current?`<div class="version-detail-grid"><div class="pattern-meta-item"><span>Versie</span>${esc(current.number||'—')}</div><div class="pattern-meta-item"><span>Titel</span>${esc(current.title||'—')}</div><div class="pattern-meta-item"><span>Status</span>${esc(current.status||'—')}</div><div class="pattern-meta-item"><span>Gebruikte maat</span>${esc(current.usedSize||'—')}</div><div class="pattern-meta-item"><span>Matenprofiel</span>${esc(measurementProfileLabel(current.measurementId))}</div><div class="pattern-meta-item"><span>Belangrijkste aanpassingen</span>${esc(current.adjustments||current.changes||'—')}</div></div><div class="toolbar" style="margin-top:12px;"><button class="btn secondary small" onclick="openPatternVersionDetail('${pattern.id}','${current.id}')">Bekijk huidige versie</button><button class="btn ghost small" onclick="openPatternVersionInPlanner('${pattern.id}','${current.id}')">Open in Patroonplanner</button></div>`:'<div class="empty">Nog geen versie.</div>'}</section>
       <section class="pattern-detail-section"><h3>Versiegeschiedenis</h3><div class="version-timeline">${versionRows||'<div class="empty">Nog geen versies.</div>'}</div></section>
       <section class="pattern-detail-section"><h3>Patroonafbeeldingen</h3>${pattern.images.length?`<div class="pattern-gallery">${pattern.images.map(img=>`<figure><img src="${img.data}" alt="${esc(img.type||'Patroonafbeelding')}" /><figcaption>${esc(img.id===pattern.mainImageId?'Hoofdafbeelding · ':'')}${esc(img.type||'Afbeelding')}</figcaption></figure>`).join('')}</div>`:'<div class="empty">Nog geen patroonafbeeldingen.</div>'}</section>
       <section class="pattern-detail-section"><h3>Relaties</h3><div class="pattern-relations"><div><h4>Gekoppelde ideeën</h4><div class="pattern-relation-list">${ideaRows}</div><div class="toolbar" style="margin-top:10px;"><select id="patternIdeaLinkSelect" style="min-width:220px;"><option value="">Kies idee om te koppelen…</option>${availableIdeas.map(idea=>`<option value="${idea.id}">${esc(idea.name)}</option>`).join('')}</select><button class="btn ghost small" onclick="linkSelectedIdeaToPattern('${pattern.id}')">Idee koppelen</button></div></div><div><h4>Gekoppelde projecten</h4><div class="pattern-relation-list">${projectRows}</div></div></div></section>
       ${pattern.notes?`<section class="pattern-detail-section"><h3>Algemene notities</h3><div style="white-space:pre-wrap;line-height:1.6;">${esc(pattern.notes)}</div></section>`:''}
     </div>`;
+  }
+
+  function renderPatternBaseMeasurementOptions(selectedId) {
+    const select=document.getElementById('patternMeasurement');
+    if(!select) return;
+    select.innerHTML='<option value="">Geen matenprofiel gekoppeld</option>'+data.measurements.map(m=>`<option value="${m.id}">${esc(m.label||'Meting')} · ${formatDate(m.date)}</option>`).join('');
+    if ([...select.options].some(o=>o.value===selectedId)) select.value=selectedId;
+  }
+
+  function measurementValue(m,key) {
+    return m && m.values && m.values[key] && m.values[key].own ? m.values[key].own : '';
+  }
+
+  function measurementProfileSummaryHtml(id) {
+    const m=data.measurements.find(x=>x.id===id);
+    if(!m) return '<div class="empty">Geen matenprofiel gekoppeld.</div>';
+    const length=measurementValue(m,'frontLength')||measurementValue(m,'backLength');
+    return `<div class="version-detail-grid"><div class="pattern-meta-item"><span>Profiel</span>${esc(m.label||'Meting')} · ${formatDate(m.date)}</div><div class="pattern-meta-item"><span>Borst</span>${esc(measurementValue(m,'bust')||'—')}${measurementValue(m,'bust')?' cm':''}</div><div class="pattern-meta-item"><span>Taille</span>${esc(measurementValue(m,'waist')||'—')}${measurementValue(m,'waist')?' cm':''}</div><div class="pattern-meta-item"><span>Heup</span>${esc(measurementValue(m,'hip')||'—')}${measurementValue(m,'hip')?' cm':''}</div><div class="pattern-meta-item"><span>Lengte</span>${esc(length||'—')}${length?' cm':''}</div></div>`;
   }
 
   function measurementProfileLabel(id) {
@@ -2610,16 +2737,16 @@
 
   window.goToPatternIdea=function(ideaId){navigate('ideas');activeIdeaId=ideaId;showIdeaPanel('detail');};
   window.goToIdeaPattern=function(patternId){navigate('patterns');activePatternId=patternId;showPatternPanel('detail');};
-  window.goToPatternProject=function(projectId){highlightProjectId=projectId;navigate('projects');setTimeout(()=>{const card=document.getElementById('project-card-'+projectId);if(card){card.classList.add('project-highlight');card.scrollIntoView({behavior:'smooth',block:'center'});setTimeout(()=>card.classList.remove('project-highlight'),2200);}},80);};
+  window.goToPatternProject=function(projectId){navigate('projects');setTimeout(()=>openProjectDetail(projectId),30);};
   window.goToProjectPattern=function(patternId,versionId){navigate('patterns');activePatternId=patternId;if(versionId){activePatternVersionId=versionId;showPatternPanel('versionDetail');}else showPatternPanel('detail');};
 
   window.createProjectFromPattern=function(patternId,versionId){
     const {pattern,version}=findPatternVersion(patternId,versionId);if(!pattern||!version)return;
     const snap=version.plannerSnapshot||{basePattern:'',models:{},garment:pattern.garment||''};
-    const linkedFlat=latestTechnicalFlatForPatternVersion(pattern.id,version.id)||technicalFlatRecord(snap.technicalFlatId); const project={id:uid(),name:pattern.name,garment:snap.garment||pattern.garment||'Anders',basePattern:snap.basePattern||'',models:structuredCloneSafe(snap.models||{}),technicalDesign:structuredCloneSafe(snap.technicalDesign||{}),technicalNotes:snap.technicalNotes||'',technicalFlatId:linkedFlat?linkedFlat.id:'',fabricId:'',fabricLabel:'',note:'',inspirationPhoto:'',ideaId:'',patternId:pattern.id,patternVersionId:version.id,patternName:pattern.name,patternVersionNumber:version.number||'',status:'Idee',createdAt:todayISO(),measurementId:version.measurementId||(data.measurements.length?data.measurements[0].id:'')}; if(linkedFlat){if(!Array.isArray(linkedFlat.linkedProjectIds))linkedFlat.linkedProjectIds=[];if(!linkedFlat.linkedProjectIds.includes(project.id))linkedFlat.linkedProjectIds.push(project.id);}
+    const linkedFlat=latestTechnicalFlatForPatternVersion(pattern.id,version.id)||technicalFlatRecord(snap.technicalFlatId); const project={id:uid(),name:pattern.name,garment:snap.garment||pattern.garment||'Anders',basePattern:snap.basePattern||'',models:structuredCloneSafe(snap.models||{}),technicalDesign:structuredCloneSafe(snap.technicalDesign||{}),technicalNotes:snap.technicalNotes||'',technicalFlatId:linkedFlat?linkedFlat.id:'',fabricId:'',fabricLabel:'',note:'',description:'',collectionId:'',inspirationPhoto:'',ideaId:'',patternId:pattern.id,patternVersionId:version.id,patternName:pattern.name,patternVersionNumber:version.number||'',status:'Idee',createdAt:todayISO(),measurementId:version.measurementId||(data.measurements.length?data.measurements[0].id:'')}; if(linkedFlat){if(!Array.isArray(linkedFlat.linkedProjectIds))linkedFlat.linkedProjectIds=[];if(!linkedFlat.linkedProjectIds.includes(project.id))linkedFlat.linkedProjectIds.push(project.id);}
     data.projects.unshift(project);
     const tasks=['Model en patroonversie controleren','Patroondelen controleren','Stof kiezen en knippen','Kledingstuk naaien','Doorpassen','Resultaat en patroonversie beoordelen'];
-    tasks.forEach(text=>data.todos.push({id:uid(),text,projectId:project.id,dueDate:'',done:false,createdAt:todayISO()}));
+    tasks.forEach(text=>data.todos.push({id:uid(),text,projectId:project.id,dueDate:'',status:'todo',done:false,priority:'Normaal',required:true,createdAt:todayISO()}));
     saveData();showToast('Project aangemaakt vanuit patroonversie');goToPatternProject(project.id);
   };
 
@@ -2700,17 +2827,17 @@
   function modelValue(models, category) { return models && models[category] ? models[category] : ''; }
 
   function plannerTechnicalDesignDefaults(){
-    return {neckline:'auto',collar:'auto',fit:'auto',shoulder:'auto',sleeveType:'auto',sleeveLength:'auto',waist:'auto',hem:'auto',seams:'auto',darts:'auto',closure:'auto',pockets:'auto',asymmetry:'symmetric',details:[]};
+    return {neckline:'auto',collar:'auto',fit:'auto',trouserFit:'auto',shoulder:'auto',sleeveType:'auto',sleeveLength:'auto',waist:'auto',hem:'auto',seams:'auto',darts:'auto',closure:'auto',pockets:'auto',asymmetry:'symmetric',details:[]};
   }
 
   function getPlannerTechnicalDesign(){
     const g=id=>{const el=document.getElementById(id);return el?el.value:'auto';};
-    return {neckline:g('plannerFlatNeckline'),collar:g('plannerFlatCollar'),fit:g('plannerFlatFit'),shoulder:g('plannerFlatShoulder'),sleeveType:g('plannerFlatSleeveType'),sleeveLength:g('plannerFlatSleeveLength'),waist:g('plannerFlatWaist'),hem:g('plannerFlatHem'),seams:g('plannerFlatSeams'),darts:g('plannerFlatDarts'),closure:g('plannerFlatClosure'),pockets:g('plannerFlatPockets'),asymmetry:g('plannerFlatAsymmetry'),details:Array.from(document.querySelectorAll('input[name="plannerFlatDetail"]:checked')).map(x=>x.value)};
+    return {neckline:g('plannerFlatNeckline'),collar:g('plannerFlatCollar'),fit:g('plannerFlatFit'),trouserFit:g('plannerFlatTrouserFit'),shoulder:g('plannerFlatShoulder'),sleeveType:g('plannerFlatSleeveType'),sleeveLength:g('plannerFlatSleeveLength'),waist:g('plannerFlatWaist'),hem:g('plannerFlatHem'),seams:g('plannerFlatSeams'),darts:g('plannerFlatDarts'),closure:g('plannerFlatClosure'),pockets:g('plannerFlatPockets'),asymmetry:g('plannerFlatAsymmetry'),details:Array.from(document.querySelectorAll('input[name="plannerFlatDetail"]:checked')).map(x=>x.value)};
   }
 
   function setPlannerTechnicalDesign(value){
     const d={...plannerTechnicalDesignDefaults(),...(value||{})};
-    const map={plannerFlatNeckline:'neckline',plannerFlatCollar:'collar',plannerFlatFit:'fit',plannerFlatShoulder:'shoulder',plannerFlatSleeveType:'sleeveType',plannerFlatSleeveLength:'sleeveLength',plannerFlatWaist:'waist',plannerFlatHem:'hem',plannerFlatSeams:'seams',plannerFlatDarts:'darts',plannerFlatClosure:'closure',plannerFlatPockets:'pockets',plannerFlatAsymmetry:'asymmetry'};
+    const map={plannerFlatNeckline:'neckline',plannerFlatCollar:'collar',plannerFlatFit:'fit',plannerFlatTrouserFit:'trouserFit',plannerFlatShoulder:'shoulder',plannerFlatSleeveType:'sleeveType',plannerFlatSleeveLength:'sleeveLength',plannerFlatWaist:'waist',plannerFlatHem:'hem',plannerFlatSeams:'seams',plannerFlatDarts:'darts',plannerFlatClosure:'closure',plannerFlatPockets:'pockets',plannerFlatAsymmetry:'asymmetry'};
     Object.entries(map).forEach(([id,key])=>{const el=document.getElementById(id);if(el&&[...el.options].some(o=>o.value===d[key]))el.value=d[key];});
     const selected=Array.isArray(d.details)?d.details:[];
     document.querySelectorAll('input[name="plannerFlatDetail"]').forEach(cb=>cb.checked=selected.includes(cb.value));
@@ -2723,6 +2850,9 @@
   function inferGarmentFromBase(basePattern){
     const b=String(basePattern||'').toLowerCase();
     if(b.includes('jurk'))return 'Jurk';
+    if(b.includes('broek'))return 'Broek';
+    if(b.includes('vest'))return 'Vest';
+    if(b.includes('gilet'))return 'Gilet';
     if(b.includes('mouw'))return 'Top';
     if(b.includes('corsage'))return 'Top';
     return 'Anders';
@@ -2766,7 +2896,7 @@
       else if(sleeve==='Vleermuismouw')spec.sleeveType='batwing';
       else if(sleeve==='Vlindermouw')spec.sleeveType='flutter';
       else if(sleeve==='Hemdsblousemouw')spec.sleeveType='shirt';
-      else if(sleeve==='Lange aansluitende mouw')spec.sleeveType='setin';
+      else if(sleeve==='Lange aansluitende mouw')spec.sleeveType='fitted';
     }
     if(!explicit('sleeveLength')&&(sleeve==='Hemdsblousemouw'||sleeve==='Lange aansluitende mouw'))spec.sleeveLength='long';
     const closure=modelValue(models,'Sluitingen');
@@ -2791,7 +2921,18 @@
     setFromNotes('fit','oversized','oversized',['oversized','oversize']);
     setFromNotes('fit','relaxed','losvallend',['losvallend','losse pasvorm']);
     setFromNotes('fit','fitted','aansluitend',['aansluitend','getailleerd']);
+    setFromNotes('trouserFit','skinny','skinny',['skinny']);
+    setFromNotes('trouserFit','slim','slim',['slim fit','slim broek']);
+    setFromNotes('trouserFit','wide','wide leg',['wide leg','wijde broek']);
+    setFromNotes('trouserFit','palazzo','palazzo',['palazzo']);
+    setFromNotes('trouserFit','tapered','tapered',['tapered']);
+    setFromNotes('trouserFit','bootcut','bootcut',['bootcut']);
+    setFromNotes('trouserFit','flare','flare',['flare','flared']);
+    setFromNotes('trouserFit','jogger','jogger',['jogger']);
+    setFromNotes('trouserFit','straight','straight',['straight leg','rechte broek']);
     setFromNotes('shoulder','dropped','verlaagde schouder',['verlaagde schouder','drop shoulder']);
+    setFromNotes('sleeveType','fitted','aansluitende mouw',['aansluitende mouw','smalle mouw']);
+    setFromNotes('sleeveType','wide','wijde mouw',['wijde mouw','wide sleeve']);
     setFromNotes('sleeveType','balloon','ballonmouw',['ballonmouw','ballon mouw']);
     setFromNotes('sleeveType','puff','pofmouw',['pofmouw','pof mouw']);
     setFromNotes('sleeveType','raglan','raglanmouw',['raglan']);
@@ -2825,6 +2966,7 @@
     if(spec.neckline==='auto')spec.neckline='round';
     if(spec.collar==='auto')spec.collar='none';
     if(spec.fit==='auto')spec.fit=(family==='dress'?'straight':'straight');
+    if(spec.trouserFit==='auto')spec.trouserFit=(family==='trousers'||family==='jumpsuit')?'straight':'other';
     if(spec.shoulder==='auto')spec.shoulder='regular';
     if(spec.waist==='auto')spec.waist=(family==='skirt'||family==='trousers'?'waistband':'none');
     if(spec.seams==='auto')spec.seams='none';
@@ -2857,6 +2999,63 @@
       if(h==='waist')return 305; if(h==='hip'||h==='curved'||h==='asym-left'||h==='asym-right')return 385; if(h==='above-knee')return 470; if(h==='knee')return 505; if(h==='midi')return 535; if(h==='ankle')return 555; return 385;
     }
     if(h==='waist')return 300; if(h==='hip')return 345; if(h==='above-knee')return 410; if(h==='knee')return 470; if(h==='midi')return 525; if(h==='ankle')return 565; return 470;
+  }
+
+  function technicalSleeveProfile(spec) {
+    const type=spec.sleeveType;
+    // Values describe the flat garment, not an arm: cap controls upper-arm room,
+    // outerEnd/innerEnd determine the visible sleeve-hem width.
+    let profile={cap:58,outerEnd:56,innerEnd:14,bulge:0,midOuter:60,midInner:12};
+    if(type==='fitted') profile={cap:49,outerEnd:47,innerEnd:18,bulge:0,midOuter:51,midInner:15};
+    if(type==='wide') profile={cap:68,outerEnd:72,innerEnd:9,bulge:4,midOuter:72,midInner:8};
+    if(type==='shirt') profile={cap:60,outerEnd:57,innerEnd:15,bulge:3,midOuter:62,midInner:12};
+    if(type==='raglan') profile={cap:56,outerEnd:54,innerEnd:15,bulge:0,midOuter:59,midInner:12};
+    if(type==='puff') profile={cap:75,outerEnd:61,innerEnd:16,bulge:26,midOuter:78,midInner:11};
+    if(type==='balloon') profile={cap:72,outerEnd:50,innerEnd:18,bulge:35,midOuter:82,midInner:10};
+    if(spec.fit==='relaxed'&&!['fitted','wide','puff','balloon'].includes(type)){profile.cap+=4;profile.outerEnd+=4;profile.midOuter+=4;}
+    if(spec.fit==='oversized'&&!['fitted','wide','puff','balloon'].includes(type)){profile.cap+=9;profile.outerEnd+=8;profile.innerEnd-=2;profile.midOuter+=10;profile.midInner-=2;}
+    return profile;
+  }
+
+  function technicalTrouserProfile(spec) {
+    const fit=spec.trouserFit||'straight';
+    const profiles={
+      skinny:{waist:80,hip:96,thigh:72,knee:48,hem:32,innerThigh:20,innerKnee:15,innerHem:9},
+      slim:{waist:82,hip:99,thigh:76,knee:55,hem:40,innerThigh:21,innerKnee:15,innerHem:10},
+      straight:{waist:84,hip:101,thigh:80,knee:65,hem:62,innerThigh:22,innerKnee:16,innerHem:12},
+      wide:{waist:86,hip:105,thigh:89,knee:82,hem:80,innerThigh:23,innerKnee:17,innerHem:13},
+      palazzo:{waist:87,hip:107,thigh:94,knee:91,hem:89,innerThigh:24,innerKnee:18,innerHem:14},
+      tapered:{waist:85,hip:103,thigh:85,knee:65,hem:47,innerThigh:22,innerKnee:16,innerHem:10},
+      bootcut:{waist:83,hip:100,thigh:78,knee:55,hem:68,innerThigh:21,innerKnee:15,innerHem:12},
+      flare:{waist:83,hip:100,thigh:78,knee:52,hem:79,innerThigh:21,innerKnee:15,innerHem:13},
+      jogger:{waist:87,hip:105,thigh:88,knee:69,hem:43,innerThigh:23,innerKnee:16,innerHem:10},
+      other:{waist:84,hip:101,thigh:80,knee:65,hem:62,innerThigh:22,innerKnee:16,innerHem:12}
+    };
+    return profiles[fit]||profiles.straight;
+  }
+
+  function technicalFlatQualityCheck(spec) {
+    const issues=[],checks=[];
+    if((spec.family==='upper'||spec.family==='dress'||spec.family==='jumpsuit')&&!['sleeveless','cap','flutter','kimono','batwing'].includes(spec.sleeveType)){
+      const p=technicalSleeveProfile(spec),cuffWidth=p.outerEnd-p.innerEnd;
+      const minUpper=spec.sleeveType==='fitted'?44:spec.sleeveType==='wide'?62:spec.sleeveType==='balloon'||spec.sleeveType==='puff'?66:52;
+      const minCuff=spec.sleeveType==='fitted'?24:spec.sleeveType==='balloon'?28:spec.sleeveType==='wide'?54:32;
+      const upperOK=p.cap>=minUpper,cuffOK=cuffWidth>=minCuff,curveOK=p.midOuter>p.midInner+28;
+      checks.push({name:'mouwbreedte',pass:upperOK},{name:'mouwzoom',pass:cuffOK},{name:'mouwcontour',pass:curveOK},{name:'mouwsymmetrie',pass:true},{name:'aansluiting-armsgat',pass:true});
+      if(!upperOK)issues.push('Mouwkop/bovenarm te smal voor het gekozen mouwtype.');
+      if(!cuffOK)issues.push('Mouwzoom te smal voor het gekozen mouwtype.');
+      if(!curveOK)issues.push('Mouwcontour vernauwt te abrupt.');
+    }
+    if(spec.family==='trousers'||spec.family==='jumpsuit'){
+      const p=technicalTrouserProfile(spec);
+      const hipThighOK=p.hip-p.thigh<=28,thighKneeOK=p.thigh-p.knee<=35,hemOK=p.hem>p.innerHem+16,symmetryOK=true,crotchOK=p.innerThigh>=19;
+      checks.push({name:'heup-bovenbeen',pass:hipThighOK},{name:'bovenbeen-knie',pass:thighKneeOK},{name:'beenwijdte',pass:hemOK},{name:'been-symmetrie',pass:symmetryOK},{name:'kruis',pass:crotchOK});
+      if(!hipThighOK)issues.push('Overgang heup naar bovenbeen te abrupt.');
+      if(!thighKneeOK)issues.push('Overgang bovenbeen naar knie te abrupt.');
+      if(!hemOK)issues.push('Broekzoom te smal voor het gekozen broektype.');
+      if(!crotchOK)issues.push('Kruis/inner-thigh verhouding onvoldoende.');
+    }
+    return {pass:issues.length===0,issues,checks,checkedAt:nowISO(),ruleset:'proportion-qc-0.5'};
   }
 
   function technicalFlatSvg(spec){
@@ -2894,20 +3093,39 @@
       return {y,left,right,half,depth,close,shape};
     }
 
+    function sleeveEndY(){
+      const len=spec.sleeveLength;
+      return len==='short'?225:len==='elbow'?290:len==='threequarter'?355:442;
+    }
+
     function sleeveSegment(cx,side,shoulderX,shoulderY,underX,underY){
-      const type=spec.sleeveType,len=spec.sleeveLength;
+      const type=spec.sleeveType;
       if(type==='sleeveless')return `Q${cx+side*104} ${shoulderY+34} ${underX} ${underY}`;
-      if(type==='cap')return `Q${cx+side*112} ${shoulderY+10} ${cx+side*116} ${shoulderY+38} Q${cx+side*108} ${underY-4} ${underX} ${underY}`;
-      if(type==='flutter')return `Q${cx+side*132} ${shoulderY+12} ${cx+side*145} ${shoulderY+72} Q${cx+side*116} ${shoulderY+84} ${underX} ${underY}`;
-      if(type==='kimono')return `L${cx+side*136} ${shoulderY+20} L${cx+side*126} ${underY+7} L${underX} ${underY}`;
-      const endY=len==='short'?222:len==='elbow'?285:len==='threequarter'?350:438;
-      let volume=type==='puff'?52:type==='balloon'?58:type==='raglan'?36:type==='shirt'?34:30;
-      if(spec.fit==='oversized')volume+=7;
-      const outerX=cx+side*(Math.abs(shoulderX-cx)+volume);
-      const innerX=cx+side*(Math.abs(underX-cx)+14);
-      if(type==='puff')return `Q${outerX} ${shoulderY+7} ${outerX+side*8} ${shoulderY+42} L${cx+side*(Math.abs(shoulderX-cx)+43)} ${endY} L${cx+side*(Math.abs(shoulderX-cx)+20)} ${endY} Q${innerX} ${endY-35} ${underX} ${underY}`;
-      if(type==='balloon')return `Q${outerX} ${shoulderY+12} ${outerX+side*10} ${shoulderY+70} L${cx+side*(Math.abs(shoulderX-cx)+52)} ${endY-18} Q${cx+side*(Math.abs(shoulderX-cx)+40)} ${endY+3} ${cx+side*(Math.abs(shoulderX-cx)+24)} ${endY-2} Q${innerX} ${endY-45} ${underX} ${underY}`;
-      return `Q${outerX} ${shoulderY+18} ${cx+side*(Math.abs(shoulderX-cx)+volume+2)} ${shoulderY+58} L${cx+side*(Math.abs(shoulderX-cx)+volume-3)} ${endY} L${cx+side*(Math.abs(shoulderX-cx)+15)} ${endY} Q${innerX} ${endY-54} ${underX} ${underY}`;
+      if(type==='cap')return `Q${cx+side*122} ${shoulderY+8} ${cx+side*127} ${shoulderY+48} Q${cx+side*116} ${underY-3} ${underX} ${underY}`;
+      if(type==='flutter')return `Q${cx+side*141} ${shoulderY+10} ${cx+side*157} ${shoulderY+80} Q${cx+side*122} ${shoulderY+99} ${underX} ${underY}`;
+      if(type==='kimono')return `L${cx+side*151} ${shoulderY+25} L${cx+side*137} ${underY+20} L${underX} ${underY}`;
+      const endY=sleeveEndY(),shoulderAbs=Math.abs(shoulderX-cx),underAbs=Math.abs(underX-cx),p=technicalSleeveProfile(spec);
+      const capAbs=shoulderAbs+p.cap,outerEndAbs=shoulderAbs+p.outerEnd,innerEndAbs=shoulderAbs+p.innerEnd;
+      const outerMidAbs=shoulderAbs+p.midOuter,innerMidAbs=Math.max(underAbs+12,shoulderAbs+p.midInner);
+      const midY=Math.round(underY+(endY-underY)*0.53);
+      if(type==='puff')return `Q${cx+side*capAbs} ${shoulderY+5} ${cx+side*(capAbs+p.bulge)} ${shoulderY+58} Q${cx+side*(outerMidAbs+p.bulge*.35)} ${midY} ${cx+side*outerEndAbs} ${endY} L${cx+side*innerEndAbs} ${endY} Q${cx+side*innerMidAbs} ${midY} ${underX} ${underY}`;
+      if(type==='balloon')return `Q${cx+side*capAbs} ${shoulderY+7} ${cx+side*(capAbs+p.bulge*.78)} ${shoulderY+78} Q${cx+side*(outerMidAbs+p.bulge)} ${midY} ${cx+side*outerEndAbs} ${endY} L${cx+side*innerEndAbs} ${endY} Q${cx+side*(innerMidAbs+12)} ${midY} ${underX} ${underY}`;
+      return `Q${cx+side*capAbs} ${shoulderY+12} ${cx+side*(capAbs+5)} ${shoulderY+66} Q${cx+side*outerMidAbs} ${midY} ${cx+side*outerEndAbs} ${endY} L${cx+side*innerEndAbs} ${endY} Q${cx+side*innerMidAbs} ${midY} ${underX} ${underY}`;
+    }
+
+    function sleeveReverseSegment(cx,side,shoulderX,shoulderY,underX,underY){
+      const type=spec.sleeveType;
+      if(type==='sleeveless')return `Q${cx+side*104} ${shoulderY+34} ${shoulderX} ${shoulderY}`;
+      if(type==='cap')return `Q${cx+side*116} ${underY-3} ${cx+side*127} ${shoulderY+48} Q${cx+side*122} ${shoulderY+8} ${shoulderX} ${shoulderY}`;
+      if(type==='flutter')return `Q${cx+side*122} ${shoulderY+99} ${cx+side*157} ${shoulderY+80} Q${cx+side*141} ${shoulderY+10} ${shoulderX} ${shoulderY}`;
+      if(type==='kimono')return `L${cx+side*137} ${underY+20} L${cx+side*151} ${shoulderY+25} L${shoulderX} ${shoulderY}`;
+      const endY=sleeveEndY(),shoulderAbs=Math.abs(shoulderX-cx),underAbs=Math.abs(underX-cx),p=technicalSleeveProfile(spec);
+      const capAbs=shoulderAbs+p.cap,outerEndAbs=shoulderAbs+p.outerEnd,innerEndAbs=shoulderAbs+p.innerEnd;
+      const outerMidAbs=shoulderAbs+p.midOuter,innerMidAbs=Math.max(underAbs+12,shoulderAbs+p.midInner);
+      const midY=Math.round(underY+(endY-underY)*0.53);
+      if(type==='puff')return `Q${cx+side*innerMidAbs} ${midY} ${cx+side*innerEndAbs} ${endY} L${cx+side*outerEndAbs} ${endY} Q${cx+side*(outerMidAbs+p.bulge*.35)} ${midY} ${cx+side*(capAbs+p.bulge)} ${shoulderY+58} Q${cx+side*capAbs} ${shoulderY+5} ${shoulderX} ${shoulderY}`;
+      if(type==='balloon')return `Q${cx+side*(innerMidAbs+12)} ${midY} ${cx+side*innerEndAbs} ${endY} L${cx+side*outerEndAbs} ${endY} Q${cx+side*(outerMidAbs+p.bulge)} ${midY} ${cx+side*(capAbs+p.bulge*.78)} ${shoulderY+78} Q${cx+side*capAbs} ${shoulderY+7} ${shoulderX} ${shoulderY}`;
+      return `Q${cx+side*innerMidAbs} ${midY} ${cx+side*innerEndAbs} ${endY} L${cx+side*outerEndAbs} ${endY} Q${cx+side*outerMidAbs} ${midY} ${cx+side*(capAbs+5)} ${shoulderY+66} Q${cx+side*capAbs} ${shoulderY+12} ${shoulderX} ${shoulderY}`;
     }
 
     function collarLines(cx,front,n){
@@ -3005,39 +3223,19 @@
       const hem=hemCoords(cx,hemY,hemHalf);
       const leftShoulder=cx-w.shoulder,rightShoulder=cx+w.shoulder,leftUnder=cx-w.chest,rightUnder=cx+w.chest;
       const leftWaist=cx-w.waist,rightWaist=cx+w.waist,leftHip=cx-w.hip,rightHip=cx+w.hip;
-      let path=`M${n.left} ${n.y} L${leftShoulder} ${shoulderY} `;
-      if(spec.sleeveType==='batwing') path+=`L${cx-160} ${shoulderY+35} L${cx-145} 252 L${leftWaist} ${waistY} `;
-      else path+=sleeveSegment(cx,-1,leftShoulder,shoulderY,leftUnder,underY)+` L${leftWaist} ${waistY} `;
-      if(isDress||hemY>hipY+15)path+=`L${leftHip} ${hipY} L${hem.lx} ${hem.ly} L${hem.rx} ${hem.ry} L${rightHip} ${hipY} L${rightWaist} ${waistY} `;
-      else path+=`L${hem.lx} ${hem.ly} L${hem.rx} ${hem.ry} L${rightWaist} ${waistY} `;
-      if(spec.sleeveType==='batwing')path+=`L${cx+145} 252 L${cx+160} ${shoulderY+35} L${rightShoulder} ${shoulderY} L${n.right} ${n.y} ${n.close} Z`;
-      else path+=`L${rightUnder} ${underY} `+sleeveSegment(cx,1,rightShoulder,shoulderY,rightUnder,underY).replace(/^Q|^L/,m=>m)+` L${rightShoulder} ${shoulderY} L${n.right} ${n.y} ${n.close} Z`;
-      // Right sleeve segment above is ordered shoulder->underarm, so reverse geometry is drawn separately to maintain clean symmetry.
-      if(spec.sleeveType!=='batwing'){
-        // Build a corrected mirrored outline; separate sleeves avoid self-crossing while preserving garment silhouette.
-        let body=`M${n.left} ${n.y} L${leftShoulder} ${shoulderY}`;
-        if(spec.sleeveType==='sleeveless')body+=` Q${cx-104} ${shoulderY+34} ${leftUnder} ${underY}`;
-        else body+=` ${sleeveSegment(cx,-1,leftShoulder,shoulderY,leftUnder,underY)}`;
-        body+=` L${leftWaist} ${waistY}`;
-        if(isDress||hemY>hipY+15)body+=` L${leftHip} ${hipY} L${hem.lx} ${hem.ly} L${hem.rx} ${hem.ry} L${rightHip} ${hipY}`;
-        else body+=` L${hem.lx} ${hem.ly} L${hem.rx} ${hem.ry}`;
-        body+=` L${rightWaist} ${waistY}`;
-        // mirror right sleeve by drawing from underarm to shoulder with explicit points
-        if(spec.sleeveType==='sleeveless')body+=` L${rightUnder} ${underY} Q${cx+104} ${shoulderY+34} ${rightShoulder} ${shoulderY}`;
-        else {
-          const len=spec.sleeveLength,endY=len==='short'?222:len==='elbow'?285:len==='threequarter'?350:438;
-          if(spec.sleeveType==='cap')body+=` L${rightUnder} ${underY} Q${cx+108} ${underY-4} ${cx+116} ${shoulderY+38} Q${cx+112} ${shoulderY+10} ${rightShoulder} ${shoulderY}`;
-          else if(spec.sleeveType==='flutter')body+=` L${rightUnder} ${underY} Q${cx+116} ${shoulderY+84} ${cx+145} ${shoulderY+72} Q${cx+132} ${shoulderY+12} ${rightShoulder} ${shoulderY}`;
-          else if(spec.sleeveType==='kimono')body+=` L${rightUnder} ${underY} L${cx+126} ${underY+7} L${cx+136} ${shoulderY+20} L${rightShoulder} ${shoulderY}`;
-          else {let volume=spec.sleeveType==='puff'?52:spec.sleeveType==='balloon'?58:spec.sleeveType==='raglan'?36:spec.sleeveType==='shirt'?34:30;if(spec.fit==='oversized')volume+=7;const outerX=cx+(w.shoulder+volume),innerX=cx+(w.chest+14);if(spec.sleeveType==='puff')body+=` L${rightUnder} ${underY} Q${innerX} ${endY-35} ${cx+w.shoulder+20} ${endY} L${cx+w.shoulder+43} ${endY} L${outerX+8} ${shoulderY+42} Q${outerX} ${shoulderY+7} ${rightShoulder} ${shoulderY}`;else if(spec.sleeveType==='balloon')body+=` L${rightUnder} ${underY} Q${innerX} ${endY-45} ${cx+w.shoulder+24} ${endY-2} Q${cx+w.shoulder+40} ${endY+3} ${cx+w.shoulder+52} ${endY-18} L${outerX+10} ${shoulderY+70} Q${outerX} ${shoulderY+12} ${rightShoulder} ${shoulderY}`;else body+=` L${rightUnder} ${underY} Q${innerX} ${endY-54} ${cx+w.shoulder+15} ${endY} L${cx+w.shoulder+volume-3} ${endY} L${cx+w.shoulder+volume+2} ${shoulderY+58} Q${outerX} ${shoulderY+18} ${rightShoulder} ${shoulderY}`;}
-        }
-        body+=` L${n.right} ${n.y} ${n.close} Z`;
-        path=body;
-      }
-      const sleeveEndY=spec.sleeveType==='sleeveless'?0:(spec.sleeveLength==='short'?222:spec.sleeveLength==='elbow'?285:spec.sleeveLength==='threequarter'?350:438);
-      let out=`<path class="o" d="${path}"/>`;
+      let body=`M${n.left} ${n.y} L${leftShoulder} ${shoulderY}`;
+      if(spec.sleeveType==='batwing') body+=` L${cx-168} ${shoulderY+38} L${cx-151} 258 L${leftWaist} ${waistY}`;
+      else body+=` ${sleeveSegment(cx,-1,leftShoulder,shoulderY,leftUnder,underY)} L${leftWaist} ${waistY}`;
+      if(isDress||hemY>hipY+15)body+=` L${leftHip} ${hipY} L${hem.lx} ${hem.ly} L${hem.rx} ${hem.ry} L${rightHip} ${hipY}`;
+      else body+=` L${hem.lx} ${hem.ly} L${hem.rx} ${hem.ry}`;
+      body+=` L${rightWaist} ${waistY}`;
+      if(spec.sleeveType==='batwing') body+=` L${cx+151} 258 L${cx+168} ${shoulderY+38} L${rightShoulder} ${shoulderY}`;
+      else body+=` L${rightUnder} ${underY} ${sleeveReverseSegment(cx,1,rightShoulder,shoulderY,rightUnder,underY)}`;
+      body+=` L${n.right} ${n.y} ${n.close} Z`;
+      const sleeveEnd=spec.sleeveType==='sleeveless'?0:sleeveEndY();
+      let out=`<path class="o" d="${body}"/>`;
       if(spec.hem==='curved')out+=`<path class="c" d="M${hem.lx} ${hem.ly-2} Q${cx} ${hemY+18} ${hem.rx} ${hem.ry-2}"/>`;
-      out+=collarLines(cx,front,n)+closureLines(cx,front,n.y+28,hemY)+dartLines(cx,front,waistY,underY)+seamLines(cx,front,hemY,underY,waistY)+pocketLines(cx,front,isDress?'dress':'upper',waistY,hipY)+detailLines(cx,front,hemY,waistY,sleeveEndY);
+      out+=collarLines(cx,front,n)+closureLines(cx,front,n.y+28,hemY)+dartLines(cx,front,waistY,underY)+seamLines(cx,front,hemY,underY,waistY)+pocketLines(cx,front,isDress?'dress':'upper',waistY,hipY)+detailLines(cx,front,hemY,waistY,sleeveEnd);
       if(spec.sleeveType==='raglan')out+=`<path class="c" d="M${n.left} ${n.y+2} L${leftUnder+5} ${underY} M${n.right} ${n.y+2} L${rightUnder-5} ${underY}"/>`;
       if(spec.neckline==='wrap'&&front)out+=`<path class="c" d="M${n.left} ${n.y} L${cx+25} ${waistY} M${n.right} ${n.y} L${cx-25} ${waistY}"/>`;
       out+=`<path class="s" d="M${hem.lx+8} ${hem.ly-11} L${hem.rx-8} ${hem.ry-11}"/>`;
@@ -3057,43 +3255,36 @@
     }
 
     function drawTrousers(cx,front,topOverride){
-      const topY=topOverride||92,hipY=176,crotchY=257,kneeY=390,hemY=558,waistHalf=87,hipHalf=105,hemHalf=42;
-      let out=`<path class="o" d="M${cx-waistHalf} ${topY} Q${cx} ${topY-7} ${cx+waistHalf} ${topY} L${cx+hipHalf} ${hipY} Q${cx+76} ${crotchY-4} ${cx+40} ${crotchY} L${cx+hemHalf} ${hemY} L${cx+8} ${hemY} L${cx} ${crotchY+(front?0:10)} L${cx-8} ${hemY} L${cx-hemHalf} ${hemY} L${cx-40} ${crotchY} Q${cx-76} ${crotchY-4} ${cx-hipHalf} ${hipY} Z"/>`;
-      out+=`<path class="c" d="M${cx-waistHalf} ${topY+18} L${cx+waistHalf} ${topY+18}"/>`;
+      const topY=topOverride||92,hipY=174,crotchY=258,kneeY=392,hemY=558,p=technicalTrouserProfile(spec);
+      let out=`<path class="o" d="M${cx-p.waist} ${topY} Q${cx-p.hip} ${topY+34} ${cx-p.hip} ${hipY} Q${cx-p.thigh} ${crotchY-34} ${cx-p.thigh} ${crotchY} L${cx-p.knee} ${kneeY} L${cx-p.hem} ${hemY} L${cx-p.innerHem} ${hemY} L${cx-p.innerKnee} ${kneeY} Q${cx-p.innerThigh} ${crotchY+30} ${cx} ${crotchY+(front?6:14)} Q${cx+p.innerThigh} ${crotchY+30} ${cx+p.innerKnee} ${kneeY} L${cx+p.innerHem} ${hemY} L${cx+p.hem} ${hemY} L${cx+p.knee} ${kneeY} L${cx+p.thigh} ${crotchY} Q${cx+p.thigh} ${crotchY-34} ${cx+p.hip} ${hipY} Q${cx+p.hip} ${topY+34} ${cx+p.waist} ${topY} Q${cx} ${topY-7} ${cx-p.waist} ${topY} Z"/>`;
+      out+=`<path class="c" d="M${cx-p.waist} ${topY+18} L${cx+p.waist} ${topY+18}"/>`;
       if(spec.darts!=='none')out+=`<path class="c" d="M${cx-39} ${topY+2} L${cx-31} ${topY+54} L${cx-21} ${topY+2} M${cx+21} ${topY+2} L${cx+31} ${topY+54} L${cx+39} ${topY+2}"/>`;
-      if(front&&(spec.closure==='zip-front'||spec.closure==='auto'||spec.closure==='none'))out+=`<path class="c" d="M${cx} ${topY+18} Q${cx+20} ${topY+52} ${cx+16} ${crotchY-24}"/>`;
+      if(front&&(spec.closure==='zip-front'||spec.closure==='none'))out+=`<path class="c" d="M${cx} ${topY+18} Q${cx+18} ${topY+62} ${cx+15} ${crotchY-25}"/>`;
       if(spec.closure==='buttons'&&front)out+=`<circle class="b" cx="${cx}" cy="${topY+9}" r="3"/>`;
-      out+=pocketLines(cx,front,'trousers',topY+18,hipY+23)+seamLines(cx,front,hemY,hipY,topY+18)+detailLines(cx,front,hemY,topY+18,0);
-      out+=`<path class="s" d="M${cx-hemHalf} ${hemY-10} L${cx-8} ${hemY-10} M${cx+8} ${hemY-10} L${cx+hemHalf} ${hemY-10}"/>`;
+      out+=pocketLines(cx,front,'trousers',topY+18,hipY+24)+seamLines(cx,front,hemY,hipY,topY+18)+detailLines(cx,front,hemY,topY+18,0);
+      out+=`<path class="s" d="M${cx-p.hem} ${hemY-10} L${cx-p.innerHem} ${hemY-10} M${cx+p.innerHem} ${hemY-10} L${cx+p.hem} ${hemY-10}"/>`;
+      if(spec.trouserFit==='jogger')out+=`<path class="c" d="M${cx-p.hem} ${hemY-17} L${cx-p.innerHem} ${hemY-17} M${cx+p.innerHem} ${hemY-17} L${cx+p.hem} ${hemY-17}"/>`;
       return out;
     }
 
     function drawJumpsuit(cx,front){
-      const w=widths(),n=neckData(cx,front),shoulderY=spec.shoulder==='dropped'?124:108,underY=184,waistY=270,hipY=332,crotchY=382,hemY=558;
+      const w=widths(),n=neckData(cx,front),shoulderY=spec.shoulder==='dropped'?124:108,underY=184,waistY=270,hipY=332,crotchY=392,kneeY=466,hemY=558,p=technicalTrouserProfile(spec);
       const leftShoulder=cx-w.shoulder,rightShoulder=cx+w.shoulder,leftUnder=cx-w.chest,rightUnder=cx+w.chest;
-      const leftWaist=cx-Math.min(w.waist,86),rightWaist=cx+Math.min(w.waist,86),leftHip=cx-102,rightHip=cx+102;
-      const outerLeg=58,innerLeg=12;
+      const waistHalf=Math.min(w.waist,86),leftWaist=cx-waistHalf,rightWaist=cx+waistHalf;
+      const hipHalf=Math.max(96,p.hip),leftHip=cx-hipHalf,rightHip=cx+hipHalf;
       let body=`M${n.left} ${n.y} L${leftShoulder} ${shoulderY}`;
-      if(spec.sleeveType==='batwing')body+=` L${cx-160} ${shoulderY+35} L${cx-145} 240 L${leftWaist} ${waistY}`;
-      else if(spec.sleeveType==='sleeveless')body+=` Q${cx-104} ${shoulderY+34} ${leftUnder} ${underY} L${leftWaist} ${waistY}`;
+      if(spec.sleeveType==='batwing')body+=` L${cx-168} ${shoulderY+38} L${cx-151} 248 L${leftWaist} ${waistY}`;
       else body+=` ${sleeveSegment(cx,-1,leftShoulder,shoulderY,leftUnder,underY)} L${leftWaist} ${waistY}`;
-      body+=` L${leftHip} ${hipY} Q${cx-80} ${crotchY-8} ${cx-outerLeg} ${crotchY} L${cx-outerLeg} ${hemY} L${cx-innerLeg} ${hemY} L${cx} ${crotchY+(front?0:10)} L${cx+innerLeg} ${hemY} L${cx+outerLeg} ${hemY} L${cx+outerLeg} ${crotchY} Q${cx+80} ${crotchY-8} ${rightHip} ${hipY} L${rightWaist} ${waistY}`;
-      if(spec.sleeveType==='batwing')body+=` L${cx+145} 240 L${cx+160} ${shoulderY+35} L${rightShoulder} ${shoulderY}`;
-      else if(spec.sleeveType==='sleeveless')body+=` L${rightUnder} ${underY} Q${cx+104} ${shoulderY+34} ${rightShoulder} ${shoulderY}`;
-      else {
-        const len=spec.sleeveLength,endY=len==='short'?218:len==='elbow'?282:len==='threequarter'?346:438;
-        if(spec.sleeveType==='cap')body+=` L${rightUnder} ${underY} Q${cx+108} ${underY-4} ${cx+116} ${shoulderY+38} Q${cx+112} ${shoulderY+10} ${rightShoulder} ${shoulderY}`;
-        else if(spec.sleeveType==='flutter')body+=` L${rightUnder} ${underY} Q${cx+116} ${shoulderY+84} ${cx+145} ${shoulderY+72} Q${cx+132} ${shoulderY+12} ${rightShoulder} ${shoulderY}`;
-        else if(spec.sleeveType==='kimono')body+=` L${rightUnder} ${underY} L${cx+126} ${underY+7} L${cx+136} ${shoulderY+20} L${rightShoulder} ${shoulderY}`;
-        else {let volume=spec.sleeveType==='puff'?52:spec.sleeveType==='balloon'?58:spec.sleeveType==='raglan'?36:spec.sleeveType==='shirt'?34:30;if(spec.fit==='oversized')volume+=7;const outerX=cx+(w.shoulder+volume),innerX=cx+(w.chest+14);if(spec.sleeveType==='puff')body+=` L${rightUnder} ${underY} Q${innerX} ${endY-35} ${cx+w.shoulder+20} ${endY} L${cx+w.shoulder+43} ${endY} L${outerX+8} ${shoulderY+42} Q${outerX} ${shoulderY+7} ${rightShoulder} ${shoulderY}`;else if(spec.sleeveType==='balloon')body+=` L${rightUnder} ${underY} Q${innerX} ${endY-45} ${cx+w.shoulder+24} ${endY-2} Q${cx+w.shoulder+40} ${endY+3} ${cx+w.shoulder+52} ${endY-18} L${outerX+10} ${shoulderY+70} Q${outerX} ${shoulderY+12} ${rightShoulder} ${shoulderY}`;else body+=` L${rightUnder} ${underY} Q${innerX} ${endY-54} ${cx+w.shoulder+15} ${endY} L${cx+w.shoulder+volume-3} ${endY} L${cx+w.shoulder+volume+2} ${shoulderY+58} Q${outerX} ${shoulderY+18} ${rightShoulder} ${shoulderY}`;}
-      }
+      body+=` L${leftHip} ${hipY} Q${cx-p.thigh} ${crotchY-34} ${cx-p.thigh} ${crotchY} L${cx-p.knee} ${kneeY} L${cx-p.hem} ${hemY} L${cx-p.innerHem} ${hemY} L${cx-p.innerKnee} ${kneeY} Q${cx-p.innerThigh} ${crotchY+25} ${cx} ${crotchY+(front?5:13)} Q${cx+p.innerThigh} ${crotchY+25} ${cx+p.innerKnee} ${kneeY} L${cx+p.innerHem} ${hemY} L${cx+p.hem} ${hemY} L${cx+p.knee} ${kneeY} L${cx+p.thigh} ${crotchY} Q${cx+p.thigh} ${crotchY-34} ${rightHip} ${hipY} L${rightWaist} ${waistY}`;
+      if(spec.sleeveType==='batwing')body+=` L${cx+151} 248 L${cx+168} ${shoulderY+38} L${rightShoulder} ${shoulderY}`;
+      else body+=` L${rightUnder} ${underY} ${sleeveReverseSegment(cx,1,rightShoulder,shoulderY,rightUnder,underY)}`;
       body+=` L${n.right} ${n.y} ${n.close} Z`;
-      const sleeveEndY=spec.sleeveType==='sleeveless'?0:(spec.sleeveLength==='short'?218:spec.sleeveLength==='elbow'?282:spec.sleeveLength==='threequarter'?346:438);
+      const sleeveEnd=spec.sleeveType==='sleeveless'?0:sleeveEndY();
       let out=`<path class="o" d="${body}"/><path class="c" d="M${leftWaist} ${waistY} L${rightWaist} ${waistY}"/>`;
-      out+=collarLines(cx,front,n)+closureLines(cx,front,n.y+28,front?crotchY-15:Math.min(crotchY,360))+dartLines(cx,front,waistY,underY)+seamLines(cx,front,hemY,underY,waistY)+pocketLines(cx,front,'trousers',waistY,hipY)+detailLines(cx,front,hemY,waistY,sleeveEndY);
+      out+=collarLines(cx,front,n)+closureLines(cx,front,n.y+28,front?crotchY-15:Math.min(crotchY,360))+dartLines(cx,front,waistY,underY)+seamLines(cx,front,hemY,underY,waistY)+pocketLines(cx,front,'trousers',waistY,hipY)+detailLines(cx,front,hemY,waistY,sleeveEnd);
       if(spec.sleeveType==='raglan')out+=`<path class="c" d="M${n.left} ${n.y+2} L${leftUnder+5} ${underY} M${n.right} ${n.y+2} L${rightUnder-5} ${underY}"/>`;
       if(spec.neckline==='wrap'&&front)out+=`<path class="c" d="M${n.left} ${n.y} L${cx+22} ${waistY} M${n.right} ${n.y} L${cx-22} ${waistY}"/>`;
-      out+=`<path class="s" d="M${cx-outerLeg} ${hemY-10} L${cx-innerLeg} ${hemY-10} M${cx+innerLeg} ${hemY-10} L${cx+outerLeg} ${hemY-10}"/>`;
+      out+=`<path class="s" d="M${cx-p.hem} ${hemY-10} L${cx-p.innerHem} ${hemY-10} M${cx+p.innerHem} ${hemY-10} L${cx+p.hem} ${hemY-10}"/>`;
       return out;
     }
 
@@ -3148,7 +3339,7 @@
     const flat=technicalFlatRecord(activePlannerFlatId);
     const matches=currentPlannerFlatMatchesDesign();plannerFlatDirty=!matches;
     if(plannerPreviewSvg){el.className='flat-status dirty';el.textContent='Voorbeeldweergave — niet opgeslagen. Genereer expliciet een nieuwe versie om deze flat te bewaren.';return;}
-    if(flat){el.className='flat-status'+(matches?'':' dirty');el.innerHTML=matches?`Opgeslagen technical flat v${esc(flat.version)} · ${esc(formatFlatDate(flat.generatedAt))}.`:`Technical flat v${esc(flat.version)} blijft bewaard, maar de huidige ontwerpvelden zijn gewijzigd. Genereer een nieuwe versie om die wijzigingen vast te leggen.`;return;}
+    if(flat){el.className='flat-status'+(matches?'':' dirty');el.innerHTML=matches?`Opgeslagen technical flat v${esc(flat.version)} · ${esc(formatFlatDate(flat.generatedAt))}.${flat.qualityCheck?` Interne proportiecontrole: <strong>${flat.qualityCheck.pass?'OK':'aandacht nodig'}</strong>.`:''}`:`Technical flat v${esc(flat.version)} blijft bewaard, maar de huidige ontwerpvelden zijn gewijzigd. Genereer een nieuwe versie om die wijzigingen vast te leggen.`;return;}
     el.className='flat-status dirty';el.textContent='Nog geen opgeslagen technical flat voor deze selectie.';
   }
 
@@ -3170,7 +3361,8 @@
   function saveTechnicalFlatVersion(message){
     const snap=technicalFlatDesignSnapshot(),ctx=technicalFlatLinkContext();
     const svg=generateLineDrawing(snap.basePattern,snap.models,snap.garment,snap.technicalDesign,snap.technicalNotes);
-    const flat={id:uid(),version:nextTechnicalFlatVersion(),generatedAt:nowISO(),linkedPatternId:ctx.patternId,linkedPatternVersionId:ctx.patternVersionId,linkedProjectIds:[],usedDesignData:structuredCloneSafe(snap),image:svg,imageFormat:'image/svg+xml',generatorVersion:'techflat-2'};
+    const spec=buildTechnicalFlatSpec(snap.basePattern,snap.models,snap.garment,snap.technicalDesign,snap.technicalNotes);
+    const flat={id:uid(),version:nextTechnicalFlatVersion(),generatedAt:nowISO(),linkedPatternId:ctx.patternId,linkedPatternVersionId:ctx.patternVersionId,linkedProjectIds:[],usedDesignData:structuredCloneSafe(snap),image:svg,imageFormat:'image/svg+xml',generatorVersion:'techflat-3',appVersion:APP_VERSION,qualityCheck:technicalFlatQualityCheck(spec)};
     data.technicalFlats.unshift(flat);activePlannerFlatId=flat.id;plannerPreviewSvg='';plannerFlatDirty=false;
     safeStorageSet(STORAGE_KEY,JSON.stringify(data));renderPlannerFlatCanvas();renderPlannerFlatStatus();renderPlannerTechnicalFlatHistory();showToast(message||'Nieuwe technical-flatversie opgeslagen');
   }
@@ -3232,7 +3424,7 @@
   });
 
   document.getElementById('plannerGarment').addEventListener('change', () => { renderPlannerFabricOptions(); markPlannerFlatChanged(); updatePlannerSummary(); });
-  document.getElementById('plannerBasePattern').addEventListener('change', () => { markPlannerFlatChanged(); updatePlannerSummary(); });
+  document.getElementById('plannerBasePattern').addEventListener('change', () => { const inferred=inferGarmentFromBase(document.getElementById('plannerBasePattern').value);const garment=document.getElementById('plannerGarment');if(!garment.value&&inferred!=='Anders'&&[...garment.options].some(o=>o.value===inferred)){garment.value=inferred;renderPlannerFabricOptions();} markPlannerFlatChanged(); updatePlannerSummary(); });
   document.getElementById('plannerFabric').addEventListener('change', updatePlannerSummary);
   document.getElementById('plannerName').addEventListener('input', updatePlannerSummary);
   document.getElementById('plannerNote').addEventListener('input', updatePlannerSummary);
@@ -3325,7 +3517,7 @@
     const linkedVersion = linkedPattern ? normalizePattern(linkedPattern).versions.find(v => v.id === patternVersionId) : null;
     const project = {
       id: uid(), name, garment, basePattern, models: getPlannerModels(), fabricId,
-      fabricLabel: fabric ? fabricTitle(fabric) : '', note: document.getElementById('plannerNote').value.trim(),
+      fabricLabel: fabric ? fabricTitle(fabric) : '', note: document.getElementById('plannerNote').value.trim(), description: document.getElementById('plannerNote').value.trim(), collectionId:'',
       inspirationPhoto: pendingPlannerInspiration,
       technicalDesign: structuredCloneSafe(getPlannerTechnicalDesign()), technicalNotes: document.getElementById('plannerFlatNotes').value.trim(), technicalFlatId: currentPlannerFlatMatchesDesign() ? activePlannerFlatId : '',
       patternId: linkedPattern ? linkedPattern.id : '', patternVersionId: linkedVersion ? linkedVersion.id : '',
@@ -3335,7 +3527,7 @@
     data.projects.unshift(project);
     if(project.technicalFlatId){const flat=technicalFlatRecord(project.technicalFlatId);if(flat){if(!Array.isArray(flat.linkedProjectIds))flat.linkedProjectIds=[];if(!flat.linkedProjectIds.includes(project.id))flat.linkedProjectIds.push(project.id);}}
     const defaultTasks = ['Basispatroon overnemen', 'Modelintekeningen uitwerken', 'Patroondelen controleren', 'Stof knippen', 'Kledingstuk naaien', 'Doorpassen en afwerken'];
-    defaultTasks.forEach(text => data.todos.push({ id: uid(), text, projectId: project.id, dueDate:'', done:false, createdAt:todayISO() }));
+    defaultTasks.forEach(text => data.todos.push({ id: uid(), text, projectId: project.id, dueDate:'', status:'todo', done:false, priority:'Normaal', required:true, createdAt:todayISO() }));
     saveData();
     document.getElementById('plannerName').value = '';
     document.getElementById('plannerNote').value = '';
@@ -3346,6 +3538,96 @@
     navigate('projects');
   });
 
+  function normalizeTodo(todo) {
+    if (!todo) return todo;
+    if (!taskStatuses.includes(todo.status)) todo.status = todo.done ? 'done' : 'todo';
+    todo.done = todo.status === 'done';
+    if (!taskPriorities.includes(todo.priority)) todo.priority = 'Normaal';
+    if (typeof todo.required !== 'boolean') todo.required = true;
+    return todo;
+  }
+
+  function normalizeProject(project) {
+    if (!project) return project;
+    if (!project.collectionId) project.collectionId = '';
+    if (typeof project.description !== 'string') project.description = project.note || '';
+    if (!project.status || !projectStatuses.includes(project.status)) project.status = 'Idee';
+    return project;
+  }
+
+  function normalizeCollection(collection) {
+    if (!collection) return collection;
+    if (!collection.status) collection.status = 'Concept';
+    if (!collection.season) collection.season = '';
+    if (!collection.description) collection.description = '';
+    if (!collection.cover) collection.cover = '';
+    return collection;
+  }
+
+  function projectTasks(projectId) { return data.todos.filter(t => t.projectId === projectId).map(normalizeTodo); }
+
+  function projectProgress(projectId) {
+    const tasks=projectTasks(projectId);
+    const required=tasks.filter(t=>t.required);
+    const basis=required.length?required:tasks;
+    const done=basis.filter(t=>t.status==='done').length;
+    return {tasks,requiredCount:required.length,total:basis.length,done,open:tasks.filter(t=>t.status!=='done').length,percent:basis.length?Math.round(done/basis.length*100):0};
+  }
+
+  function syncProjectStatus(projectId) {
+    const p=normalizeProject(data.projects.find(x=>x.id===projectId)); if(!p)return;
+    const progress=projectProgress(projectId), tasks=progress.tasks;
+    if(!tasks.length){p.status='Idee';return;}
+    const completionBasis=progress.total;
+    if(completionBasis>0&&progress.done===completionBasis){p.status='Afgerond';return;}
+    if(tasks.some(t=>t.status==='inprogress'||t.status==='done')){p.status='In uitvoering';return;}
+    p.status='Idee';
+  }
+
+  function syncAllProjectStatuses(){ data.projects.forEach(p=>{normalizeProject(p);syncProjectStatus(p.id);}); }
+
+  function projectStatusBadge(status){
+    const cls=status==='Afgerond'?'done':status==='In uitvoering'?'progress':'idea';
+    return `<span class="status-badge ${cls}">${esc(status||'Idee')}</span>`;
+  }
+
+  function taskStatusLabel(status){return status==='done'?'Gereed':status==='inprogress'?'In uitvoering':'To do';}
+
+  function projectCollection(project){return project&&project.collectionId?data.collections.find(c=>c.id===project.collectionId):null;}
+
+  function projectImage(project){
+    const p=normalizeProject(project); if(!p)return '';
+    if(p.inspirationPhoto)return p.inspirationPhoto;
+    const idea=p.ideaId?data.ideas.find(i=>i.id===p.ideaId):null;const ideaImg=idea?ideaMainImage(normalizeIdea(idea)):null;if(ideaImg)return ideaImg.data;
+    const pattern=p.patternId?normalizePattern(data.patterns.find(x=>x.id===p.patternId)):null;const patternImg=pattern?patternMainImage(pattern):null;if(patternImg)return patternImg.data;
+    const fabric=p.fabricId?data.fabrics.find(f=>f.id===p.fabricId):null;if(fabric&&fabric.photo)return fabric.photo;
+    return '';
+  }
+
+  function showProjectPanel(mode){
+    projectPanelMode=mode||'overview';
+    ['projectsOverviewPanel','projectDetailPanel','collectionsOverviewPanel','collectionFormPanel','collectionDetailPanel'].forEach(id=>{const el=document.getElementById(id);if(el)el.classList.remove('active');});
+    const map={overview:'projectsOverviewPanel',detail:'projectDetailPanel',collections:'collectionsOverviewPanel',collectionForm:'collectionFormPanel',collectionDetail:'collectionDetailPanel'};
+    const target=document.getElementById(map[projectPanelMode]||'projectsOverviewPanel');if(target)target.classList.add('active');
+    if(projectPanelMode==='overview')renderProjects();
+    if(projectPanelMode==='detail'&&activeProjectId)renderProjectDetail(activeProjectId);
+    if(projectPanelMode==='collections')renderCollections();
+    if(projectPanelMode==='collectionDetail'&&activeCollectionId)renderCollectionDetail(activeCollectionId);
+  }
+
+  window.openProjectDetail=function(id){const p=data.projects.find(x=>x.id===id);if(!p)return;activeProjectId=id;showProjectPanel('detail');window.scrollTo({top:0,behavior:'smooth'});};
+
+  function renderProjectCollectionOptions(selectedId){return `<option value="">Geen collectie</option>`+data.collections.map(c=>`<option value="${c.id}" ${c.id===selectedId?'selected':''}>${esc(c.name)}</option>`).join('');}
+
+  window.assignProjectCollection=function(projectId,collectionId){const p=data.projects.find(x=>x.id===projectId);if(!p)return;p.collectionId=collectionId||'';saveData();if(projectPanelMode==='detail')renderProjectDetail(projectId);};
+
+  window.saveProjectDetails=function(id){
+    const p=data.projects.find(x=>x.id===id);if(!p)return;
+    const name=document.getElementById('projectDetailName'),desc=document.getElementById('projectDetailDescription'),collection=document.getElementById('projectDetailCollection');
+    if(name&&name.value.trim())p.name=name.value.trim();if(desc){p.description=desc.value.trim();p.note=p.description;}if(collection)p.collectionId=collection.value||'';
+    saveData();renderProjectDetail(id);showToast('Projectgegevens bijgewerkt');
+  };
+
   window.deleteProject = function(id) {
     if (!confirm('Dit project verwijderen? Gekoppelde taken worden ook verwijderd.')) return;
     const linkedIdea = data.ideas.find(idea => idea.projectId === id);
@@ -3353,169 +3635,86 @@
     (data.technicalFlats||[]).forEach(f=>{if(Array.isArray(f.linkedProjectIds))f.linkedProjectIds=f.linkedProjectIds.filter(pid=>pid!==id);});
     data.projects = data.projects.filter(p => p.id !== id);
     data.todos = data.todos.filter(t => t.projectId !== id);
-    saveData();
-  };
-
-  window.setProjectStatus = function(id, status) {
-    const p = data.projects.find(x => x.id === id); if (!p) return;
-    p.status = status; saveData();
+    activeProjectId='';saveData();showProjectPanel('overview');
   };
 
   function moveProject(id, direction) {
-    const index = data.projects.findIndex(p => p.id === id);
-    if (index < 0) return;
-    const target = index + direction;
-    if (target < 0 || target >= data.projects.length) return;
-    const temp = data.projects[index];
-    data.projects[index] = data.projects[target];
-    data.projects[target] = temp;
-    saveData();
+    const index = data.projects.findIndex(p => p.id === id);if(index<0)return;const target=index+direction;if(target<0||target>=data.projects.length)return;
+    const temp=data.projects[index];data.projects[index]=data.projects[target];data.projects[target]=temp;saveData();
   }
   window.moveProject = moveProject;
 
-  function reorderProjectToTarget(sourceId, targetId) {
-    if (!sourceId || !targetId || sourceId === targetId) return;
-    const sourceIndex = data.projects.findIndex(p => p.id === sourceId);
-    const targetIndex = data.projects.findIndex(p => p.id === targetId);
-    if (sourceIndex < 0 || targetIndex < 0) return;
-    const moved = data.projects.splice(sourceIndex, 1)[0];
-    data.projects.splice(Math.min(targetIndex, data.projects.length), 0, moved);
-    saveData();
-  }
+  function reorderProjectToTarget(sourceId,targetId){if(!sourceId||!targetId||sourceId===targetId)return;const si=data.projects.findIndex(p=>p.id===sourceId),ti=data.projects.findIndex(p=>p.id===targetId);if(si<0||ti<0)return;const [item]=data.projects.splice(si,1);data.projects.splice(ti,0,item);saveData();}
 
-  document.addEventListener('dragstart', (e) => {
-    const card = e.target.closest ? e.target.closest('[data-project-card]') : null;
-    if (!card) return;
-    draggedProjectId = card.dataset.projectCard;
-    card.classList.add('dragging');
-    if (e.dataTransfer) { e.dataTransfer.effectAllowed = 'move'; e.dataTransfer.setData('text/plain', draggedProjectId); }
-  });
-  document.addEventListener('dragend', (e) => {
-    document.querySelectorAll('[data-project-card]').forEach(c => c.classList.remove('dragging','drag-over'));
-    draggedProjectId = '';
-  });
-  document.addEventListener('dragover', (e) => {
-    const card = e.target.closest ? e.target.closest('[data-project-card]') : null;
-    if (!card || !draggedProjectId) return;
-    e.preventDefault();
-    document.querySelectorAll('[data-project-card]').forEach(c => c.classList.remove('drag-over'));
-    card.classList.add('drag-over');
-  });
-  document.addEventListener('drop', (e) => {
-    const card = e.target.closest ? e.target.closest('[data-project-card]') : null;
-    if (!card || !draggedProjectId) return;
-    e.preventDefault();
-    const targetId = card.dataset.projectCard;
-    reorderProjectToTarget(draggedProjectId, targetId);
-    draggedProjectId = '';
-  });
-
-  document.addEventListener('pointerdown', (e) => {
-    if (e.pointerType !== 'touch' && e.pointerType !== 'pen') return;
-    const handle = e.target.closest ? e.target.closest('.drag-handle') : null;
-    if (!handle) return;
-    const card = handle.closest('[data-project-card]');
-    if (!card) return;
-    touchDraggedProjectId = card.dataset.projectCard;
-    touchDragTargetId = touchDraggedProjectId;
-    card.classList.add('dragging');
-    try { handle.setPointerCapture(e.pointerId); } catch (err) {}
-    e.preventDefault();
-  }, {passive:false});
-
-  document.addEventListener('pointermove', (e) => {
-    if (!touchDraggedProjectId) return;
-    const under = document.elementFromPoint(e.clientX, e.clientY);
-    const card = under && under.closest ? under.closest('[data-project-card]') : null;
-    document.querySelectorAll('[data-project-card]').forEach(c => c.classList.remove('drag-over'));
-    if (card) {
-      touchDragTargetId = card.dataset.projectCard;
-      card.classList.add('drag-over');
-    }
-    e.preventDefault();
-  }, {passive:false});
-
-  document.addEventListener('pointerup', (e) => {
-    if (!touchDraggedProjectId) return;
-    const sourceId = touchDraggedProjectId;
-    const targetId = touchDragTargetId;
-    touchDraggedProjectId = '';
-    touchDragTargetId = '';
-    document.querySelectorAll('[data-project-card]').forEach(c => c.classList.remove('dragging','drag-over'));
-    if (sourceId && targetId && sourceId !== targetId) reorderProjectToTarget(sourceId, targetId);
-  });
-
-  document.addEventListener('pointercancel', () => {
-    touchDraggedProjectId = '';
-    touchDragTargetId = '';
-    document.querySelectorAll('[data-project-card]').forEach(c => c.classList.remove('dragging','drag-over'));
-  });
+  document.addEventListener('dragstart',e=>{const card=e.target.closest?e.target.closest('[data-project-card]'):null;if(card){draggedProjectId=card.dataset.projectCard;card.classList.add('dragging');if(e.dataTransfer){e.dataTransfer.effectAllowed='move';e.dataTransfer.setData('text/plain',draggedProjectId);}return;}const task=e.target.closest?e.target.closest('[data-kanban-task]'):null;if(task){draggedKanbanTaskId=task.dataset.kanbanTask;task.classList.add('dragging');if(e.dataTransfer){e.dataTransfer.effectAllowed='move';e.dataTransfer.setData('text/plain',draggedKanbanTaskId);}}});
+  document.addEventListener('dragend',e=>{const card=e.target.closest?e.target.closest('[data-project-card]'):null;if(card){card.classList.remove('dragging');document.querySelectorAll('[data-project-card]').forEach(c=>c.classList.remove('drag-over'));draggedProjectId='';}const task=e.target.closest?e.target.closest('[data-kanban-task]'):null;if(task)task.classList.remove('dragging');document.querySelectorAll('[data-kanban-column]').forEach(c=>c.classList.remove('drag-over'));draggedKanbanTaskId='';});
+  document.addEventListener('dragover',e=>{const card=e.target.closest?e.target.closest('[data-project-card]'):null;if(card&&draggedProjectId){e.preventDefault();document.querySelectorAll('[data-project-card]').forEach(c=>c.classList.toggle('drag-over',c===card));return;}const col=e.target.closest?e.target.closest('[data-kanban-column]'):null;if(col&&draggedKanbanTaskId){e.preventDefault();document.querySelectorAll('[data-kanban-column]').forEach(c=>c.classList.toggle('drag-over',c===col));}});
+  document.addEventListener('drop',e=>{const card=e.target.closest?e.target.closest('[data-project-card]'):null;if(card&&draggedProjectId){e.preventDefault();reorderProjectToTarget(draggedProjectId,card.dataset.projectCard);draggedProjectId='';return;}const col=e.target.closest?e.target.closest('[data-kanban-column]'):null;if(col&&draggedKanbanTaskId){e.preventDefault();setTodoStatus(draggedKanbanTaskId,col.dataset.kanbanColumn);draggedKanbanTaskId='';}});
 
   function renderProjects() {
-    const el = document.getElementById('projectList');
-    if (!data.projects.length) { el.innerHTML = `<div class="empty">Nog geen projecten. Maak je eerste combinatie in de Patroonplanner.</div>`; return; }
-    el.innerHTML = `<div class="meta" style="margin-bottom:8px;">Sleep projecten met ☰ of gebruik de pijlen om de volgorde te wijzigen.</div>` + data.projects.map((p, index) => {
-      const modelChips = Object.entries(p.models || {}).map(([c,v]) => `<span class="chip" title="${esc(c)}">${esc(v)}</span>`).join('');
-      const measurement = data.measurements.find(m => m.id === p.measurementId);
-      const fabric = data.fabrics.find(f => f.id === p.fabricId);
-      const photo = fabric && fabric.photo ? fabric.photo : '';
-      const sourceIdea = p.ideaId ? data.ideas.find(idea => idea.id === p.ideaId) : null;
-      const sourceIdeaImage = sourceIdea ? ideaMainImage(normalizeIdea(sourceIdea)) : null;
-      const linkedPattern = p.patternId ? normalizePattern(data.patterns.find(pattern => pattern.id === p.patternId)) : null;
-      const linkedPatternVersion = linkedPattern && p.patternVersionId ? linkedPattern.versions.find(v => v.id === p.patternVersionId) : null;
-      const linkedPatternImage = linkedPattern ? patternMainImage(linkedPattern) : null;
-      const projectInspiration = p.inspirationPhoto || (sourceIdeaImage ? sourceIdeaImage.data : '') || (linkedPatternImage ? linkedPatternImage.data : '');
-      const currentFabricLabel = fabric ? fabricTitle(fabric) : (p.fabricLabel || 'Geen keuze');
-      const savedProjectFlat=technicalFlatRecord(p.technicalFlatId); const projectFlatSvg=savedProjectFlat&&savedProjectFlat.image?savedProjectFlat.image:generateLineDrawing(p.basePattern,p.models||{},p.garment,p.technicalDesign||{},p.technicalNotes||'');
-      const projectFlatCaption=savedProjectFlat?`Technical flat v${savedProjectFlat.version} · ${formatFlatDate(savedProjectFlat.generatedAt)}`:'Live technical-flatpreview · nog niet als versie opgeslagen';
-      return `<div class="item-card ${highlightProjectId===p.id?'project-highlight':''}" id="project-card-${p.id}" data-project-card="${p.id}">
-        <div class="item-head">
-          <div style="display:flex;gap:8px;align-items:flex-start;"><span class="drag-handle" draggable="true" title="Sleep om te verplaatsen">☰</span><div><h4>${esc(p.name)}</h4><div class="meta">${esc(p.garment)} · aangemaakt ${formatDate(p.createdAt)}</div></div></div>
-          <div class="toolbar">
-            <span class="project-order"><button class="btn ghost small" onclick="moveProject('${p.id}', -1)" ${index===0?'disabled':''} title="Omhoog">↑</button><button class="btn ghost small" onclick="moveProject('${p.id}', 1)" ${index===data.projects.length-1?'disabled':''} title="Omlaag">↓</button></span>
-            <select onchange="setProjectStatus('${p.id}', this.value)" style="width:auto;">${projectStatuses.map(s => `<option value="${esc(s)}" ${p.status===s?'selected':''}>${esc(s)}</option>`).join('')}</select><button class="btn danger small" onclick="deleteProject('${p.id}')">Verwijderen</button>
-          </div>
-        </div>
-        <div class="project-visuals">
-          <div><div>${photo ? `<img class="project-photo" src="${photo}" alt="Stof voor ${esc(p.name)}" />` : `<div class="fabric-placeholder" style="width:100%;height:auto;aspect-ratio:4/3;">Geen stoffoto</div>`}</div><div class="visual-caption">Stof</div></div>
-          <div><div>${projectInspiration ? `<img class="project-inspiration" src="${projectInspiration}" alt="Inspiratie voor ${esc(p.name)}" />` : `<div class="fabric-placeholder" style="width:100%;height:auto;aspect-ratio:4/3;">Geen inspiratie</div>`}</div><div class="visual-caption">Inspiratie</div></div>
-          <div class="project-tech-cell"><div class="project-drawing">${projectFlatSvg}</div><div class="project-flat-caption">${esc(projectFlatCaption)}</div></div>
-          <div class="project-detail-cell">
-            ${modelChips ? `<div class="chip-row">${modelChips}</div>` : '<div class="meta">Geen modelintekeningen gekozen.</div>'}
-            <div class="details" style="margin-top:12px;"><div><span>Basispatroon</span>${esc(p.basePattern || 'Geen keuze')}</div><div><span>Stof</span>${esc(currentFabricLabel)}</div><div><span>Maten</span>${measurement ? formatDate(measurement.date) : 'Niet gekoppeld'}</div></div>
-            ${p.note ? `<div class="meta" style="margin-top:10px;"><strong>Notitie:</strong> ${esc(p.note)}</div>` : ''}
-            ${sourceIdea ? `<div class="project-source-note">Ontstaan uit idee <strong>${esc(sourceIdea.name)}</strong>. <button class="btn ghost small" style="margin-left:6px;" onclick="goToProjectIdea('${sourceIdea.id}')">Bekijk bronidee</button></div>` : ''}
-            ${(p.patternName || linkedPattern) ? `<div class="project-pattern-note">Gebruikt patroon: <strong>${esc(p.patternName || linkedPattern.name)}</strong>${p.patternVersionNumber ? ` · versie ${esc(p.patternVersionNumber)}` : (linkedPatternVersion ? ` · versie ${esc(linkedPatternVersion.number||'—')}` : '')}. ${linkedPattern ? `<button class="btn ghost small" style="margin-left:6px;" onclick="goToProjectPattern('${linkedPattern.id}','${linkedPatternVersion?linkedPatternVersion.id:''}')">Bekijk patroon</button>` : ''}</div>` : ''}
-          </div>
-        </div>
-      </div>`;
-    }).join('');
+    syncAllProjectStatuses();
+    const el=document.getElementById('projectList');if(!el)return;
+    if(!data.projects.length){el.innerHTML='<div class="empty" style="grid-column:1/-1;">Nog geen projecten. Maak je eerste combinatie in de Patroonplanner.</div>';return;}
+    el.innerHTML=data.projects.map((p,index)=>{normalizeProject(p);const progress=projectProgress(p.id),collection=projectCollection(p),fabric=data.fabrics.find(f=>f.id===p.fabricId),pattern=p.patternId?normalizePattern(data.patterns.find(x=>x.id===p.patternId)):null,version=pattern&&p.patternVersionId?pattern.versions.find(v=>v.id===p.patternVersionId):null,img=projectImage(p),flat=technicalFlatRecord(p.technicalFlatId);const media=img?`<img src="${img}" alt="${esc(p.name)}"/>`:flat&&flat.image?`<div class="project-mini-flat">${flat.image}</div>`:'<div class="project-mini-flat"><span class="meta">Geen afbeelding</span></div>';return `<article class="project-overview-card" id="project-card-${p.id}" data-project-card="${p.id}"><div draggable="true" title="Sleep om project te verplaatsen">${media}</div><div style="display:grid;gap:8px;min-width:0;"><div class="item-head"><div><h4>${esc(p.name)}</h4><div class="meta">${esc(p.garment||'Geen type')} · ${formatDate(p.createdAt)}</div></div>${projectStatusBadge(p.status)}</div><div class="details"><div><span>Collectie</span>${esc(collection?collection.name:'Geen')}</div><div><span>Patroon</span>${esc(pattern?pattern.name:(p.patternName||'Geen'))}${version?` · v${esc(version.number||'—')}`:''}</div><div><span>Stof</span>${esc(fabric?fabricTitle(fabric):(p.fabricLabel||'Geen'))}</div><div><span>Open taken</span>${progress.open}</div><div><span>Voortgang</span>${progress.percent}%</div></div><div class="progress-track"><div class="progress-bar" style="width:${progress.percent}%"></div></div><div class="toolbar"><button class="btn secondary small" onclick="openProjectDetail('${p.id}')">Open project</button><button class="btn ghost small" onclick="moveProject('${p.id}',-1)" ${index===0?'disabled':''}>↑</button><button class="btn ghost small" onclick="moveProject('${p.id}',1)" ${index===data.projects.length-1?'disabled':''}>↓</button></div></div></article>`;}).join('');
   }
 
-  document.getElementById('todoForm').addEventListener('submit', (e) => {
-    e.preventDefault();
-    const text = document.getElementById('todoText').value.trim(); if (!text) return;
-    data.todos.push({ id: uid(), text, projectId: document.getElementById('todoProject').value, dueDate: document.getElementById('todoDate').value, done:false, createdAt:todayISO() });
-    e.target.reset(); saveData(); showToast('Taak toegevoegd');
-  });
+  function renderProjectDetail(id){
+    const p=normalizeProject(data.projects.find(x=>x.id===id)),root=document.getElementById('projectDetail');if(!p||!root){if(root)root.innerHTML='<div class="empty">Project niet gevonden.</div>';return;}syncProjectStatus(id);const progress=projectProgress(id),collection=projectCollection(p),fabric=data.fabrics.find(f=>f.id===p.fabricId),pattern=p.patternId?normalizePattern(data.patterns.find(x=>x.id===p.patternId)):null,version=pattern&&p.patternVersionId?pattern.versions.find(v=>v.id===p.patternVersionId):null,measurement=data.measurements.find(m=>m.id===p.measurementId),img=projectImage(p),flat=technicalFlatRecord(p.technicalFlatId);document.getElementById('projectDetailActions').innerHTML=`<button class="btn danger small" onclick="deleteProject('${p.id}')">Project verwijderen</button>`;
+    const taskRows=progress.tasks.length?progress.tasks.map(t=>`<tr><td><input type="checkbox" ${t.status==='done'?'checked':''} onchange="toggleTodoDone('${t.id}',this.checked)"/></td><td><strong>${esc(t.text)}</strong>${t.required?'':'<div class="meta">Optionele taak</div>'}</td><td><select onchange="setTodoStatus('${t.id}',this.value)"><option value="todo" ${t.status==='todo'?'selected':''}>To do</option><option value="inprogress" ${t.status==='inprogress'?'selected':''}>In uitvoering</option><option value="done" ${t.status==='done'?'selected':''}>Gereed</option></select></td><td>${esc(t.priority||'Normaal')}</td><td>${t.dueDate?formatDate(t.dueDate):'—'}</td><td><button class="btn danger small" onclick="deleteTodo('${t.id}')">×</button></td></tr>`).join(''):'<tr><td colspan="6"><div class="empty">Nog geen taken voor dit project.</div></td></tr>';
+    root.innerHTML=`<div class="project-detail-hero"><div>${img?`<img class="project-detail-image" src="${img}" alt="${esc(p.name)}"/>`:flat&&flat.image?`<div class="project-detail-flat">${flat.image}</div>`:'<div class="idea-detail-placeholder">Geen projectafbeelding</div>'}</div><div><div class="meta">${esc(p.garment||'Geen kledingstuktype')} · aangemaakt ${formatDate(p.createdAt)}</div><h2 style="margin:5px 0 10px;">${esc(p.name)}</h2>${projectStatusBadge(p.status)}<div style="margin-top:14px;"><div class="meta">Voortgang ${progress.percent}% · ${progress.done}/${progress.total} vereiste taken gereed · ${progress.open} open</div><div class="progress-track" style="margin-top:6px;"><div class="progress-bar" style="width:${progress.percent}%"></div></div></div><div class="form-grid two" style="margin-top:18px;"><div class="field"><label>Projectnaam</label><input type="text" id="projectDetailName" value="${esc(p.name)}"/></div><div class="field"><label>Collectie</label><select id="projectDetailCollection">${renderProjectCollectionOptions(p.collectionId)}</select></div><div class="field full"><label>Projectomschrijving</label><textarea id="projectDetailDescription">${esc(p.description||p.note||'')}</textarea></div><div class="field full"><button class="btn secondary" onclick="saveProjectDetails('${p.id}')">Projectgegevens opslaan</button></div></div></div></div>
+    <div class="pattern-detail-sections"><section class="pattern-detail-section"><h3>Projectinformatie</h3><div class="pattern-meta-grid"><div class="pattern-meta-item"><span>Status</span>${esc(p.status)}</div><div class="pattern-meta-item"><span>Collectie</span>${esc(collection?collection.name:'Niet gekoppeld')}</div><div class="pattern-meta-item"><span>Stof</span>${esc(fabric?fabricTitle(fabric):(p.fabricLabel||'Niet gekoppeld'))}</div><div class="pattern-meta-item"><span>Patroon</span>${esc(pattern?pattern.name:(p.patternName||'Niet gekoppeld'))}</div><div class="pattern-meta-item"><span>Patroonversie</span>${esc(version?version.number:(p.patternVersionNumber||'Niet gekoppeld'))}</div><div class="pattern-meta-item"><span>Basispatroon</span>${esc(p.basePattern||'Niet gekozen')}</div><div class="pattern-meta-item"><span>Matenprofiel</span>${esc(measurement?measurementProfileLabel(measurement.id):'Niet gekoppeld')}</div><div class="pattern-meta-item"><span>Technical flat</span>${flat?`v${esc(flat.version)} · ${esc(formatFlatDate(flat.generatedAt))}`:'Geen opgeslagen versie'}</div></div><div class="toolbar" style="margin-top:12px;">${pattern?`<button class="btn ghost small" onclick="goToProjectPattern('${pattern.id}','${version?version.id:''}')">Open gebruikt patroon</button>`:''}${p.ideaId?`<button class="btn ghost small" onclick="goToProjectIdea('${p.ideaId}')">Open bronidee</button>`:''}</div></section>
+    <section class="pattern-detail-section"><div class="item-head"><div><h3 style="margin:0;">Taken</h3><div class="meta">Deze taken zijn exact dezelfde kaarten als op het Kanban-bord.</div></div><div>${projectStatusBadge(p.status)}</div></div><div style="overflow-x:auto;margin-top:10px;"><table class="project-task-table"><thead><tr><th>✓</th><th>Taak</th><th>Status</th><th>Prioriteit</th><th>Deadline</th><th></th></tr></thead><tbody>${taskRows}</tbody></table></div><form onsubmit="addProjectTask(event,'${p.id}')" class="form-grid" style="margin-top:16px;"><div class="field"><label>Nieuwe taak</label><input type="text" data-project-task-text required/></div><div class="field"><label>Deadline</label><input type="date" data-project-task-date/></div><div class="field"><label>Prioriteit</label><select data-project-task-priority><option>Laag</option><option selected>Normaal</option><option>Hoog</option></select></div><label class="check-item"><input type="checkbox" data-project-task-required checked/> Vereist</label><div class="field"><button class="btn" type="submit">Taak toevoegen</button></div></form></section></div>`;
+  }
 
-  window.toggleTodo = function(id, done) { const t = data.todos.find(x => x.id === id); if (!t) return; t.done = done; saveData(); };
-  window.deleteTodo = function(id) { data.todos = data.todos.filter(t => t.id !== id); saveData(); };
-  document.getElementById('clearDoneTodosBtn').addEventListener('click', () => { data.todos = data.todos.filter(t => !t.done); saveData(); });
+  window.addProjectTask=function(e,projectId){e.preventDefault();const form=e.target,text=form.querySelector('[data-project-task-text]').value.trim();if(!text)return;data.todos.push({id:uid(),text,projectId,dueDate:form.querySelector('[data-project-task-date]').value,status:'todo',done:false,priority:form.querySelector('[data-project-task-priority]').value||'Normaal',required:form.querySelector('[data-project-task-required]').checked,createdAt:todayISO()});syncProjectStatus(projectId);saveData();renderProjectDetail(projectId);};
 
-  function renderTodos() {
-    const projectSelect = document.getElementById('todoProject');
-    const current = projectSelect.value;
-    projectSelect.innerHTML = `<option value="">Geen project</option>` + data.projects.map(p => `<option value="${p.id}">${esc(p.name)}</option>`).join('');
-    if (data.projects.some(p => p.id === current)) projectSelect.value = current;
+  function collectionProgress(collectionId){const projects=data.projects.filter(p=>p.collectionId===collectionId);let total=0,done=0;projects.forEach(p=>{const pr=projectProgress(p.id);total+=pr.total;done+=pr.done;});return {projects,total,done,percent:total?Math.round(done/total*100):0};}
 
-    const el = document.getElementById('todoList');
-    const sorted = [...data.todos].sort((a,b) => Number(a.done)-Number(b.done) || (a.dueDate || '9999').localeCompare(b.dueDate || '9999'));
-    if (!sorted.length) { el.innerHTML = `<div class="empty">Nog geen taken.</div>`; return; }
-    el.innerHTML = sorted.map(t => {
-      const p = data.projects.find(p => p.id === t.projectId);
-      return `<div class="todo-row ${t.done?'done':''}"><input type="checkbox" ${t.done?'checked':''} onchange="toggleTodo('${t.id}', this.checked)" /><div><div class="todo-text">${esc(t.text)}</div>${p?`<div class="meta project-tag">${esc(p.name)}</div>`:''}</div><div class="meta">${t.dueDate?formatDate(t.dueDate):''}</div><button class="btn danger small" onclick="deleteTodo('${t.id}')">×</button></div>`;
-    }).join('');
+  function updateCollectionCoverPreview(){const img=document.getElementById('collectionCoverPreview'),btn=document.getElementById('removeCollectionCoverBtn');if(!img||!btn)return;if(pendingCollectionCover){img.src=pendingCollectionCover;img.style.display='block';btn.style.display='inline-flex';}else{img.removeAttribute('src');img.style.display='none';btn.style.display='none';}}
+
+  function renderCollectionProjectPicker(collectionId){const root=document.getElementById('collectionProjectPicker');if(!root)return;if(!data.projects.length){root.innerHTML='<div class="empty" style="grid-column:1/-1;">Nog geen projecten beschikbaar.</div>';return;}root.innerHTML=data.projects.map(p=>{const current=p.collectionId?data.collections.find(c=>c.id===p.collectionId):null;const checked=p.collectionId===collectionId;return `<label class="collection-project-option"><input type="checkbox" data-collection-project="${p.id}" ${checked?'checked':''}/><div><strong>${esc(p.name)}</strong><div class="meta">${esc(p.status||'Idee')}${current&&current.id!==collectionId?' · nu in '+esc(current.name):''}</div></div></label>`;}).join('');}
+
+  function resetCollectionForm(){editingCollectionId='';pendingCollectionCover='';document.getElementById('collectionForm').reset();document.getElementById('collectionStatus').value='Concept';document.getElementById('collectionFormTitle').textContent='Nieuwe collectie';updateCollectionCoverPreview();renderCollectionProjectPicker('');}
+
+  window.editCollection=function(id){const c=normalizeCollection(data.collections.find(x=>x.id===id));if(!c)return;editingCollectionId=id;activeCollectionId=id;pendingCollectionCover=c.cover||'';document.getElementById('collectionName').value=c.name||'';document.getElementById('collectionSeason').value=c.season||'';document.getElementById('collectionStatus').value=c.status||'Concept';document.getElementById('collectionDescription').value=c.description||'';document.getElementById('collectionFormTitle').textContent='Collectie bewerken';updateCollectionCoverPreview();renderCollectionProjectPicker(c.id);showProjectPanel('collectionForm');};
+
+  document.getElementById('collectionCoverInput').addEventListener('change',async e=>{const file=e.target.files&&e.target.files[0];if(!file)return;try{pendingCollectionCover=await resizeProjectPhoto(file);updateCollectionCoverPreview();}catch(err){alert('De cover kon niet worden verwerkt.');}e.target.value='';});
+  document.getElementById('removeCollectionCoverBtn').addEventListener('click',()=>{pendingCollectionCover='';updateCollectionCoverPreview();});
+  document.getElementById('collectionForm').addEventListener('submit',e=>{e.preventDefault();const name=document.getElementById('collectionName').value.trim();if(!name){alert('Geef de collectie een naam.');return;}let collection=editingCollectionId?data.collections.find(c=>c.id===editingCollectionId):null;if(!collection){collection={id:uid(),createdAt:todayISO()};data.collections.unshift(collection);}Object.assign(collection,{name,description:document.getElementById('collectionDescription').value.trim(),cover:pendingCollectionCover,season:document.getElementById('collectionSeason').value,status:document.getElementById('collectionStatus').value||'Concept',updatedAt:todayISO()});const selected=new Set(Array.from(document.querySelectorAll('[data-collection-project]:checked')).map(x=>x.dataset.collectionProject));data.projects.forEach(p=>{if(selected.has(p.id))p.collectionId=collection.id;else if(p.collectionId===collection.id)p.collectionId='';});activeCollectionId=collection.id;saveData();showProjectPanel('collectionDetail');showToast('Collectie opgeslagen');});
+
+  window.deleteCollection=function(id){const c=data.collections.find(x=>x.id===id);if(!c)return;if(!confirm(`Collectie “${c.name}” verwijderen? De projecten blijven bestaan.`))return;data.projects.forEach(p=>{if(p.collectionId===id)p.collectionId='';});data.collections=data.collections.filter(x=>x.id!==id);activeCollectionId='';saveData();showProjectPanel('collections');};
+
+  function renderCollections(){const root=document.getElementById('collectionList');if(!root)return;if(!data.collections.length){root.innerHTML='<div class="empty" style="grid-column:1/-1;">Nog geen collecties. Maak bijvoorbeeld “Najaarscollectie 2026”.</div>';return;}root.innerHTML=data.collections.map(c=>{normalizeCollection(c);const pr=collectionProgress(c.id),projects=pr.projects,cover=c.cover||((projects[0]&&projectImage(projects[0]))||'');return `<article class="collection-card">${cover?`<img class="collection-cover" src="${cover}" alt="${esc(c.name)}"/>`:'<div class="collection-cover-placeholder">Geen cover</div>'}<div class="collection-card-body"><div class="item-head"><div><h3 style="margin:0;">${esc(c.name)}</h3><div class="meta">${esc(c.season||'Geen seizoen')} · ${esc(c.status||'Concept')}</div></div><span class="chip">${projects.length} project${projects.length===1?'':'en'}</span></div>${c.description?`<div class="idea-description">${esc(c.description)}</div>`:''}<div class="meta">Totale voortgang ${pr.percent}%</div><div class="progress-track"><div class="progress-bar" style="width:${pr.percent}%"></div></div><div class="toolbar"><button class="btn secondary small" onclick="openCollectionDetail('${c.id}')">Open collectie</button><button class="btn ghost small" onclick="editCollection('${c.id}')">Bewerken</button></div></div></article>`;}).join('');}
+
+  window.openCollectionDetail=function(id){if(!data.collections.some(c=>c.id===id))return;activeCollectionId=id;showProjectPanel('collectionDetail');window.scrollTo({top:0,behavior:'smooth'});};
+
+  function renderCollectionDetail(id){const c=normalizeCollection(data.collections.find(x=>x.id===id)),root=document.getElementById('collectionDetail');if(!c||!root)return;const pr=collectionProgress(id);document.getElementById('collectionDetailActions').innerHTML=`<button class="btn secondary small" onclick="editCollection('${c.id}')">Bewerken</button><button class="btn danger small" onclick="deleteCollection('${c.id}')">Verwijderen</button>`;const projects=pr.projects;root.innerHTML=`<div class="project-detail-hero"><div>${c.cover?`<img class="project-detail-image" src="${c.cover}" alt="${esc(c.name)}"/>`:'<div class="idea-detail-placeholder">Geen collectiecover</div>'}</div><div><div class="meta">${esc(c.season||'Geen seizoen')} · ${esc(c.status||'Concept')}</div><h2 style="margin:5px 0 10px;">${esc(c.name)}</h2>${c.description?`<p style="color:var(--muted);line-height:1.6;">${esc(c.description)}</p>`:''}<div class="meta">Totale voortgang ${pr.percent}% · ${projects.length} project${projects.length===1?'':'en'}</div><div class="progress-track" style="margin-top:7px;"><div class="progress-bar" style="width:${pr.percent}%"></div></div></div></div><div class="pattern-detail-sections"><section class="pattern-detail-section"><h3>Projecten in deze collectie</h3>${projects.length?`<div class="project-overview-grid">${projects.map(p=>{const pg=projectProgress(p.id),img=projectImage(p);return `<article class="project-overview-card"><div>${img?`<img src="${img}" alt="${esc(p.name)}"/>`:'<div class="project-mini-flat"><span class="meta">Geen afbeelding</span></div>'}</div><div style="display:grid;gap:7px;"><div class="item-head"><h4>${esc(p.name)}</h4>${projectStatusBadge(p.status)}</div><div class="meta">${pg.percent}% gereed · ${pg.open} open taken</div><div class="progress-track"><div class="progress-bar" style="width:${pg.percent}%"></div></div><button class="btn ghost small" onclick="openProjectDetail('${p.id}')">Open project</button></div></article>`;}).join('')}</div>`:'<div class="empty">Nog geen projecten aan deze collectie gekoppeld.</div>'}</section></div>`;}
+
+  document.getElementById('openCollectionsBtn').addEventListener('click',()=>showProjectPanel('collections'));
+  document.getElementById('backFromCollectionsBtn').addEventListener('click',()=>showProjectPanel('overview'));
+  document.getElementById('newCollectionBtn').addEventListener('click',()=>{resetCollectionForm();showProjectPanel('collectionForm');});
+  document.getElementById('cancelCollectionBtn').addEventListener('click',()=>showProjectPanel(editingCollectionId?'collectionDetail':'collections'));
+  document.getElementById('backFromCollectionDetailBtn').addEventListener('click',()=>showProjectPanel('collections'));
+  document.getElementById('backFromProjectDetailBtn').addEventListener('click',()=>showProjectPanel('overview'));
+
+  document.getElementById('todoForm').addEventListener('submit',e=>{e.preventDefault();const text=document.getElementById('todoText').value.trim();if(!text)return;const projectId=document.getElementById('todoProject').value,status=document.getElementById('todoStartStatus').value||'todo';data.todos.push({id:uid(),text,projectId,dueDate:document.getElementById('todoDate').value,status,done:status==='done',priority:document.getElementById('todoPriority').value||'Normaal',required:document.getElementById('todoRequired').checked,createdAt:todayISO()});if(projectId)syncProjectStatus(projectId);e.target.reset();document.getElementById('todoRequired').checked=true;document.getElementById('todoPriority').value='Normaal';saveData();showToast('Taak toegevoegd');});
+
+  window.setTodoStatus=function(id,status){const t=normalizeTodo(data.todos.find(x=>x.id===id));if(!t||!taskStatuses.includes(status))return;t.status=status;t.done=status==='done';if(t.projectId)syncProjectStatus(t.projectId);saveData();if(projectPanelMode==='detail'&&activeProjectId===t.projectId)renderProjectDetail(activeProjectId);};
+  window.toggleTodoDone=function(id,done){setTodoStatus(id,done?'done':'inprogress');};
+  window.moveTodoStatus=function(id,direction){const t=normalizeTodo(data.todos.find(x=>x.id===id));if(!t)return;const i=taskStatuses.indexOf(t.status),n=Math.max(0,Math.min(taskStatuses.length-1,i+direction));setTodoStatus(id,taskStatuses[n]);};
+  window.deleteTodo=function(id){const t=data.todos.find(x=>x.id===id),pid=t?t.projectId:'';data.todos=data.todos.filter(x=>x.id!==id);if(pid)syncProjectStatus(pid);saveData();if(projectPanelMode==='detail'&&activeProjectId===pid)renderProjectDetail(pid);};
+  window.openTodoProject=function(projectId){if(!projectId)return;navigate('projects');setTimeout(()=>openProjectDetail(projectId),30);};
+  document.getElementById('clearDoneTodosBtn').addEventListener('click',()=>{const before=data.todos.length;data.todos=data.todos.filter(t=>!(normalizeTodo(t).status==='done'&&!t.projectId));saveData();showToast(before===data.todos.length?'Geen afgeronde losse taken om op te ruimen':'Afgeronde losse taken verwijderd; projecttaken blijven bewaard');});
+
+  function renderTodoCard(t){normalizeTodo(t);const p=data.projects.find(x=>x.id===t.projectId),c=p?projectCollection(p):null,priorityClass=t.priority==='Hoog'?'priority-high':t.priority==='Laag'?'priority-low':'';return `<article class="kanban-card" draggable="true" data-kanban-task="${t.id}"><div class="kanban-card-title">${esc(t.text)}</div><div class="kanban-meta">${p?`<strong>${esc(p.name)}</strong>`:'<span>Losse taak</span>'}${c?`<span>Collectie: ${esc(c.name)}</span>`:''}${t.dueDate?`<span>Deadline: ${formatDate(t.dueDate)}</span>`:''}<span class="${priorityClass}">Prioriteit: ${esc(t.priority||'Normaal')}</span>${t.required?'<span>Vereist voor afronding</span>':'<span>Optioneel</span>'}</div><select onchange="setTodoStatus('${t.id}',this.value)"><option value="todo" ${t.status==='todo'?'selected':''}>TO DO</option><option value="inprogress" ${t.status==='inprogress'?'selected':''}>IN UITVOERING</option><option value="done" ${t.status==='done'?'selected':''}>GEREED</option></select><div class="toolbar"><button class="btn ghost small" onclick="moveTodoStatus('${t.id}',-1)" ${t.status==='todo'?'disabled':''}>←</button><button class="btn ghost small" onclick="moveTodoStatus('${t.id}',1)" ${t.status==='done'?'disabled':''}>→</button>${p?`<button class="btn secondary small" onclick="openTodoProject('${p.id}')">Open project</button>`:''}<button class="btn danger small" onclick="deleteTodo('${t.id}')">×</button></div></article>`;}
+
+  function renderTodos(){
+    data.todos.forEach(normalizeTodo);syncAllProjectStatuses();const projectSelect=document.getElementById('todoProject'),current=projectSelect.value;projectSelect.innerHTML='<option value="">Geen project</option>'+data.projects.map(p=>`<option value="${p.id}">${esc(p.name)}</option>`).join('');if(data.projects.some(p=>p.id===current))projectSelect.value=current;
+    const buckets={todo:[],inprogress:[],done:[]};data.todos.slice().sort((a,b)=>(a.dueDate||'9999').localeCompare(b.dueDate||'9999')).forEach(t=>buckets[normalizeTodo(t).status].push(t));
+    document.getElementById('kanbanTodo').innerHTML=buckets.todo.length?buckets.todo.map(renderTodoCard).join(''):'<div class="empty">Geen taken.</div>';
+    document.getElementById('kanbanProgress').innerHTML=buckets.inprogress.length?buckets.inprogress.map(renderTodoCard).join(''):'<div class="empty">Geen taken.</div>';
+    document.getElementById('kanbanDone').innerHTML=buckets.done.length?buckets.done.map(renderTodoCard).join(''):'<div class="empty">Geen taken.</div>';
+    document.getElementById('kanbanCountTodo').textContent=buckets.todo.length;document.getElementById('kanbanCountProgress').textContent=buckets.inprogress.length;document.getElementById('kanbanCountDone').textContent=buckets.done.length;
   }
 
   function renderDashboard() {
@@ -3523,7 +3722,7 @@
     document.getElementById('metricMeasurement').textContent = last ? formatDate(last.date) : '—';
     document.getElementById('metricMeasurementSub').textContent = last ? (last.label || 'Laatste opgeslagen meting') : 'Nog geen meting opgeslagen';
     document.getElementById('metricPatterns').textContent = data.patterns.length;
-    document.getElementById('metricPatternsSub').textContent = `${data.selectedBasePatterns.length} van 6 basispatronen geselecteerd`;
+    document.getElementById('metricPatternsSub').textContent = `${data.selectedBasePatterns.length} van ${basePatterns.length} basispatronen geselecteerd`;
     document.getElementById('metricFabrics').textContent = data.fabrics.length;
     document.getElementById('metricTodos').textContent = data.todos.filter(t => !t.done).length;
 
@@ -3535,6 +3734,10 @@
   }
 
   function renderAll() {
+    data.todos.forEach(normalizeTodo);
+    data.projects.forEach(normalizeProject);
+    data.collections.forEach(normalizeCollection);
+    syncAllProjectStatuses();
     syncSelectionsToInputs();
     renderMeasurements();
     renderFabrics();
@@ -3542,6 +3745,7 @@
     renderPatterns();
     renderPlanner();
     renderProjects();
+    renderCollections();
     renderTodos();
     renderDashboard();
   }
