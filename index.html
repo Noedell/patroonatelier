@@ -643,6 +643,36 @@
       .flat-history-item { grid-template-columns:1fr; }
     }
 
+
+    .planner-flow { display:grid; grid-template-columns:repeat(3,minmax(0,1fr)); gap:10px; margin-bottom:18px; }
+    .planner-step-btn { border:1px solid var(--line); background:var(--panel); color:var(--muted); border-radius:15px; padding:12px 14px; text-align:left; display:grid; gap:3px; min-width:0; }
+    .planner-step-btn strong { color:var(--text); font-size:13px; }
+    .planner-step-btn span { font-size:11px; line-height:1.35; }
+    .planner-step-btn.active { border-color:var(--accent); box-shadow:inset 3px 0 0 var(--accent); background:var(--panel-soft); }
+    .planner-step-panel { display:none; }
+    .planner-step-panel.active { display:block; }
+    .planner-step-card { display:grid; gap:18px; }
+    .planner-subsection { border-top:1px solid var(--line); padding-top:17px; }
+    .planner-subsection:first-child { border-top:0; padding-top:0; }
+    .planner-subsection-head { display:flex; justify-content:space-between; gap:10px; align-items:flex-start; margin-bottom:12px; }
+    .planner-subsection-head h3 { margin:0; font-size:16px; }
+    .planner-subsection-head p { margin:3px 0 0; color:var(--muted); font-size:11px; line-height:1.45; }
+    .planner-reference-grid { display:grid; grid-template-columns:repeat(3,minmax(0,1fr)); gap:10px; margin-top:12px; }
+    .planner-reference-tile { border:1px solid var(--line); border-radius:14px; overflow:hidden; background:var(--panel-soft); position:relative; }
+    .planner-reference-tile img { width:100%; aspect-ratio:4/3; object-fit:cover; display:block; background:#fff; }
+    .planner-reference-body { padding:8px; display:grid; gap:7px; }
+    .planner-reference-body textarea { min-height:58px; font-size:11px; padding:8px; }
+    .planner-reference-main { position:absolute; left:7px; top:7px; border-radius:999px; background:var(--sidebar); color:var(--sidebar-text); padding:4px 7px; font-size:10px; font-weight:800; }
+    .planner-dynamic-note { border:1px dashed var(--line); border-radius:12px; background:var(--panel-soft); padding:10px 12px; color:var(--muted); font-size:12px; line-height:1.45; }
+    .planner-pattern-summary { border:1px solid var(--line); border-radius:13px; background:var(--panel-soft); padding:12px; }
+    .planner-pattern-summary h4 { margin:0 0 8px; }
+    .planner-step-actions { display:flex; justify-content:space-between; gap:10px; flex-wrap:wrap; margin-top:16px; }
+    .flat-update-callout { display:none; margin-top:10px; border:1px solid #d9b66f; background:#fff8e8; color:#6b5425; border-radius:12px; padding:10px 12px; font-size:12px; line-height:1.45; }
+    .flat-update-callout.show { display:flex; justify-content:space-between; gap:10px; align-items:center; flex-wrap:wrap; }
+    body[data-theme="dark"] .flat-update-callout { background:#3a3323; color:#ead7a2; border-color:#65562e; }
+    @media (max-width:900px) { .planner-flow { grid-template-columns:1fr; } .planner-reference-grid { grid-template-columns:repeat(2,minmax(0,1fr)); } }
+    @media (max-width:560px) { .planner-reference-grid { grid-template-columns:1fr; } }
+
     .app-version-badge { display:inline-flex; align-items:center; border:1px solid var(--line); background:var(--panel-soft); color:var(--muted); border-radius:999px; padding:5px 9px; font-size:11px; font-weight:800; white-space:nowrap; }
 
     .project-panel { display:none; }
@@ -772,7 +802,7 @@
   <main class="main">
     <header class="topbar">
       <h1 id="pageTitle">Overzicht</h1>
-      <div class="top-actions"><span id="jsStatus" class="meta" style="align-self:center;">App wordt gestart…</span><span class="app-version-badge" id="appVersionBadge">v0.5</span>
+      <div class="top-actions"><span id="jsStatus" class="meta" style="align-self:center;">App wordt gestart…</span><span class="app-version-badge" id="appVersionBadge">v0.6</span>
         <label class="theme-picker">Thema <select id="themeSelect" aria-label="Kleurthema"><option value="atelier">Atelier</option><option value="rose">Rozenstof</option><option value="sage">Saliegroen</option><option value="ocean">Noordzee</option><option value="dark">Donker</option></select></label>
         <button class="btn ghost small" id="exportBtn">Exporteren</button>
         <button class="btn ghost small" id="importBtn">Importeren</button>
@@ -1077,81 +1107,146 @@
       </section>
 
       <section class="view" id="view-planner">
-        <div class="section-head"><div><h2>Patroonplanner</h2><p>Combineer kledingtype, basispatroon, modelintekeningen en een geschikte stof tot één project.</p></div></div>
-        <div class="grid two">
-          <div class="card">
-            <div class="form-grid two">
-              <div class="field full"><label>Naam van het project</label><input type="text" id="plannerName" placeholder="Bijv. Groene midi-jurk" /></div>
-              <div class="field"><label>Type kledingstuk</label><select id="plannerGarment"></select></div>
-               <div class="field"><label>Basispatroon</label><select id="plannerBasePattern"></select></div>
-               <div class="planner-pattern-box">
-                 <div class="form-grid two">
-                   <div class="field"><label>Patroon uit Patroonbibliotheek</label><select id="plannerPattern"></select></div>
-                   <div class="field"><label>Patroonversie</label><select id="plannerPatternVersion"></select></div>
-                 </div>
-                 <div class="toolbar planner-pattern-actions"><button type="button" class="btn ghost small" id="loadPlannerPatternVersionBtn">Laad gekozen versie</button><button type="button" class="btn ghost small" id="openPlannerPatternVersionBtn">Open versie in bibliotheek</button><button type="button" class="btn secondary small" id="savePlannerAsVersionBtn">Opslaan als nieuwe versie</button></div>
-                 <div class="hint" id="plannerPatternHint">Optioneel. Koppel dit ontwerp of project aan een bestaand patroon en een specifieke versie.</div>
-               </div>
-               <div class="field full"><label>Modelintekeningen <span class="hint">allemaal optioneel</span></label></div>
-              <div id="plannerModelFields" class="form-grid two" style="grid-column:1/-1;"></div>
-              <div class="flat-design-panel" id="plannerFlatDesignPanel">
-                <h4>Technical flat · ontwerpdetails</h4>
-                <p>Deze gegevens sturen de technische tekening rechtstreeks aan. Kies alleen wat je weet; “Automatisch / neutraal” gebruikt een vaste, sobere standaard zonder nieuwe ontwerpdetails te verzinnen.</p>
-                <div class="flat-field-grid">
-                  <div class="field"><label>Halslijn</label><select id="plannerFlatNeckline"><option value="auto">Automatisch / neutraal</option><option value="round">Ronde hals</option><option value="v">V-hals</option><option value="boat">Boothals</option><option value="square">Vierkante hals</option><option value="wrap">Wikkel / overslag</option><option value="high">Hoge hals</option></select></div>
-                  <div class="field"><label>Kraag</label><select id="plannerFlatCollar"><option value="auto">Automatisch / geen</option><option value="none">Geen kraag</option><option value="shirt">Overhemdkraag</option><option value="lapel">Reverskraag</option><option value="peterpan">Peter Pan-kraag</option><option value="turtleneck">Col / rolkraag</option><option value="hood">Capuchon</option></select></div>
-                  <div class="field"><label>Pasvorm</label><select id="plannerFlatFit"><option value="auto">Automatisch / neutraal</option><option value="fitted">Aansluitend</option><option value="straight">Recht</option><option value="relaxed">Losvallend</option><option value="oversized">Oversized</option><option value="aline">A-lijn</option></select></div>
-                  <div class="field"><label>Broekpasvorm <span class="hint">bij broek/jumpsuit</span></label><select id="plannerFlatTrouserFit"><option value="auto">Automatisch / straight</option><option value="skinny">Skinny</option><option value="slim">Slim</option><option value="straight">Straight</option><option value="wide">Wide leg</option><option value="palazzo">Palazzo</option><option value="tapered">Tapered</option><option value="bootcut">Bootcut</option><option value="flare">Flare</option><option value="jogger">Jogger</option><option value="other">Andere / neutraal</option></select></div>
-                  <div class="field"><label>Schoudervorm</label><select id="plannerFlatShoulder"><option value="auto">Automatisch / normaal</option><option value="regular">Normale schouder</option><option value="dropped">Verlaagde schouder</option><option value="narrow">Smallere schouder</option><option value="wide">Brede / rechte schouder</option></select></div>
-                  <div class="field"><label>Mouwtype</label><select id="plannerFlatSleeveType"><option value="auto">Automatisch / neutraal</option><option value="sleeveless">Mouwloos</option><option value="setin">Normale ingezette mouw</option><option value="fitted">Aansluitende ingezette mouw</option><option value="wide">Wijde ingezette mouw</option><option value="cap">Kapmouw</option><option value="puff">Pofmouw</option><option value="balloon">Ballonmouw</option><option value="raglan">Raglanmouw</option><option value="batwing">Vleermuismouw</option><option value="kimono">Aangeknipte / kimonomouw</option><option value="flutter">Vlindermouw</option><option value="shirt">Hemdsblousemouw</option></select></div>
-                  <div class="field"><label>Mouwlengte</label><select id="plannerFlatSleeveLength"><option value="auto">Automatisch / neutraal</option><option value="short">Kort</option><option value="elbow">Ellebooglengte</option><option value="threequarter">Driekwart</option><option value="long">Lang</option></select></div>
-                  <div class="field"><label>Taille / silhouet</label><select id="plannerFlatWaist"><option value="auto">Automatisch / neutraal</option><option value="none">Geen speciale taille</option><option value="shaped">Getailleerd</option><option value="waistband">Tailleband</option><option value="elastic">Elastische taille</option><option value="belt">Ceintuur / riem</option></select></div>
-                  <div class="field"><label>Zoom / lengte</label><select id="plannerFlatHem"><option value="auto">Automatisch uit kledingstuk/model</option><option value="waist">Taillelengte</option><option value="hip">Heuplengte</option><option value="above-knee">Boven de knie</option><option value="knee">Knielengte</option><option value="midi">Midi</option><option value="ankle">Enkellengte</option><option value="curved">Afgeronde zoom</option><option value="asym-left">Asymmetrisch · links lager</option><option value="asym-right">Asymmetrisch · rechts lager</option></select></div>
-                  <div class="field"><label>Naden / deelnaden</label><select id="plannerFlatSeams"><option value="auto">Automatisch / geen extra</option><option value="none">Geen extra naden</option><option value="princess">Prinsessennaden</option><option value="center-front">Middenvoornaad</option><option value="center-back">Middenachternaad</option><option value="yoke">Schouderpas / yoke</option></select></div>
-                  <div class="field"><label>Coupenaden</label><select id="plannerFlatDarts"><option value="auto">Automatisch uit basispatroon</option><option value="none">Geen coupenaden</option><option value="bust">Borstcoupenaden</option><option value="waist">Taillecoupenaden</option><option value="bust-waist">Borst + taille</option></select></div>
-                  <div class="field"><label>Sluiting</label><select id="plannerFlatClosure"><option value="auto">Automatisch uit model / geen</option><option value="none">Geen sluiting zichtbaar</option><option value="buttons">Knopen</option><option value="hidden-buttons">Blinde knoopsluiting</option><option value="zip-front">Rits middenvoor</option><option value="zip-back">Blinde rits middenachter</option><option value="zip-side">Blinde rits zijnaad</option><option value="snaps">Drukkers</option><option value="hooks">Haakjes</option><option value="tie">Striksluiting</option><option value="wrap">Wikkelconstructie</option></select></div>
-                  <div class="field"><label>Zakken</label><select id="plannerFlatPockets"><option value="auto">Automatisch / geen</option><option value="none">Geen zakken</option><option value="patch">Opgestikte zakken</option><option value="chest">Borstzakken</option><option value="side">Steekzakken / zijzakken</option><option value="welt">Paspelzakken</option><option value="flap">Klepzakken</option><option value="hidden">Verborgen zakken</option></select></div>
-                  <div class="field"><label>Symmetrie</label><select id="plannerFlatAsymmetry"><option value="symmetric">Symmetrisch</option><option value="left-pocket">Eenzijdige zak links</option><option value="right-pocket">Eenzijdige zak rechts</option><option value="asym-left">Asymmetrische zoom links lager</option><option value="asym-right">Asymmetrische zoom rechts lager</option></select></div>
-                </div>
-                <div class="field" style="margin-top:12px;"><label>Extra constructiedetails</label><div class="flat-detail-checks">
-                  <label class="check-item"><input type="checkbox" name="plannerFlatDetail" value="cuffs" /> Manchetten</label>
-                  <label class="check-item"><input type="checkbox" name="plannerFlatDetail" value="sleeve-slit" /> Mouwsplit</label>
-                  <label class="check-item"><input type="checkbox" name="plannerFlatDetail" value="belt" /> Ceintuur</label>
-                  <label class="check-item"><input type="checkbox" name="plannerFlatDetail" value="pleats" /> Plooien</label>
-                  <label class="check-item"><input type="checkbox" name="plannerFlatDetail" value="gathers" /> Rimpels</label>
-                  <label class="check-item"><input type="checkbox" name="plannerFlatDetail" value="front-slit" /> Split voor</label>
-                  <label class="check-item"><input type="checkbox" name="plannerFlatDetail" value="back-slit" /> Split achter</label>
-                  <label class="check-item"><input type="checkbox" name="plannerFlatDetail" value="center-front-seam" /> Middenvoornaad</label>
-                  <label class="check-item"><input type="checkbox" name="plannerFlatDetail" value="center-back-seam" /> Middenachternaad</label>
-                  <label class="check-item"><input type="checkbox" name="plannerFlatDetail" value="topstitch" /> Extra topstitching</label>
-                </div></div>
-                <div class="field" style="margin-top:12px;"><label>Ontwerpnotities voor technische tekening <span class="hint">optioneel</span></label><textarea id="plannerFlatNotes" placeholder="Bijv. Licht oversized blouse met verlaagde schouder, lange ballonmouwen en een diepe V-hals. Achterpand heeft een middennaad."></textarea><div class="hint">Alleen expliciet herkenbare ontwerptermen worden toegepast; onbekende tekst wordt bewaard maar niet als nieuw detail geïnterpreteerd.</div></div>
+        <div class="section-head"><div><h2>Patroonplanner</h2><p>Werk in drie heldere stappen: ontwerp eerst het kledingstuk, visualiseer het daarna als technical flat en ontwikkel vervolgens het patroon.</p></div></div>
+        <div class="planner-flow" id="plannerFlow" aria-label="Patroonplanner stappen">
+          <button type="button" class="planner-step-btn active" data-planner-step="1"><strong>1 · Ontwerp</strong><span>Wat wil ik maken?</span></button>
+          <button type="button" class="planner-step-btn" data-planner-step="2"><strong>2 · Technical flat</strong><span>Hoe ziet het ontwerp er technisch uit?</span></button>
+          <button type="button" class="planner-step-btn" data-planner-step="3"><strong>3 · Patroon</strong><span>Hoe ga ik het maken?</span></button>
+        </div>
+
+        <section class="planner-step-panel active" data-planner-panel="1">
+          <div class="card planner-step-card">
+            <div class="planner-subsection">
+              <div class="planner-subsection-head"><div><h3>Basis</h3><p>Alleen kledingstuktype is nodig om relevante ontwerpvelden te tonen.</p></div></div>
+              <div class="form-grid two">
+                <div class="field full"><label>Naam van het ontwerp</label><input type="text" id="plannerName" placeholder="Bijv. Groene midi-jurk" /></div>
+                <div class="field"><label>Kledingstuktype</label><select id="plannerGarment"></select></div>
+                <div class="field"><label>Geschikte stof <span class="hint">optioneel</span></label><select id="plannerFabric"></select><div class="hint" id="plannerFabricHint"></div></div>
+                <div class="field full"><label>Korte omschrijving</label><textarea id="plannerDescription" placeholder="Bijv. luchtige blouse voor de nazomer, iets losser dan mijn basisblouse."></textarea></div>
+                <div class="field full"><label>Ontwerpnotities <span class="hint">optioneel</span></label><textarea id="plannerFlatNotes" placeholder="Bijv. diepe V-hals, verlaagde schouder, lange ballonmouw en middenachternaad."></textarea><div class="hint">De technical flat gebruikt alleen expliciete ontwerpkeuzes en herkenbare termen uit deze notities. Referentiebeelden worden nooit automatisch geïnterpreteerd.</div></div>
               </div>
-              <div class="field full"><label>Geschikte stof</label><select id="plannerFabric"></select><div class="hint" id="plannerFabricHint"></div></div>
-              <div class="field full">
-                <label>Inspiratiefoto kledingstuk <span class="hint">optioneel</span></label>
-                <div class="photo-upload-grid">
-                  <div><input type="file" id="plannerInspirationPhoto" accept="image/*" /><div class="hint" style="margin-top:6px;">De foto wordt verkleind en bij het project bewaard.</div><div class="toolbar" style="margin-top:8px;"><button type="button" class="btn ghost small" id="removePlannerInspirationBtn" style="display:none;">Inspiratiefoto verwijderen</button></div></div>
-                  <img id="plannerInspirationPreview" class="inspiration-preview" alt="Inspiratiefoto" />
-                </div>
-              </div>
-              <div class="field full"><label>Notitie <span class="hint">optioneel</span></label><textarea id="plannerNote" placeholder="Bijv. hals 1 cm hoger maken bij proefmodel"></textarea></div>
             </div>
-            <div class="toolbar" style="margin-top:16px;"><button class="btn" id="saveProjectBtn">Project opslaan</button><button class="btn secondary" id="refreshPlannerBtn">Keuzes verversen</button></div>
+
+            <div class="planner-subsection" id="plannerFlatDesignPanel">
+              <div class="planner-subsection-head"><div><h3>Pasvorm & silhouet</h3><p>Deze keuzes zijn de primaire bron voor de technical flat.</p></div></div>
+              <div class="flat-field-grid">
+                <div class="field"><label>Pasvorm</label><select id="plannerFlatFit"><option value="auto">Neutraal</option><option value="fitted">Aansluitend</option><option value="straight">Recht</option><option value="relaxed">Losvallend</option><option value="oversized">Oversized</option><option value="aline">A-lijn</option></select></div>
+                <div class="field"><label>Silhouet</label><select id="plannerFlatSilhouette"><option value="auto">Neutraal</option><option value="straight">Recht</option><option value="shaped">Getailleerd</option><option value="aline">A-lijn</option><option value="boxy">Boxy</option></select></div>
+                <div class="field"><label>Lengte</label><select id="plannerFlatHem"><option value="auto">Neutrale lengte</option><option value="waist">Taillelengte</option><option value="hip">Heuplengte</option><option value="above-knee">Boven de knie</option><option value="knee">Knielengte</option><option value="midi">Midi</option><option value="ankle">Enkellengte</option><option value="curved">Afgeronde zoom</option><option value="asym-left">Asymmetrisch · links lager</option><option value="asym-right">Asymmetrisch · rechts lager</option></select></div>
+                <div class="field" data-design-group="waist"><label>Taillepositie</label><select id="plannerFlatWaistPosition"><option value="auto">Neutraal / natuurlijke taille</option><option value="high">Hoge taille</option><option value="natural">Natuurlijke taille</option><option value="low">Lage taille</option><option value="dropped">Verlaagde taille</option><option value="none">Geen duidelijke taille</option></select></div>
+                <div class="field" data-design-group="waist"><label>Taille-afwerking</label><select id="plannerFlatWaist"><option value="auto">Neutraal</option><option value="none">Geen speciale taille</option><option value="shaped">Getailleerd</option><option value="waistband">Tailleband</option><option value="elastic">Elastische taille</option><option value="belt">Ceintuur / riem</option></select></div>
+              </div>
+            </div>
+
+            <div class="planner-subsection" data-design-section="upper">
+              <div class="planner-subsection-head"><div><h3>Bovenkant</h3><p>Wordt alleen getoond wanneer deze gegevens relevant zijn voor het gekozen kledingstuk.</p></div></div>
+              <div class="flat-field-grid">
+                <div class="field" data-design-group="upper"><label>Halslijn</label><select id="plannerFlatNeckline"><option value="auto">Neutraal</option><option value="round">Ronde hals</option><option value="v">V-hals</option><option value="boat">Boothals</option><option value="square">Vierkante hals</option><option value="wrap">Wikkel / overslag</option><option value="high">Hoge hals</option><option value="neckband">Halsboord uit tricot</option><option value="cowl">Watervalhals</option></select></div>
+                <div class="field" data-design-group="upper"><label>Kraag</label><select id="plannerFlatCollar"><option value="auto">Geen / neutraal</option><option value="none">Geen kraag</option><option value="shirt">Overhemdkraag</option><option value="lapel">Reverskraag</option><option value="peterpan">Peter Pan-kraag</option><option value="turtleneck">Col / rolkraag</option><option value="hood">Capuchon</option></select></div>
+                <div class="field" data-design-group="upper"><label>Schouders</label><select id="plannerFlatShoulder"><option value="auto">Normale schouder</option><option value="regular">Normale schouder</option><option value="dropped">Verlaagde schouder</option><option value="narrow">Smallere schouder</option><option value="wide">Brede / rechte schouder</option></select></div>
+                <div class="field" data-design-group="sleeves"><label>Mouwtype</label><select id="plannerFlatSleeveType"><option value="auto">Neutrale mouw</option><option value="sleeveless">Mouwloos</option><option value="setin">Ingezette mouw</option><option value="fitted">Aansluitende ingezette mouw</option><option value="wide">Wijde ingezette mouw</option><option value="cap">Kapmouw</option><option value="puff">Pofmouw</option><option value="balloon">Ballonmouw</option><option value="raglan">Raglanmouw</option><option value="batwing">Vleermuismouw</option><option value="kimono">Aangeknipte / kimonomouw</option><option value="flutter">Vlindermouw</option><option value="shirt">Hemdsblousemouw</option></select></div>
+                <div class="field" data-design-group="sleeves"><label>Mouwlengte</label><select id="plannerFlatSleeveLength"><option value="auto">Neutraal</option><option value="short">Kort</option><option value="elbow">Ellebooglengte</option><option value="threequarter">Driekwart</option><option value="long">Lang</option></select></div>
+                <div class="field" data-design-group="sleeves"><label>Mouwvolume</label><select id="plannerFlatSleeveVolume"><option value="auto">Volgens mouwtype</option><option value="narrow">Smal</option><option value="normal">Normaal</option><option value="wide">Wijd</option><option value="full">Vol / extra volume</option></select></div>
+              </div>
+            </div>
+
+            <div class="planner-subsection" data-design-section="trousers">
+              <div class="planner-subsection-head"><div><h3>Broekconstructie</h3><p>Alleen zichtbaar voor broek en jumpsuit.</p></div></div>
+              <div class="flat-field-grid">
+                <div class="field"><label>Broekpasvorm / beenwijdte</label><select id="plannerFlatTrouserFit"><option value="auto">Straight · neutraal</option><option value="skinny">Skinny</option><option value="slim">Slim</option><option value="straight">Straight</option><option value="wide">Wide leg</option><option value="palazzo">Palazzo</option><option value="tapered">Tapered</option><option value="bootcut">Bootcut</option><option value="flare">Flare</option><option value="jogger">Jogger</option><option value="other">Andere / neutraal</option></select></div>
+                <div class="field"><label>Rise / taillehoogte</label><select id="plannerFlatRise"><option value="auto">Mid rise · neutraal</option><option value="high">High rise</option><option value="mid">Mid rise</option><option value="low">Low rise</option></select></div>
+                <div class="field"><label>Achterzakken</label><select id="plannerFlatBackPockets"><option value="none">Geen</option><option value="patch">Opgestikte achterzakken</option><option value="welt">Paspelzakken</option><option value="flap">Klepzakken</option></select></div>
+              </div>
+            </div>
+
+            <div class="planner-subsection">
+              <div class="planner-subsection-head"><div><h3>Details</h3><p>Alleen gekozen details worden getekend; er worden geen extra details verzonnen.</p></div></div>
+              <div class="flat-field-grid">
+                <div class="field"><label>Zakken</label><select id="plannerFlatPockets"><option value="auto">Geen / neutraal</option><option value="none">Geen zakken</option><option value="patch">Opgestikte zakken</option><option value="chest">Borstzakken</option><option value="side">Steekzakken / zijzakken</option><option value="welt">Paspelzakken</option><option value="flap">Klepzakken</option><option value="hidden">Verborgen zakken</option></select></div>
+                <div class="field"><label>Sluiting</label><select id="plannerFlatClosure"><option value="auto">Geen / neutraal</option><option value="none">Geen sluiting zichtbaar</option><option value="buttons">Knopen</option><option value="hidden-buttons">Blinde knoopsluiting</option><option value="zip-front">Rits middenvoor</option><option value="zip-back">Blinde rits middenachter</option><option value="zip-side">Blinde rits zijnaad</option><option value="snaps">Drukkers</option><option value="hooks">Haakjes</option><option value="tie">Striksluiting</option><option value="wrap">Wikkelconstructie</option></select></div>
+                <div class="field"><label>Naden / deelnaden</label><select id="plannerFlatSeams"><option value="auto">Geen extra naden</option><option value="none">Geen extra naden</option><option value="princess">Prinsessennaden</option><option value="center-front">Middenvoornaad</option><option value="center-back">Middenachternaad</option><option value="yoke">Schouderpas / yoke</option></select></div>
+                <div class="field"><label>Coupenaden</label><select id="plannerFlatDarts"><option value="auto">Geen / neutraal</option><option value="none">Geen coupenaden</option><option value="bust">Borstcoupenaden</option><option value="waist">Taillecoupenaden</option><option value="bust-waist">Borst + taille</option></select></div>
+                <div class="field"><label>Symmetrie</label><select id="plannerFlatAsymmetry"><option value="symmetric">Symmetrisch</option><option value="left-pocket">Eenzijdige zak links</option><option value="right-pocket">Eenzijdige zak rechts</option><option value="asym-left">Asymmetrische zoom links lager</option><option value="asym-right">Asymmetrische zoom rechts lager</option></select></div>
+              </div>
+              <div class="field" style="margin-top:12px;"><label>Constructiedetails</label><div class="flat-detail-checks">
+                <label class="check-item" data-design-group="sleeves"><input type="checkbox" name="plannerFlatDetail" value="cuffs" /> Manchetten</label>
+                <label class="check-item" data-design-group="sleeves"><input type="checkbox" name="plannerFlatDetail" value="sleeve-slit" /> Mouwsplit</label>
+                <label class="check-item"><input type="checkbox" name="plannerFlatDetail" value="belt" /> Ceintuur</label>
+                <label class="check-item"><input type="checkbox" name="plannerFlatDetail" value="pleats" /> Plooien</label>
+                <label class="check-item"><input type="checkbox" name="plannerFlatDetail" value="gathers" /> Rimpels</label>
+                <label class="check-item"><input type="checkbox" name="plannerFlatDetail" value="front-slit" /> Split voor</label>
+                <label class="check-item"><input type="checkbox" name="plannerFlatDetail" value="back-slit" /> Split achter</label>
+                <label class="check-item"><input type="checkbox" name="plannerFlatDetail" value="center-front-seam" /> Middenvoornaad</label>
+                <label class="check-item"><input type="checkbox" name="plannerFlatDetail" value="center-back-seam" /> Middenachternaad</label>
+                <label class="check-item"><input type="checkbox" name="plannerFlatDetail" value="topstitch" /> Extra topstitching</label>
+                <label class="check-item" data-design-group="trousers"><input type="checkbox" name="plannerFlatDetail" value="belt-loops" /> Riemlussen</label>
+                <label class="check-item" data-design-group="trousers"><input type="checkbox" name="plannerFlatDetail" value="crease" /> Persplooi</label>
+                <label class="check-item" data-design-group="trousers"><input type="checkbox" name="plannerFlatDetail" value="back-yoke" /> Achterpas</label>
+              </div></div>
+              <div class="field" style="margin-top:12px;"><label>Andere bijzondere details <span class="hint">vrije tekst</span></label><textarea id="plannerFlatSpecialDetails" placeholder="Details die je wilt bewaren maar die nog geen eigen veld hebben."></textarea></div>
+              <div id="plannerDynamicHint" class="planner-dynamic-note" style="margin-top:12px;">Kies een kledingstuktype; daarna worden alleen relevante ontwerpvelden getoond.</div>
+              <div id="plannerModelFields" hidden></div>
+            </div>
+
+            <div class="planner-subsection">
+              <div class="planner-subsection-head"><div><h3>Inspiratie & referenties</h3><p>Beelden helpen je ontwerpen, maar sturen de technical flat niet automatisch aan.</p></div></div>
+              <div class="field"><label>Afbeeldingen <span class="hint">meerdere mogelijk, max. 8</span></label><input type="file" id="plannerReferenceImages" accept="image/*" multiple /><div class="hint">Kies één hoofdafbeelding en voeg per beeld een korte notitie toe.</div></div>
+              <div id="plannerReferenceManager" class="planner-reference-grid"></div>
+            </div>
+
+            <div class="planner-step-actions"><span></span><button type="button" class="btn" data-go-planner-step="2">Naar Technical flat →</button></div>
           </div>
+        </section>
+
+        <section class="planner-step-panel" data-planner-panel="2">
           <div class="card">
-            <h3>Technical flat · FRONT / BACK</h3>
-            <div id="plannerDrawing" class="technical-flat-stage"><div class="empty" style="width:100%;">Nog geen technical flat weergegeven. Kies je ontwerp en gebruik “Voorbeeld bekijken” of genereer een opgeslagen versie.</div></div>
+            <div class="section-head" style="margin-top:0;"><div><h2 style="font-size:22px;">Technical flat</h2><p>De tekening visualiseert uitsluitend de actuele ontwerpgegevens uit stap 1.</p></div></div>
+            <div id="plannerDrawing" class="technical-flat-stage"><div class="empty" style="width:100%;">Nog geen technical flat weergegeven. Genereer een flat vanuit de ontwerpgegevens.</div></div>
             <div class="flat-legend"><span><i class="flat-line-sample"></i>Buitencontour</span><span><i class="flat-line-sample construction"></i>Constructielijn</span><span><i class="flat-line-sample stitch"></i>Stiksel / topstitch</span></div>
-            <p class="technical-note">Professionele platte werktekening: volledig frontaal, zonder lichaam, perspectief, schaduw of stoftextuur. FRONT en BACK gebruiken exact dezelfde schaal en verticale uitlijning.</p>
+            <p class="technical-note">FRONT en BACK zijn volledig frontaal, op dezelfde schaal en zonder lichaam, perspectief, schaduw of stoftextuur.</p>
             <div id="plannerFlatStatus" class="flat-status">Nog geen opgeslagen technical flat voor deze selectie.</div>
-            <div class="flat-actions"><button type="button" class="btn ghost small" id="previewTechnicalFlatBtn">Voorbeeld bekijken</button><button type="button" class="btn secondary small" id="generateTechnicalFlatBtn">Technical flat opnieuw genereren</button><button type="button" class="btn" id="applyRegenerateTechnicalFlatBtn">Wijzigingen toepassen en opnieuw genereren</button></div>
+            <div id="plannerFlatUpdateCallout" class="flat-update-callout"><span><strong>Ontwerp gewijzigd.</strong> De opgeslagen technical flat is gebaseerd op eerdere ontwerpgegevens.</span><button type="button" class="btn small" id="quickUpdateTechnicalFlatBtn">↻ Technical flat bijwerken</button></div>
+            <div class="flat-actions"><button type="button" class="btn ghost small" id="previewTechnicalFlatBtn">Voorbeeld bekijken</button><button type="button" class="btn secondary small" id="generateTechnicalFlatBtn">Technical flat opnieuw genereren</button><button type="button" class="btn small" id="applyRegenerateTechnicalFlatBtn">↻ Technical flat bijwerken</button></div>
             <h3 style="margin-top:22px;">Technical flat-versies</h3>
             <div id="plannerFlatHistory" class="flat-history"></div>
-            <h3 style="margin-top:22px;">Samenvatting</h3>
-            <div id="plannerSummary" class="planner-result"></div>
+            <div class="planner-step-actions"><button type="button" class="btn ghost" data-go-planner-step="1">← Ontwerp</button><button type="button" class="btn" data-go-planner-step="3">Naar Patroon →</button></div>
           </div>
-        </div>
+        </section>
+
+        <section class="planner-step-panel" data-planner-panel="3">
+          <div class="card planner-step-card">
+            <div class="planner-subsection">
+              <div class="planner-subsection-head"><div><h3>Patroonbasis</h3><p>Koppel het ontwerp aan een basispatroon, bibliotheekpatroon en specifieke versie.</p></div></div>
+              <div class="form-grid two">
+                <div class="field"><label>Basispatroon</label><select id="plannerBasePattern"></select></div>
+                <div class="field"><label>Gebruikt matenprofiel</label><select id="plannerMeasurement"></select><div class="hint">Rechtstreekse koppeling naar het Matenarchief.</div></div>
+              </div>
+              <div class="planner-pattern-box" style="margin-top:12px;">
+                <div class="form-grid two"><div class="field"><label>Patroon uit Patroonbibliotheek</label><select id="plannerPattern"></select></div><div class="field"><label>Patroonversie</label><select id="plannerPatternVersion"></select></div></div>
+                <div class="toolbar planner-pattern-actions"><button type="button" class="btn ghost small" id="loadPlannerPatternVersionBtn">Laad gekozen versie</button><button type="button" class="btn ghost small" id="openPlannerPatternVersionBtn">Open versie in bibliotheek</button><button type="button" class="btn secondary small" id="savePlannerAsVersionBtn">Opslaan als nieuwe versie</button></div>
+                <div class="hint" id="plannerPatternHint">Optioneel. Koppel dit ontwerp aan een bestaand patroon en een specifieke versie.</div>
+              </div>
+              <div id="plannerMeasurementSummary" class="planner-pattern-summary" style="margin-top:12px;"></div>
+            </div>
+
+            <div class="planner-subsection">
+              <div class="planner-subsection-head"><div><h3>Patroonontwikkeling</h3><p>Deze informatie hoort bij het maken en aanpassen van het patroon, niet bij de technical flat.</p></div></div>
+              <div class="form-grid two">
+                <div class="field full"><label>Patroonaanpassingen</label><textarea id="plannerPatternAdjustments" placeholder="Bijv. +2 cm bovenarm, -1 cm schouder, FBA, taille aangepast…"></textarea></div>
+                <div class="field full"><label>Patroononderdelen</label><textarea id="plannerPatternPieces" placeholder="Bijv. voorpand, achterpand, mouw, kraagstaander, manchet…"></textarea></div>
+                <div class="field full"><label>Patroonnotities</label><textarea id="plannerNote" placeholder="Notities over constructie, proefmodel of volgende patroonstap."></textarea></div>
+              </div>
+              <div id="plannerPatternFileInfo" class="planner-pattern-summary" style="margin-top:12px;"></div>
+            </div>
+
+            <div class="planner-subsection">
+              <div class="planner-subsection-head"><div><h3>Samenvatting & project</h3><p>Je kunt een project maken zodra het ontwerp bruikbaar genoeg is; niet alle patroonvelden hoeven af te zijn.</p></div></div>
+              <div id="plannerSummary" class="planner-result"></div>
+              <div class="toolbar" style="margin-top:16px;"><button class="btn" id="saveProjectBtn">Project opslaan</button><button class="btn secondary" id="refreshPlannerBtn">Keuzes verversen</button></div>
+            </div>
+            <div class="planner-step-actions"><button type="button" class="btn ghost" data-go-planner-step="2">← Technical flat</button><span></span></div>
+          </div>
+        </section>
       </section>
 
       <section class="view" id="view-projects">
@@ -1234,7 +1329,7 @@
 <script>
 (() => {
   const STORAGE_KEY = 'patroonAtelierData_v1';
-  const APP_VERSION = '0.5';
+  const APP_VERSION = '0.6';
 
   const measurementDefinitions = [
     ['bust','Borstomtrek'], ['frontWidth','Voorbreedte'], ['armholeWidth','Armsgatbreedte'],
@@ -1299,7 +1394,9 @@
   let data = loadData();
   let editingFabricId = '';
   let pendingFabricPhoto = '';
-  let pendingPlannerInspiration = '';
+  let pendingPlannerReferences = [];
+  let pendingPlannerMainReferenceId = '';
+  let plannerStep = 1;
   let ideaPanelMode = 'overview';
   let editingIdeaId = '';
   let activeIdeaId = '';
@@ -2629,6 +2726,9 @@
     if(plannerSnapshot){
       pendingPatternPlannerSnapshot=structuredCloneSafe(plannerSnapshot);
       document.getElementById('patternVersionChanges').value=plannerSnapshot.changeNote||'';
+      document.getElementById('patternVersionAdjustments').value=plannerSnapshot.patternAdjustments||'';
+      document.getElementById('patternVersionNotes').value=plannerSnapshot.patternNotes||'';
+      renderPatternMeasurementOptions(plannerSnapshot.measurementId||(source&&source.measurementId)||pattern.measurementId||'');
     }
     showPatternPanel('versionForm'); window.scrollTo({top:0,behavior:'smooth'});
   };
@@ -2743,16 +2843,20 @@
   window.createProjectFromPattern=function(patternId,versionId){
     const {pattern,version}=findPatternVersion(patternId,versionId);if(!pattern||!version)return;
     const snap=version.plannerSnapshot||{basePattern:'',models:{},garment:pattern.garment||''};
-    const linkedFlat=latestTechnicalFlatForPatternVersion(pattern.id,version.id)||technicalFlatRecord(snap.technicalFlatId); const project={id:uid(),name:pattern.name,garment:snap.garment||pattern.garment||'Anders',basePattern:snap.basePattern||'',models:structuredCloneSafe(snap.models||{}),technicalDesign:structuredCloneSafe(snap.technicalDesign||{}),technicalNotes:snap.technicalNotes||'',technicalFlatId:linkedFlat?linkedFlat.id:'',fabricId:'',fabricLabel:'',note:'',description:'',collectionId:'',inspirationPhoto:'',ideaId:'',patternId:pattern.id,patternVersionId:version.id,patternName:pattern.name,patternVersionNumber:version.number||'',status:'Idee',createdAt:todayISO(),measurementId:version.measurementId||(data.measurements.length?data.measurements[0].id:'')}; if(linkedFlat){if(!Array.isArray(linkedFlat.linkedProjectIds))linkedFlat.linkedProjectIds=[];if(!linkedFlat.linkedProjectIds.includes(project.id))linkedFlat.linkedProjectIds.push(project.id);}
+    const linkedFlat=latestTechnicalFlatForPatternVersion(pattern.id,version.id)||technicalFlatRecord(snap.technicalFlatId);
+    const refs=Array.isArray(snap.references)?structuredCloneSafe(snap.references):[];
+    const mainRef=(snap.mainReferenceId&&refs.find(r=>r.id===snap.mainReferenceId))||refs[0]||null;
+    const project={id:uid(),name:pattern.name,garment:snap.garment||pattern.garment||'Anders',basePattern:snap.basePattern||'',models:structuredCloneSafe(snap.models||legacyModelsFromDesign(snap.technicalDesign||{})),technicalDesign:structuredCloneSafe(snap.technicalDesign||{}),technicalNotes:snap.technicalNotes||'',technicalFlatId:linkedFlat?linkedFlat.id:'',fabricId:'',fabricLabel:'',note:snap.patternNotes||'',description:snap.description||pattern.description||'',patternAdjustments:snap.patternAdjustments||version.adjustments||'',patternPieces:snap.patternPieces||'',collectionId:'',inspirationPhoto:mainRef?mainRef.data:'',inspirationImages:refs,ideaId:'',patternId:pattern.id,patternVersionId:version.id,patternName:pattern.name,patternVersionNumber:version.number||'',status:'Idee',createdAt:todayISO(),measurementId:snap.measurementId||version.measurementId||pattern.measurementId||(data.measurements.length?data.measurements[0].id:'')};
+    if(linkedFlat){if(!Array.isArray(linkedFlat.linkedProjectIds))linkedFlat.linkedProjectIds=[];if(!linkedFlat.linkedProjectIds.includes(project.id))linkedFlat.linkedProjectIds.push(project.id);if(!linkedFlat.linkedPatternId)linkedFlat.linkedPatternId=pattern.id;if(!linkedFlat.linkedPatternVersionId)linkedFlat.linkedPatternVersionId=version.id;}
     data.projects.unshift(project);
-    const tasks=['Model en patroonversie controleren','Patroondelen controleren','Stof kiezen en knippen','Kledingstuk naaien','Doorpassen','Resultaat en patroonversie beoordelen'];
+    const tasks=['Ontwerpdetails controleren','Patroonaanpassingen uitwerken','Patroondelen controleren','Stof kiezen en knippen','Kledingstuk naaien','Doorpassen','Resultaat en patroonversie beoordelen'];
     tasks.forEach(text=>data.todos.push({id:uid(),text,projectId:project.id,dueDate:'',status:'todo',done:false,priority:'Normaal',required:true,createdAt:todayISO()}));
     saveData();showToast('Project aangemaakt vanuit patroonversie');goToPatternProject(project.id);
   };
 
   function plannerSnapshotFromCurrent(){
-    const snap=technicalFlatDesignSnapshot();
-    return {...snap,changeNote:document.getElementById('plannerNote').value.trim(),technicalFlatId:currentPlannerFlatMatchesDesign()?activePlannerFlatId:''};
+    const design=technicalFlatDesignSnapshot();
+    return {...design,basePattern:document.getElementById('plannerBasePattern').value||'',models:getPlannerModels(),description:document.getElementById('plannerDescription').value.trim(),references:structuredCloneSafe(pendingPlannerReferences),mainReferenceId:pendingPlannerMainReferenceId||'',measurementId:document.getElementById('plannerMeasurement').value||'',patternAdjustments:document.getElementById('plannerPatternAdjustments').value.trim(),patternPieces:document.getElementById('plannerPatternPieces').value.trim(),patternNotes:document.getElementById('plannerNote').value.trim(),changeNote:document.getElementById('plannerPatternAdjustments').value.trim()||document.getElementById('plannerNote').value.trim(),technicalFlatId:currentPlannerFlatMatchesDesign()?activePlannerFlatId:''};
   }
 
   function renderPlannerPatternVersions(){
@@ -2769,24 +2873,29 @@
   function loadPatternVersionIntoPlanner(patternId,versionId){
     const {pattern,version}=findPatternVersion(patternId,versionId);if(!pattern||!version)return;
     const snap=version.plannerSnapshot||{};
-    if(snap.basePattern && basePatterns.includes(snap.basePattern) && !data.selectedBasePatterns.includes(snap.basePattern)) data.selectedBasePatterns.push(snap.basePattern);
-    const snapModels=snap.models||{};
-    Object.keys(snapModels).forEach(category=>{ const value=snapModels[category]; if(modelCategories[category] && modelCategories[category].includes(value) && !data.selectedModels.includes(value)) data.selectedModels.push(value); });
-    safeStorageSet(STORAGE_KEY, JSON.stringify(data));
+    if(snap.basePattern&&basePatterns.includes(snap.basePattern)&&!data.selectedBasePatterns.includes(snap.basePattern))data.selectedBasePatterns.push(snap.basePattern);
+    safeStorageSet(STORAGE_KEY,JSON.stringify(data));
     renderPlanner();
     document.getElementById('plannerPattern').value=pattern.id;renderPlannerPatternVersions();document.getElementById('plannerPatternVersion').value=version.id;
-    if(snap.garment&&[...document.getElementById('plannerGarment').options].some(o=>o.value===snap.garment))document.getElementById('plannerGarment').value=snap.garment;
-    renderPlannerFabricOptions();
+    const garment=snap.garment||pattern.garment||'';
+    if(garment&&[...document.getElementById('plannerGarment').options].some(o=>o.value===garment))document.getElementById('plannerGarment').value=garment;
     if(snap.basePattern&&data.selectedBasePatterns.includes(snap.basePattern))document.getElementById('plannerBasePattern').value=snap.basePattern;
-    const models=snapModels;
-    document.querySelectorAll('select[data-planner-model]').forEach(sel=>{const value=models[sel.dataset.plannerModel];if(value&&[...sel.options].some(o=>o.value===value))sel.value=value;});
-    setPlannerTechnicalDesign(snap.technicalDesign||{});
+    setPlannerTechnicalDesign(mergeLegacyModelsIntoDesign(snap.technicalDesign||{},snap.models||{}));
     document.getElementById('plannerFlatNotes').value=snap.technicalNotes||'';
+    document.getElementById('plannerDescription').value=snap.description||'';
+    document.getElementById('plannerPatternAdjustments').value=snap.patternAdjustments||version.adjustments||'';
+    document.getElementById('plannerPatternPieces').value=snap.patternPieces||'';
+    document.getElementById('plannerNote').value=snap.patternNotes||version.notes||'';
+    pendingPlannerReferences=Array.isArray(snap.references)?structuredCloneSafe(snap.references):[];
+    pendingPlannerMainReferenceId=(snap.mainReferenceId&&pendingPlannerReferences.some(r=>r.id===snap.mainReferenceId))?snap.mainReferenceId:(pendingPlannerReferences[0]?pendingPlannerReferences[0].id:'');
+    renderPlannerReferences();
+    renderPlannerMeasurementOptions(snap.measurementId||version.measurementId||pattern.measurementId||'');
+    renderPlannerFabricOptions();updatePlannerDynamicFields();renderPlannerPatternFileInfo();
     plannerPreviewSvg='';
     const savedFlat=technicalFlatRecord(snap.technicalFlatId)||latestTechnicalFlatForPatternVersion(pattern.id,version.id);
     activePlannerFlatId=savedFlat?savedFlat.id:'';
     renderPlannerFlatCanvas();renderPlannerTechnicalFlatHistory();renderPlannerFlatStatus();
-    updatePlannerSummary();showToast('Patroonversie geladen in de Patroonplanner');
+    updatePlannerSummary();showPlannerStep(3);showToast('Patroonversie geladen in de Patroonplanner');
   }
 
   window.openPatternVersionInPlanner=function(patternId,versionId){
@@ -2794,8 +2903,8 @@
     setTimeout(()=>{renderPlanner();loadPatternVersionIntoPlanner(patternId,versionId);},30);
   };
 
-  document.getElementById('plannerPattern').addEventListener('change',()=>{renderPlannerPatternVersions();activePlannerFlatId='';plannerPreviewSvg='';const latest=technicalFlatScopeRecords()[0];if(latest)activePlannerFlatId=latest.id;renderPlannerFlatCanvas();renderPlannerTechnicalFlatHistory();renderPlannerFlatStatus();updatePlannerSummary();});
-  document.getElementById('plannerPatternVersion').addEventListener('change',()=>{activePlannerFlatId='';plannerPreviewSvg='';const latest=technicalFlatScopeRecords()[0];if(latest)activePlannerFlatId=latest.id;renderPlannerFlatCanvas();renderPlannerTechnicalFlatHistory();renderPlannerFlatStatus();updatePlannerSummary();});
+  document.getElementById('plannerPattern').addEventListener('change',()=>{renderPlannerPatternVersions();renderPlannerPatternFileInfo();plannerPreviewSvg='';renderPlannerFlatCanvas();renderPlannerTechnicalFlatHistory();renderPlannerFlatStatus();updatePlannerSummary();});
+  document.getElementById('plannerPatternVersion').addEventListener('change',()=>{renderPlannerPatternFileInfo();plannerPreviewSvg='';renderPlannerFlatCanvas();renderPlannerTechnicalFlatHistory();renderPlannerFlatStatus();updatePlannerSummary();});
   document.getElementById('loadPlannerPatternVersionBtn').addEventListener('click',()=>{
     const pid=document.getElementById('plannerPattern').value,vid=document.getElementById('plannerPatternVersion').value;
     if(!pid||!vid){alert('Kies eerst een patroon en een specifieke versie.');return;}
@@ -2827,24 +2936,52 @@
   function modelValue(models, category) { return models && models[category] ? models[category] : ''; }
 
   function plannerTechnicalDesignDefaults(){
-    return {neckline:'auto',collar:'auto',fit:'auto',trouserFit:'auto',shoulder:'auto',sleeveType:'auto',sleeveLength:'auto',waist:'auto',hem:'auto',seams:'auto',darts:'auto',closure:'auto',pockets:'auto',asymmetry:'symmetric',details:[]};
+    return {neckline:'auto',collar:'auto',fit:'auto',silhouette:'auto',trouserFit:'auto',rise:'auto',backPockets:'none',shoulder:'auto',sleeveType:'auto',sleeveLength:'auto',sleeveVolume:'auto',waist:'auto',waistPosition:'auto',hem:'auto',seams:'auto',darts:'auto',closure:'auto',pockets:'auto',asymmetry:'symmetric',details:[],specialDetails:''};
   }
 
   function getPlannerTechnicalDesign(){
     const g=id=>{const el=document.getElementById(id);return el?el.value:'auto';};
-    return {neckline:g('plannerFlatNeckline'),collar:g('plannerFlatCollar'),fit:g('plannerFlatFit'),trouserFit:g('plannerFlatTrouserFit'),shoulder:g('plannerFlatShoulder'),sleeveType:g('plannerFlatSleeveType'),sleeveLength:g('plannerFlatSleeveLength'),waist:g('plannerFlatWaist'),hem:g('plannerFlatHem'),seams:g('plannerFlatSeams'),darts:g('plannerFlatDarts'),closure:g('plannerFlatClosure'),pockets:g('plannerFlatPockets'),asymmetry:g('plannerFlatAsymmetry'),details:Array.from(document.querySelectorAll('input[name="plannerFlatDetail"]:checked')).map(x=>x.value)};
+    const special=document.getElementById('plannerFlatSpecialDetails');
+    return {neckline:g('plannerFlatNeckline'),collar:g('plannerFlatCollar'),fit:g('plannerFlatFit'),silhouette:g('plannerFlatSilhouette'),trouserFit:g('plannerFlatTrouserFit'),rise:g('plannerFlatRise'),backPockets:g('plannerFlatBackPockets'),shoulder:g('plannerFlatShoulder'),sleeveType:g('plannerFlatSleeveType'),sleeveLength:g('plannerFlatSleeveLength'),sleeveVolume:g('plannerFlatSleeveVolume'),waist:g('plannerFlatWaist'),waistPosition:g('plannerFlatWaistPosition'),hem:g('plannerFlatHem'),seams:g('plannerFlatSeams'),darts:g('plannerFlatDarts'),closure:g('plannerFlatClosure'),pockets:g('plannerFlatPockets'),asymmetry:g('plannerFlatAsymmetry'),details:Array.from(document.querySelectorAll('input[name="plannerFlatDetail"]:checked')).map(x=>x.value),specialDetails:special?special.value.trim():''};
   }
 
   function setPlannerTechnicalDesign(value){
     const d={...plannerTechnicalDesignDefaults(),...(value||{})};
-    const map={plannerFlatNeckline:'neckline',plannerFlatCollar:'collar',plannerFlatFit:'fit',plannerFlatTrouserFit:'trouserFit',plannerFlatShoulder:'shoulder',plannerFlatSleeveType:'sleeveType',plannerFlatSleeveLength:'sleeveLength',plannerFlatWaist:'waist',plannerFlatHem:'hem',plannerFlatSeams:'seams',plannerFlatDarts:'darts',plannerFlatClosure:'closure',plannerFlatPockets:'pockets',plannerFlatAsymmetry:'asymmetry'};
+    const map={plannerFlatNeckline:'neckline',plannerFlatCollar:'collar',plannerFlatFit:'fit',plannerFlatSilhouette:'silhouette',plannerFlatTrouserFit:'trouserFit',plannerFlatRise:'rise',plannerFlatBackPockets:'backPockets',plannerFlatShoulder:'shoulder',plannerFlatSleeveType:'sleeveType',plannerFlatSleeveLength:'sleeveLength',plannerFlatSleeveVolume:'sleeveVolume',plannerFlatWaist:'waist',plannerFlatWaistPosition:'waistPosition',plannerFlatHem:'hem',plannerFlatSeams:'seams',plannerFlatDarts:'darts',plannerFlatClosure:'closure',plannerFlatPockets:'pockets',plannerFlatAsymmetry:'asymmetry'};
     Object.entries(map).forEach(([id,key])=>{const el=document.getElementById(id);if(el&&[...el.options].some(o=>o.value===d[key]))el.value=d[key];});
     const selected=Array.isArray(d.details)?d.details:[];
     document.querySelectorAll('input[name="plannerFlatDetail"]').forEach(cb=>cb.checked=selected.includes(cb.value));
+    const special=document.getElementById('plannerFlatSpecialDetails');if(special)special.value=d.specialDetails||'';
+  }
+
+  function mergeLegacyModelsIntoDesign(design,models){
+    const d={...plannerTechnicalDesignDefaults(),...(design||{})};
+    const set=(key,value)=>{if((!d[key]||d[key]==='auto')&&value)d[key]=value;};
+    const neck=modelValue(models,'Halsafwerking');
+    if(neck==='Boothals')set('neckline','boat'); else if(neck==='Overslag')set('neckline','wrap'); else if(neck==='Halsboord uit tricot')set('neckline','neckband'); else if(neck==='Watervalhals')set('neckline','cowl');
+    const collar=modelValue(models,'Kragen');if(collar==='Eendelige hemdsblousekraag'||collar==='Tweedelige hemdsblousekraag')set('collar','shirt');else if(collar==='Aansluitende rolkraag')set('collar','turtleneck');
+    const sleeve=modelValue(models,'Mouwen');
+    if(sleeve==='Raglanmouw')set('sleeveType','raglan');else if(sleeve==='Aangeknipte mouw')set('sleeveType','kimono');else if(sleeve==='Vleermuismouw')set('sleeveType','batwing');else if(sleeve==='Vlindermouw')set('sleeveType','flutter');else if(sleeve==='Hemdsblousemouw')set('sleeveType','shirt');else if(sleeve==='Lange aansluitende mouw')set('sleeveType','fitted');
+    if((sleeve==='Hemdsblousemouw'||sleeve==='Lange aansluitende mouw')&&d.sleeveLength==='auto')d.sleeveLength='long';
+    const closure=modelValue(models,'Sluitingen');if(closure==='Knoopsluiting')set('closure','buttons');else if(closure==='Blinde knoopsluiting')set('closure','hidden-buttons');
+    const fit=modelValue(models,'Cintrage');if(fit){set('fit','fitted');set('silhouette','shaped');set('waist','shaped');}
+    const len=modelValue(models,'Lengte kledingstuk');if(len==='Taillelengte')set('hem','waist');else if(len==='Heuplengte')set('hem','hip');else if(len==='Boven de knie')set('hem','above-knee');else if(len==='Tussen knie en enkel')set('hem','midi');else if(len==='Enkellengte')set('hem','ankle');
+    return d;
+  }
+
+  function legacyModelsFromDesign(d){
+    const out={};d=d||{};
+    if(d.neckline==='boat')out['Halsafwerking']='Boothals';else if(d.neckline==='wrap')out['Halsafwerking']='Overslag';else if(d.neckline==='neckband')out['Halsafwerking']='Halsboord uit tricot';else if(d.neckline==='cowl')out['Halsafwerking']='Watervalhals';
+    if(d.collar==='shirt')out['Kragen']='Eendelige hemdsblousekraag';else if(d.collar==='turtleneck')out['Kragen']='Aansluitende rolkraag';
+    if(d.sleeveType==='raglan')out['Mouwen']='Raglanmouw';else if(d.sleeveType==='kimono')out['Mouwen']='Aangeknipte mouw';else if(d.sleeveType==='batwing')out['Mouwen']='Vleermuismouw';else if(d.sleeveType==='flutter')out['Mouwen']='Vlindermouw';else if(d.sleeveType==='shirt')out['Mouwen']='Hemdsblousemouw';else if(d.sleeveType==='fitted'&&d.sleeveLength==='long')out['Mouwen']='Lange aansluitende mouw';
+    if(d.closure==='buttons')out['Sluitingen']='Knoopsluiting';else if(d.closure==='hidden-buttons')out['Sluitingen']='Blinde knoopsluiting';
+    if(d.fit==='fitted'||d.silhouette==='shaped')out['Cintrage']='Cintrage blouse geweven stof';
+    if(d.hem==='waist')out['Lengte kledingstuk']='Taillelengte';else if(d.hem==='hip')out['Lengte kledingstuk']='Heuplengte';else if(d.hem==='above-knee')out['Lengte kledingstuk']='Boven de knie';else if(d.hem==='midi')out['Lengte kledingstuk']='Tussen knie en enkel';else if(d.hem==='ankle')out['Lengte kledingstuk']='Enkellengte';
+    return out;
   }
 
   function technicalFlatDesignSnapshot(){
-    return {basePattern:document.getElementById('plannerBasePattern').value||'',models:getPlannerModels(),garment:document.getElementById('plannerGarment').value||'',technicalDesign:getPlannerTechnicalDesign(),technicalNotes:(document.getElementById('plannerFlatNotes')?document.getElementById('plannerFlatNotes').value.trim():'')};
+    return {garment:document.getElementById('plannerGarment').value||'',technicalDesign:getPlannerTechnicalDesign(),technicalNotes:(document.getElementById('plannerFlatNotes')?document.getElementById('plannerFlatNotes').value.trim():'')};
   }
 
   function inferGarmentFromBase(basePattern){
@@ -2881,8 +3018,8 @@
     if(!explicit('neckline')){
       if(neckline==='Boothals')spec.neckline='boat';
       else if(neckline==='Overslag')spec.neckline='wrap';
-      else if(neckline==='Halsboord uit tricot')spec.neckline='round';
-      else if(neckline==='Watervalhals')spec.neckline='round';
+      else if(neckline==='Halsboord uit tricot')spec.neckline='neckband';
+      else if(neckline==='Watervalhals')spec.neckline='cowl';
     }
     const collar=modelValue(models,'Kragen');
     if(!explicit('collar')){
@@ -2930,6 +3067,8 @@
     setFromNotes('trouserFit','flare','flare',['flare','flared']);
     setFromNotes('trouserFit','jogger','jogger',['jogger']);
     setFromNotes('trouserFit','straight','straight',['straight leg','rechte broek']);
+    setFromNotes('rise','high','high rise',['high rise','hoge taille']);
+    setFromNotes('rise','low','low rise',['low rise','lage taille']);
     setFromNotes('shoulder','dropped','verlaagde schouder',['verlaagde schouder','drop shoulder']);
     setFromNotes('sleeveType','fitted','aansluitende mouw',['aansluitende mouw','smalle mouw']);
     setFromNotes('sleeveType','wide','wijde mouw',['wijde mouw','wide sleeve']);
@@ -2965,9 +3104,13 @@
     // Neutral defaults are fixed per garment category, not random.
     if(spec.neckline==='auto')spec.neckline='round';
     if(spec.collar==='auto')spec.collar='none';
-    if(spec.fit==='auto')spec.fit=(family==='dress'?'straight':'straight');
+    if(spec.fit==='auto')spec.fit='straight';
+    if(spec.silhouette==='auto')spec.silhouette=spec.fit==='aline'?'aline':spec.fit==='fitted'?'shaped':spec.fit==='oversized'?'boxy':'straight';
     if(spec.trouserFit==='auto')spec.trouserFit=(family==='trousers'||family==='jumpsuit')?'straight':'other';
+    if(spec.rise==='auto')spec.rise='mid';
+    if(!spec.backPockets||spec.backPockets==='auto')spec.backPockets='none';
     if(spec.shoulder==='auto')spec.shoulder='regular';
+    if(spec.waistPosition==='auto')spec.waistPosition='natural';
     if(spec.waist==='auto')spec.waist=(family==='skirt'||family==='trousers'?'waistband':'none');
     if(spec.seams==='auto')spec.seams='none';
     if(spec.darts==='auto')spec.darts=baseLower.includes('met neep')?'bust-waist':'none';
@@ -2979,6 +3122,7 @@
       else if(family==='upper')spec.sleeveType='setin';
       else spec.sleeveType='sleeveless';
     }
+    if(spec.sleeveVolume==='auto')spec.sleeveVolume=(spec.sleeveType==='wide'||spec.sleeveType==='puff'||spec.sleeveType==='balloon'||spec.sleeveType==='flutter')?'wide':spec.sleeveType==='fitted'?'narrow':'normal';
     if(spec.sleeveLength==='auto'){
       if(spec.sleeveType==='sleeveless'||spec.sleeveType==='cap'||spec.sleeveType==='flutter'||spec.sleeveType==='kimono')spec.sleeveLength='short';
       else if(g==='T-shirt')spec.sleeveLength='short';
@@ -3003,33 +3147,40 @@
 
   function technicalSleeveProfile(spec) {
     const type=spec.sleeveType;
-    // Values describe the flat garment, not an arm: cap controls upper-arm room,
-    // outerEnd/innerEnd determine the visible sleeve-hem width.
-    let profile={cap:58,outerEnd:56,innerEnd:14,bulge:0,midOuter:60,midInner:12};
-    if(type==='fitted') profile={cap:49,outerEnd:47,innerEnd:18,bulge:0,midOuter:51,midInner:15};
-    if(type==='wide') profile={cap:68,outerEnd:72,innerEnd:9,bulge:4,midOuter:72,midInner:8};
-    if(type==='shirt') profile={cap:60,outerEnd:57,innerEnd:15,bulge:3,midOuter:62,midInner:12};
-    if(type==='raglan') profile={cap:56,outerEnd:54,innerEnd:15,bulge:0,midOuter:59,midInner:12};
-    if(type==='puff') profile={cap:75,outerEnd:61,innerEnd:16,bulge:26,midOuter:78,midInner:11};
-    if(type==='balloon') profile={cap:72,outerEnd:50,innerEnd:18,bulge:35,midOuter:82,midInner:10};
+    // Afmetingen beschrijven de platliggende mouw, niet een arm.
+    let profile={cap:58,outerEnd:58,innerEnd:13,bulge:0,midOuter:62,midInner:11};
+    if(type==='fitted') profile={cap:50,outerEnd:49,innerEnd:18,bulge:0,midOuter:53,midInner:15};
+    if(type==='wide') profile={cap:69,outerEnd:74,innerEnd:8,bulge:4,midOuter:75,midInner:7};
+    if(type==='shirt') profile={cap:61,outerEnd:59,innerEnd:14,bulge:3,midOuter:64,midInner:11};
+    if(type==='raglan') profile={cap:58,outerEnd:57,innerEnd:14,bulge:0,midOuter:62,midInner:11};
+    if(type==='puff') profile={cap:76,outerEnd:63,innerEnd:15,bulge:27,midOuter:80,midInner:10};
+    if(type==='balloon') profile={cap:73,outerEnd:53,innerEnd:17,bulge:36,midOuter:84,midInner:9};
+    const vol=spec.sleeveVolume||'normal';
+    if(vol==='narrow'&&!['fitted','puff','balloon'].includes(type)){profile.cap-=5;profile.outerEnd-=5;profile.midOuter-=6;profile.innerEnd+=2;profile.midInner+=2;}
+    if(vol==='wide'&&!['wide','puff','balloon'].includes(type)){profile.cap+=7;profile.outerEnd+=8;profile.midOuter+=9;profile.innerEnd-=2;profile.midInner-=2;}
+    if(vol==='full'&&!['puff','balloon'].includes(type)){profile.cap+=12;profile.outerEnd+=13;profile.midOuter+=16;profile.innerEnd-=4;profile.midInner-=3;}
     if(spec.fit==='relaxed'&&!['fitted','wide','puff','balloon'].includes(type)){profile.cap+=4;profile.outerEnd+=4;profile.midOuter+=4;}
     if(spec.fit==='oversized'&&!['fitted','wide','puff','balloon'].includes(type)){profile.cap+=9;profile.outerEnd+=8;profile.innerEnd-=2;profile.midOuter+=10;profile.midInner-=2;}
+    profile.innerEnd=Math.max(6,profile.innerEnd);profile.midInner=Math.max(6,profile.midInner);
     return profile;
   }
 
   function technicalTrouserProfile(spec) {
     const fit=spec.trouserFit||'straight';
+    // Alle waarden zijn halve horizontale afstanden vanaf middenvoor/-achter.
+    // De overgang hip -> thigh is bewust klein: de broek wordt als kledingstuk opgebouwd,
+    // niet als heupvorm met twee losse dunne benen.
     const profiles={
-      skinny:{waist:80,hip:96,thigh:72,knee:48,hem:32,innerThigh:20,innerKnee:15,innerHem:9},
-      slim:{waist:82,hip:99,thigh:76,knee:55,hem:40,innerThigh:21,innerKnee:15,innerHem:10},
-      straight:{waist:84,hip:101,thigh:80,knee:65,hem:62,innerThigh:22,innerKnee:16,innerHem:12},
-      wide:{waist:86,hip:105,thigh:89,knee:82,hem:80,innerThigh:23,innerKnee:17,innerHem:13},
-      palazzo:{waist:87,hip:107,thigh:94,knee:91,hem:89,innerThigh:24,innerKnee:18,innerHem:14},
-      tapered:{waist:85,hip:103,thigh:85,knee:65,hem:47,innerThigh:22,innerKnee:16,innerHem:10},
-      bootcut:{waist:83,hip:100,thigh:78,knee:55,hem:68,innerThigh:21,innerKnee:15,innerHem:12},
-      flare:{waist:83,hip:100,thigh:78,knee:52,hem:79,innerThigh:21,innerKnee:15,innerHem:13},
-      jogger:{waist:87,hip:105,thigh:88,knee:69,hem:43,innerThigh:23,innerKnee:16,innerHem:10},
-      other:{waist:84,hip:101,thigh:80,knee:65,hem:62,innerThigh:22,innerKnee:16,innerHem:12}
+      skinny:{waist:82,hip:96,thigh:84,knee:58,hem:48,innerThigh:19,innerKnee:16,innerHem:14},
+      slim:{waist:83,hip:98,thigh:87,knee:67,hem:59,innerThigh:19,innerKnee:15,innerHem:13},
+      straight:{waist:84,hip:100,thigh:91,knee:79,hem:77,innerThigh:20,innerKnee:16,innerHem:14},
+      wide:{waist:85,hip:104,thigh:98,knee:94,hem:93,innerThigh:20,innerKnee:15,innerHem:13},
+      palazzo:{waist:86,hip:107,thigh:103,knee:103,hem:105,innerThigh:20,innerKnee:14,innerHem:12},
+      tapered:{waist:84,hip:102,thigh:95,knee:76,hem:59,innerThigh:20,innerKnee:16,innerHem:13},
+      bootcut:{waist:84,hip:100,thigh:90,knee:70,hem:84,innerThigh:20,innerKnee:16,innerHem:13},
+      flare:{waist:84,hip:100,thigh:89,knee:68,hem:94,innerThigh:20,innerKnee:16,innerHem:13},
+      jogger:{waist:86,hip:104,thigh:98,knee:81,hem:57,innerThigh:20,innerKnee:16,innerHem:14},
+      other:{waist:84,hip:100,thigh:91,knee:79,hem:77,innerThigh:20,innerKnee:16,innerHem:14}
     };
     return profiles[fit]||profiles.straight;
   }
@@ -3048,14 +3199,14 @@
     }
     if(spec.family==='trousers'||spec.family==='jumpsuit'){
       const p=technicalTrouserProfile(spec);
-      const hipThighOK=p.hip-p.thigh<=28,thighKneeOK=p.thigh-p.knee<=35,hemOK=p.hem>p.innerHem+16,symmetryOK=true,crotchOK=p.innerThigh>=19;
+      const hipThighOK=p.hip-p.thigh<=16,thighKneeOK=p.thigh-p.knee<=30,hemOK=p.hem-p.innerHem>=34,symmetryOK=true,crotchOK=p.innerThigh>=18;
       checks.push({name:'heup-bovenbeen',pass:hipThighOK},{name:'bovenbeen-knie',pass:thighKneeOK},{name:'beenwijdte',pass:hemOK},{name:'been-symmetrie',pass:symmetryOK},{name:'kruis',pass:crotchOK});
       if(!hipThighOK)issues.push('Overgang heup naar bovenbeen te abrupt.');
       if(!thighKneeOK)issues.push('Overgang bovenbeen naar knie te abrupt.');
       if(!hemOK)issues.push('Broekzoom te smal voor het gekozen broektype.');
       if(!crotchOK)issues.push('Kruis/inner-thigh verhouding onvoldoende.');
     }
-    return {pass:issues.length===0,issues,checks,checkedAt:nowISO(),ruleset:'proportion-qc-0.5'};
+    return {pass:issues.length===0,issues,checks,checkedAt:nowISO(),ruleset:'proportion-qc-0.6'};
   }
 
   function technicalFlatSvg(spec){
@@ -3066,10 +3217,13 @@
 
     function widths(){
       let shoulder=76,chest=94,waist=88,hip=94;
-      if(spec.fit==='fitted'){chest=90;waist=72;hip=92;}
+      if(spec.fit==='fitted'){chest=90;waist=74;hip=92;}
       if(spec.fit==='relaxed'){shoulder=80;chest=100;waist=96;hip=99;}
       if(spec.fit==='oversized'){shoulder=92;chest=108;waist=104;hip=105;}
       if(spec.fit==='aline'){chest=92;waist=82;hip=104;}
+      if(spec.silhouette==='shaped'){waist=Math.min(waist,76);hip=Math.max(hip,94);}
+      if(spec.silhouette==='boxy'){waist=Math.max(waist,chest-2);hip=Math.max(hip,chest-1);}
+      if(spec.silhouette==='aline')hip=Math.max(hip,chest+13);
       if(spec.shoulder==='dropped')shoulder+=15;
       if(spec.shoulder==='narrow')shoulder-=9;
       if(spec.shoulder==='wide')shoulder+=12;
@@ -3085,6 +3239,8 @@
       if(shape==='square'){half=31;depth=front?38:15;}
       if(shape==='wrap'){half=30;depth=58;}
       if(shape==='high'){half=25;depth=front?13:9;}
+      if(shape==='neckband'){half=29;depth=front?25:13;}
+      if(shape==='cowl'){half=34;depth=front?31:14;}
       const y=84,left=cx-half,right=cx+half;
       let close='';
       if(shape==='v'||shape==='wrap')close=`L${cx} ${y+depth} L${left} ${y}`;
@@ -3128,6 +3284,12 @@
       return `Q${cx+side*innerMidAbs} ${midY} ${cx+side*innerEndAbs} ${endY} L${cx+side*outerEndAbs} ${endY} Q${cx+side*outerMidAbs} ${midY} ${cx+side*(capAbs+5)} ${shoulderY+66} Q${cx+side*capAbs} ${shoulderY+12} ${shoulderX} ${shoulderY}`;
     }
 
+    function necklineConstructionLines(cx,front,n){
+      if(spec.neckline==='neckband')return `<path class="c" d="M${n.left-3} ${n.y+3} Q${cx} ${n.y+n.depth+8} ${n.right+3} ${n.y+3}"/>`;
+      if(spec.neckline==='cowl'&&front)return `<path class="c" d="M${n.left-4} ${n.y+6} Q${cx} ${n.y+44} ${n.right+4} ${n.y+6} M${n.left+3} ${n.y+12} Q${cx} ${n.y+35} ${n.right-3} ${n.y+12}"/>`;
+      return '';
+    }
+
     function collarLines(cx,front,n){
       if(spec.collar==='none')return '';
       if(spec.collar==='turtleneck')return `<path class="c" d="M${cx-24} ${n.y} L${cx-21} 48 Q${cx} 42 ${cx+21} 48 L${cx+24} ${n.y} M${cx-21} 59 Q${cx} 67 ${cx+21} 59"/>`;
@@ -3165,8 +3327,8 @@
         if(p==='patch'&&front)out+=`<rect class="c" x="${x-(side<0?28:0)}" y="${hipY-3}" width="28" height="38" rx="2"/><path class="s" d="M${x-(side<0?25:-3)} ${hipY+5} L${x-(side<0?3:-25)} ${hipY+5}"/>`;
         if(p==='chest'&&front)out+=`<rect class="c" x="${x-(side<0?24:0)}" y="176" width="24" height="30" rx="2"/>`;
         if(p==='side'&&front)out+=`<path class="c" d="M${x-side*20} ${hipY-26} L${x} ${hipY-7}"/>`;
-        if(p==='welt')out+=`<path class="c" d="M${x-side*22} ${hipY} L${x} ${hipY}"/><path class="s" d="M${x-side*20} ${hipY+4} L${x} ${hipY+4}"/>`;
-        if(p==='flap')out+=`<path class="c" d="M${x-side*25} ${hipY-2} L${x} ${hipY-2} L${x-side*3} ${hipY+9} L${x-side*22} ${hipY+9} Z"/>`;
+        if(p==='welt'&&front)out+=`<path class="c" d="M${x-side*22} ${hipY} L${x} ${hipY}"/><path class="s" d="M${x-side*20} ${hipY+4} L${x} ${hipY+4}"/>`;
+        if(p==='flap'&&front)out+=`<path class="c" d="M${x-side*25} ${hipY-2} L${x} ${hipY-2} L${x-side*3} ${hipY+9} L${x-side*22} ${hipY+9} Z"/>`;
         if(p==='hidden'&&front)out+=`<path class="s" d="M${x-side*18} ${hipY-24} L${x} ${hipY-8}"/>`;
       });
       return out;
@@ -3235,7 +3397,7 @@
       const sleeveEnd=spec.sleeveType==='sleeveless'?0:sleeveEndY();
       let out=`<path class="o" d="${body}"/>`;
       if(spec.hem==='curved')out+=`<path class="c" d="M${hem.lx} ${hem.ly-2} Q${cx} ${hemY+18} ${hem.rx} ${hem.ry-2}"/>`;
-      out+=collarLines(cx,front,n)+closureLines(cx,front,n.y+28,hemY)+dartLines(cx,front,waistY,underY)+seamLines(cx,front,hemY,underY,waistY)+pocketLines(cx,front,isDress?'dress':'upper',waistY,hipY)+detailLines(cx,front,hemY,waistY,sleeveEnd);
+      out+=necklineConstructionLines(cx,front,n)+collarLines(cx,front,n)+closureLines(cx,front,n.y+28,hemY)+dartLines(cx,front,waistY,underY)+seamLines(cx,front,hemY,underY,waistY)+pocketLines(cx,front,isDress?'dress':'upper',waistY,hipY)+detailLines(cx,front,hemY,waistY,sleeveEnd);
       if(spec.sleeveType==='raglan')out+=`<path class="c" d="M${n.left} ${n.y+2} L${leftUnder+5} ${underY} M${n.right} ${n.y+2} L${rightUnder-5} ${underY}"/>`;
       if(spec.neckline==='wrap'&&front)out+=`<path class="c" d="M${n.left} ${n.y} L${cx+25} ${waistY} M${n.right} ${n.y} L${cx-25} ${waistY}"/>`;
       out+=`<path class="s" d="M${hem.lx+8} ${hem.ly-11} L${hem.rx-8} ${hem.ry-11}"/>`;
@@ -3255,20 +3417,34 @@
     }
 
     function drawTrousers(cx,front,topOverride){
-      const topY=topOverride||92,hipY=174,crotchY=258,kneeY=392,hemY=558,p=technicalTrouserProfile(spec);
-      let out=`<path class="o" d="M${cx-p.waist} ${topY} Q${cx-p.hip} ${topY+34} ${cx-p.hip} ${hipY} Q${cx-p.thigh} ${crotchY-34} ${cx-p.thigh} ${crotchY} L${cx-p.knee} ${kneeY} L${cx-p.hem} ${hemY} L${cx-p.innerHem} ${hemY} L${cx-p.innerKnee} ${kneeY} Q${cx-p.innerThigh} ${crotchY+30} ${cx} ${crotchY+(front?6:14)} Q${cx+p.innerThigh} ${crotchY+30} ${cx+p.innerKnee} ${kneeY} L${cx+p.innerHem} ${hemY} L${cx+p.hem} ${hemY} L${cx+p.knee} ${kneeY} L${cx+p.thigh} ${crotchY} Q${cx+p.thigh} ${crotchY-34} ${cx+p.hip} ${hipY} Q${cx+p.hip} ${topY+34} ${cx+p.waist} ${topY} Q${cx} ${topY-7} ${cx-p.waist} ${topY} Z"/>`;
-      out+=`<path class="c" d="M${cx-p.waist} ${topY+18} L${cx+p.waist} ${topY+18}"/>`;
-      if(spec.darts!=='none')out+=`<path class="c" d="M${cx-39} ${topY+2} L${cx-31} ${topY+54} L${cx-21} ${topY+2} M${cx+21} ${topY+2} L${cx+31} ${topY+54} L${cx+39} ${topY+2}"/>`;
-      if(front&&(spec.closure==='zip-front'||spec.closure==='none'))out+=`<path class="c" d="M${cx} ${topY+18} Q${cx+18} ${topY+62} ${cx+15} ${crotchY-25}"/>`;
+      const rise=spec.rise||'mid';
+      const topY=topOverride||(rise==='high'?78:rise==='low'?108:92);
+      const hipY=topY+82,crotchY=topY+174,kneeY=topY+306,hemY=558,p=technicalTrouserProfile(spec);
+      const crotchTipY=crotchY+(front?5:14);
+      let out=`<path class="o" d="M${cx-p.waist} ${topY} C${cx-p.waist-4} ${topY+28} ${cx-p.hip} ${hipY-28} ${cx-p.hip} ${hipY} C${cx-p.hip} ${hipY+28} ${cx-p.thigh} ${crotchY-30} ${cx-p.thigh} ${crotchY} L${cx-p.knee} ${kneeY} L${cx-p.hem} ${hemY} L${cx-p.innerHem} ${hemY} L${cx-p.innerKnee} ${kneeY} C${cx-p.innerThigh} ${crotchY+50} ${cx-p.innerThigh} ${crotchY+17} ${cx} ${crotchTipY} C${cx+p.innerThigh} ${crotchY+17} ${cx+p.innerThigh} ${crotchY+50} ${cx+p.innerKnee} ${kneeY} L${cx+p.innerHem} ${hemY} L${cx+p.hem} ${hemY} L${cx+p.knee} ${kneeY} L${cx+p.thigh} ${crotchY} C${cx+p.thigh} ${crotchY-30} ${cx+p.hip} ${hipY+28} ${cx+p.hip} ${hipY} C${cx+p.hip} ${hipY-28} ${cx+p.waist+4} ${topY+28} ${cx+p.waist} ${topY} Q${cx} ${topY-5} ${cx-p.waist} ${topY} Z"/>`;
+      const waistbandY=topY+18;
+      if(spec.waist==='waistband'||spec.waist==='elastic'||spec.waist==='belt')out+=`<path class="c" d="M${cx-p.waist} ${waistbandY} L${cx+p.waist} ${waistbandY}"/>`;
+      if(spec.waist==='elastic')out+=`<path class="s" d="M${cx-p.waist+5} ${topY+9} L${cx+p.waist-5} ${topY+9}"/>`;
+      // Middenvoor/middenachter en kruisconstructie zijn constructielijnen van de broek zelf.
+      out+=front?`<path class="c" d="M${cx} ${topY} L${cx} ${crotchY-13}"/>`:`<path class="c" d="M${cx} ${topY} Q${cx-2} ${topY+80} ${cx} ${crotchY-6}"/>`;
+      if(spec.darts!=='none')out+=`<path class="c" d="M${cx-42} ${topY+3} L${cx-32} ${topY+55} L${cx-22} ${topY+3} M${cx+22} ${topY+3} L${cx+32} ${topY+55} L${cx+42} ${topY+3}"/>`;
+      if(front&&spec.closure==='zip-front')out+=`<path class="c" d="M${cx+5} ${waistbandY} Q${cx+22} ${topY+64} ${cx+15} ${crotchY-27}"/><path class="s" d="M${cx+1} ${waistbandY} L${cx+1} ${crotchY-33}"/>`;
       if(spec.closure==='buttons'&&front)out+=`<circle class="b" cx="${cx}" cy="${topY+9}" r="3"/>`;
-      out+=pocketLines(cx,front,'trousers',topY+18,hipY+24)+seamLines(cx,front,hemY,hipY,topY+18)+detailLines(cx,front,hemY,topY+18,0);
+      out+=pocketLines(cx,front,'trousers',waistbandY,hipY+20);
+      if(!front&&spec.backPockets&&spec.backPockets!=='none'){
+        const y=hipY+18;[-1,1].forEach(side=>{const x=cx+side*52;if(spec.backPockets==='patch')out+=`<rect class="c" x="${x-24}" y="${y}" width="48" height="38" rx="2"/>`;if(spec.backPockets==='welt')out+=`<path class="c" d="M${x-24} ${y+8} L${x+24} ${y+8}"/><path class="s" d="M${x-22} ${y+12} L${x+22} ${y+12}"/>`;if(spec.backPockets==='flap')out+=`<path class="c" d="M${x-25} ${y+4} L${x+25} ${y+4} L${x+20} ${y+17} L${x-20} ${y+17} Z"/>`;});
+      }
+      if(hasDetail('back-yoke')&&!front)out+=`<path class="c" d="M${cx-p.hip+7} ${hipY-33} Q${cx} ${hipY-14} ${cx+p.hip-7} ${hipY-33}"/>`;
+      if(hasDetail('belt-loops')){for(const dx of [-58,-29,0,29,58])out+=`<path class="c" d="M${cx+dx} ${topY+2} L${cx+dx} ${waistbandY+3}"/>`;}
+      if(hasDetail('crease'))out+=`<path class="s" d="M${cx-(p.thigh+p.innerThigh)/2} ${crotchY+18} L${cx-(p.hem+p.innerHem)/2} ${hemY-12} M${cx+(p.thigh+p.innerThigh)/2} ${crotchY+18} L${cx+(p.hem+p.innerHem)/2} ${hemY-12}"/>`;
+      out+=detailLines(cx,front,hemY,waistbandY,0);
       out+=`<path class="s" d="M${cx-p.hem} ${hemY-10} L${cx-p.innerHem} ${hemY-10} M${cx+p.innerHem} ${hemY-10} L${cx+p.hem} ${hemY-10}"/>`;
-      if(spec.trouserFit==='jogger')out+=`<path class="c" d="M${cx-p.hem} ${hemY-17} L${cx-p.innerHem} ${hemY-17} M${cx+p.innerHem} ${hemY-17} L${cx+p.hem} ${hemY-17}"/>`;
+      if(spec.trouserFit==='jogger'||hasDetail('cuffs'))out+=`<path class="c" d="M${cx-p.hem} ${hemY-18} L${cx-p.innerHem} ${hemY-18} M${cx+p.innerHem} ${hemY-18} L${cx+p.hem} ${hemY-18}"/>`;
       return out;
     }
 
     function drawJumpsuit(cx,front){
-      const w=widths(),n=neckData(cx,front),shoulderY=spec.shoulder==='dropped'?124:108,underY=184,waistY=270,hipY=332,crotchY=392,kneeY=466,hemY=558,p=technicalTrouserProfile(spec);
+      const w=widths(),n=neckData(cx,front),shoulderY=spec.shoulder==='dropped'?124:108,underY=184,waistY=268,hipY=328,crotchY=398,kneeY=472,hemY=558,p=technicalTrouserProfile(spec);
       const leftShoulder=cx-w.shoulder,rightShoulder=cx+w.shoulder,leftUnder=cx-w.chest,rightUnder=cx+w.chest;
       const waistHalf=Math.min(w.waist,86),leftWaist=cx-waistHalf,rightWaist=cx+waistHalf;
       const hipHalf=Math.max(96,p.hip),leftHip=cx-hipHalf,rightHip=cx+hipHalf;
@@ -3281,7 +3457,7 @@
       body+=` L${n.right} ${n.y} ${n.close} Z`;
       const sleeveEnd=spec.sleeveType==='sleeveless'?0:sleeveEndY();
       let out=`<path class="o" d="${body}"/><path class="c" d="M${leftWaist} ${waistY} L${rightWaist} ${waistY}"/>`;
-      out+=collarLines(cx,front,n)+closureLines(cx,front,n.y+28,front?crotchY-15:Math.min(crotchY,360))+dartLines(cx,front,waistY,underY)+seamLines(cx,front,hemY,underY,waistY)+pocketLines(cx,front,'trousers',waistY,hipY)+detailLines(cx,front,hemY,waistY,sleeveEnd);
+      out+=necklineConstructionLines(cx,front,n)+collarLines(cx,front,n)+closureLines(cx,front,n.y+28,front?crotchY-15:Math.min(crotchY,360))+dartLines(cx,front,waistY,underY)+seamLines(cx,front,hemY,underY,waistY)+pocketLines(cx,front,'trousers',waistY,hipY)+detailLines(cx,front,hemY,waistY,sleeveEnd);
       if(spec.sleeveType==='raglan')out+=`<path class="c" d="M${n.left} ${n.y+2} L${leftUnder+5} ${underY} M${n.right} ${n.y+2} L${rightUnder-5} ${underY}"/>`;
       if(spec.neckline==='wrap'&&front)out+=`<path class="c" d="M${n.left} ${n.y} L${cx+22} ${waistY} M${n.right} ${n.y} L${cx-22} ${waistY}"/>`;
       out+=`<path class="s" d="M${cx-p.hem} ${hemY-10} L${cx-p.innerHem} ${hemY-10} M${cx+p.innerHem} ${hemY-10} L${cx+p.hem} ${hemY-10}"/>`;
@@ -3317,7 +3493,7 @@
 
   function technicalFlatRecord(id){return (data.technicalFlats||[]).find(f=>f.id===id)||null;}
   function latestTechnicalFlatForPatternVersion(patternId,versionId){return (data.technicalFlats||[]).filter(f=>f.linkedPatternId===patternId&&f.linkedPatternVersionId===versionId).sort((a,b)=>String(b.generatedAt||'').localeCompare(String(a.generatedAt||'')))[0]||null;}
-  function flatSnapshotComparable(snapshot){const x=structuredCloneSafe(snapshot||{});delete x.changeNote;delete x.technicalFlatId;return x;}
+  function flatSnapshotComparable(snapshot){const x=snapshot||{};return {garment:x.garment||'',technicalDesign:mergeLegacyModelsIntoDesign(x.technicalDesign||{},x.models||{}),technicalNotes:x.technicalNotes||''};}
   function currentPlannerFlatMatchesDesign(){const f=technicalFlatRecord(activePlannerFlatId);if(!f)return false;return JSON.stringify(flatSnapshotComparable(f.usedDesignData))===JSON.stringify(flatSnapshotComparable(technicalFlatDesignSnapshot()));}
   function nextTechnicalFlatVersion(){const items=technicalFlatScopeRecords();return items.reduce((m,f)=>Math.max(m,Number(f.version)||0),0)+1;}
 
@@ -3338,15 +3514,20 @@
     const el=document.getElementById('plannerFlatStatus');if(!el)return;
     const flat=technicalFlatRecord(activePlannerFlatId);
     const matches=currentPlannerFlatMatchesDesign();plannerFlatDirty=!matches;
-    if(plannerPreviewSvg){el.className='flat-status dirty';el.textContent='Voorbeeldweergave — niet opgeslagen. Genereer expliciet een nieuwe versie om deze flat te bewaren.';return;}
-    if(flat){el.className='flat-status'+(matches?'':' dirty');el.innerHTML=matches?`Opgeslagen technical flat v${esc(flat.version)} · ${esc(formatFlatDate(flat.generatedAt))}.${flat.qualityCheck?` Interne proportiecontrole: <strong>${flat.qualityCheck.pass?'OK':'aandacht nodig'}</strong>.`:''}`:`Technical flat v${esc(flat.version)} blijft bewaard, maar de huidige ontwerpvelden zijn gewijzigd. Genereer een nieuwe versie om die wijzigingen vast te leggen.`;return;}
-    el.className='flat-status dirty';el.textContent='Nog geen opgeslagen technical flat voor deze selectie.';
+    const callout=document.getElementById('plannerFlatUpdateCallout');
+    if(callout)callout.classList.toggle('show',!!flat&&!matches);
+    const updateBtn=document.getElementById('applyRegenerateTechnicalFlatBtn');if(updateBtn)updateBtn.style.display=flat&&!matches?'inline-flex':'none';
+    if(plannerPreviewSvg){el.className='flat-status dirty';el.textContent='Voorbeeldweergave — niet opgeslagen. De bestaande opgeslagen technical flat blijft ongewijzigd.';return;}
+    if(flat){el.className='flat-status'+(matches?'':' dirty');el.innerHTML=matches?`Opgeslagen technical flat v${esc(flat.version)} · ${esc(formatFlatDate(flat.generatedAt))}.${flat.qualityCheck?` Interne proportiecontrole: <strong>${flat.qualityCheck.pass?'OK':'aandacht nodig'}</strong>.`:''}`:`Ontwerp gewijzigd. Technical flat v${esc(flat.version)} blijft bewaard en is gebaseerd op eerdere ontwerpgegevens.`;return;}
+    el.className='flat-status dirty';el.textContent='Nog geen opgeslagen technical flat voor dit ontwerp.';
   }
 
   function renderPlannerTechnicalFlatHistory(){
     const root=document.getElementById('plannerFlatHistory');if(!root)return;
-    const items=technicalFlatScopeRecords();
-    if(!items.length){root.innerHTML='<div class="empty">Nog geen opgeslagen technical-flatversies voor deze patroonselectie.</div>';return;}
+    let items=technicalFlatScopeRecords();
+    const active=technicalFlatRecord(activePlannerFlatId);
+    if(active&&!items.some(f=>f.id===active.id))items=[active,...items];
+    if(!items.length){root.innerHTML='<div class="empty">Nog geen opgeslagen technical-flatversies voor dit ontwerp.</div>';return;}
     root.innerHTML=items.slice(0,12).map(f=>`<div class="flat-history-item ${f.id===activePlannerFlatId?'active':''}"><div><div class="flat-history-title">Technical flat v${esc(f.version)}</div><div class="flat-history-meta">${esc(formatFlatDate(f.generatedAt))}${f.generatorVersion?' · '+esc(f.generatorVersion):''}${(f.linkedProjectIds||[]).length?' · '+(f.linkedProjectIds||[]).length+' project(en)':''}</div></div><button type="button" class="btn ghost small" onclick="showTechnicalFlatVersion('${f.id}')">Bekijk</button></div>`).join('');
   }
 
@@ -3354,34 +3535,32 @@
 
   function previewTechnicalFlat(){
     const snap=technicalFlatDesignSnapshot();
-    plannerPreviewSvg=generateLineDrawing(snap.basePattern,snap.models,snap.garment,snap.technicalDesign,snap.technicalNotes);
+    plannerPreviewSvg=generateLineDrawing('',{},snap.garment,snap.technicalDesign,snap.technicalNotes);
     renderPlannerFlatCanvas();renderPlannerFlatStatus();
   }
 
   function saveTechnicalFlatVersion(message){
     const snap=technicalFlatDesignSnapshot(),ctx=technicalFlatLinkContext();
-    const svg=generateLineDrawing(snap.basePattern,snap.models,snap.garment,snap.technicalDesign,snap.technicalNotes);
-    const spec=buildTechnicalFlatSpec(snap.basePattern,snap.models,snap.garment,snap.technicalDesign,snap.technicalNotes);
-    const flat={id:uid(),version:nextTechnicalFlatVersion(),generatedAt:nowISO(),linkedPatternId:ctx.patternId,linkedPatternVersionId:ctx.patternVersionId,linkedProjectIds:[],usedDesignData:structuredCloneSafe(snap),image:svg,imageFormat:'image/svg+xml',generatorVersion:'techflat-3',appVersion:APP_VERSION,qualityCheck:technicalFlatQualityCheck(spec)};
+    const svg=generateLineDrawing('',{},snap.garment,snap.technicalDesign,snap.technicalNotes);
+    const spec=buildTechnicalFlatSpec('',{},snap.garment,snap.technicalDesign,snap.technicalNotes);
+    const version=nextTechnicalFlatVersion();
+    const flat={id:uid(),version,designVersion:version,generatedAt:nowISO(),linkedPatternId:ctx.patternId,linkedPatternVersionId:ctx.patternVersionId,linkedProjectIds:[],usedDesignData:structuredCloneSafe(snap),image:svg,imageFormat:'image/svg+xml',generatorVersion:'techflat-4',appVersion:APP_VERSION,qualityCheck:technicalFlatQualityCheck(spec)};
     data.technicalFlats.unshift(flat);activePlannerFlatId=flat.id;plannerPreviewSvg='';plannerFlatDirty=false;
-    safeStorageSet(STORAGE_KEY,JSON.stringify(data));renderPlannerFlatCanvas();renderPlannerFlatStatus();renderPlannerTechnicalFlatHistory();showToast(message||'Nieuwe technical-flatversie opgeslagen');
+    safeStorageSet(STORAGE_KEY,JSON.stringify(data));renderPlannerFlatCanvas();renderPlannerFlatStatus();renderPlannerTechnicalFlatHistory();updatePlannerSummary();showToast(message||'Nieuwe technical-flatversie opgeslagen');
   }
 
   function markPlannerFlatChanged(){plannerPreviewSvg='';renderPlannerFlatStatus();}
 
-  function updatePlannerInspirationPreview() {
-    const img = document.getElementById('plannerInspirationPreview');
-    const removeBtn = document.getElementById('removePlannerInspirationBtn');
-    if (pendingPlannerInspiration) {
-      img.src = pendingPlannerInspiration;
-      img.style.display = 'block';
-      removeBtn.style.display = 'inline-flex';
-    } else {
-      img.removeAttribute('src');
-      img.style.display = 'none';
-      removeBtn.style.display = 'none';
-    }
+  function renderPlannerReferences(){
+    const root=document.getElementById('plannerReferenceManager');if(!root)return;
+    if(!pendingPlannerReferences.length){root.innerHTML='<div class="empty" style="grid-column:1/-1;">Nog geen referentiebeelden toegevoegd.</div>';return;}
+    if(!pendingPlannerReferences.some(r=>r.id===pendingPlannerMainReferenceId))pendingPlannerMainReferenceId=pendingPlannerReferences[0].id;
+    root.innerHTML=pendingPlannerReferences.map(ref=>`<article class="planner-reference-tile">${ref.id===pendingPlannerMainReferenceId?'<span class="planner-reference-main">Hoofdafbeelding</span>':''}<img src="${ref.data}" alt="Referentiebeeld"/><div class="planner-reference-body"><textarea placeholder="Korte notitie bij dit beeld…" oninput="updatePlannerReferenceNote('${ref.id}',this.value)">${esc(ref.note||'')}</textarea><div class="toolbar"><button type="button" class="btn ghost small" onclick="setPlannerReferenceMain('${ref.id}')">Maak hoofd</button><button type="button" class="btn danger small" onclick="removePlannerReference('${ref.id}')">Verwijderen</button></div></div></article>`).join('');
   }
+
+  window.setPlannerReferenceMain=function(id){if(!pendingPlannerReferences.some(r=>r.id===id))return;pendingPlannerMainReferenceId=id;renderPlannerReferences();};
+  window.removePlannerReference=function(id){pendingPlannerReferences=pendingPlannerReferences.filter(r=>r.id!==id);if(pendingPlannerMainReferenceId===id)pendingPlannerMainReferenceId=pendingPlannerReferences[0]?pendingPlannerReferences[0].id:'';renderPlannerReferences();};
+  window.updatePlannerReferenceNote=function(id,value){const ref=pendingPlannerReferences.find(r=>r.id===id);if(ref)ref.note=value;};
 
   function resizeProjectPhoto(file) {
     return new Promise((resolve, reject) => {
@@ -3406,59 +3585,92 @@
     });
   }
 
-  document.getElementById('plannerInspirationPhoto').addEventListener('change', async (e) => {
-    const file = e.target.files && e.target.files.length ? e.target.files[0] : null;
-    if (!file) return;
-    try {
-      pendingPlannerInspiration = await resizeProjectPhoto(file);
-      updatePlannerInspirationPreview();
-      showToast('Inspiratiefoto toegevoegd');
-    } catch (err) {
-      alert('De inspiratiefoto kon niet worden verwerkt. Probeer een andere afbeelding.');
+  document.getElementById('plannerReferenceImages').addEventListener('change',async e=>{
+    const files=Array.from(e.target.files||[]);if(!files.length)return;
+    const room=Math.max(0,8-pendingPlannerReferences.length);if(!room){alert('Je kunt maximaal 8 referentiebeelden bij één plannerontwerp bewaren.');e.target.value='';return;}
+    for(const file of files.slice(0,room)){
+      try{const image=await resizeProjectPhoto(file);const ref={id:uid(),data:image,note:'',createdAt:nowISO()};pendingPlannerReferences.push(ref);if(!pendingPlannerMainReferenceId)pendingPlannerMainReferenceId=ref.id;}catch(err){console.warn(err);}
     }
-  });
-  document.getElementById('removePlannerInspirationBtn').addEventListener('click', () => {
-    pendingPlannerInspiration = '';
-    document.getElementById('plannerInspirationPhoto').value = '';
-    updatePlannerInspirationPreview();
+    if(files.length>room)showToast('Maximaal 8 referentiebeelden bewaard');else showToast('Referentiebeelden toegevoegd');
+    e.target.value='';renderPlannerReferences();
   });
 
-  document.getElementById('plannerGarment').addEventListener('change', () => { renderPlannerFabricOptions(); markPlannerFlatChanged(); updatePlannerSummary(); });
-  document.getElementById('plannerBasePattern').addEventListener('change', () => { const inferred=inferGarmentFromBase(document.getElementById('plannerBasePattern').value);const garment=document.getElementById('plannerGarment');if(!garment.value&&inferred!=='Anders'&&[...garment.options].some(o=>o.value===inferred)){garment.value=inferred;renderPlannerFabricOptions();} markPlannerFlatChanged(); updatePlannerSummary(); });
-  document.getElementById('plannerFabric').addEventListener('change', updatePlannerSummary);
-  document.getElementById('plannerName').addEventListener('input', updatePlannerSummary);
-  document.getElementById('plannerNote').addEventListener('input', updatePlannerSummary);
-  document.getElementById('plannerModelFields').addEventListener('change', () => { markPlannerFlatChanged(); updatePlannerSummary(); });
+  function showPlannerStep(step){
+    plannerStep=Number(step)||1;
+    document.querySelectorAll('[data-planner-step]').forEach(btn=>btn.classList.toggle('active',Number(btn.dataset.plannerStep)===plannerStep));
+    document.querySelectorAll('[data-planner-panel]').forEach(panel=>panel.classList.toggle('active',Number(panel.dataset.plannerPanel)===plannerStep));
+    if(plannerStep===2){renderPlannerFlatCanvas();renderPlannerFlatStatus();renderPlannerTechnicalFlatHistory();}
+    if(plannerStep===3){renderPlannerMeasurementSummary();renderPlannerPatternFileInfo();updatePlannerSummary();}
+    try{document.getElementById('plannerFlow').scrollIntoView({behavior:'smooth',block:'start'});}catch(e){}
+  }
+  document.querySelectorAll('[data-planner-step],[data-go-planner-step]').forEach(btn=>btn.addEventListener('click',()=>showPlannerStep(btn.dataset.plannerStep||btn.dataset.goPlannerStep)));
+
+  function updatePlannerDynamicFields(){
+    const garment=document.getElementById('plannerGarment').value;
+    const upper=!!garment&&!['Broek','Rok'].includes(garment);
+    const sleeves=upper&&garment!=='Gilet';
+    const trousers=['Broek','Jumpsuit'].includes(garment);
+    const setVisible=(selector,show)=>document.querySelectorAll(selector).forEach(el=>{el.style.display=show?(el.classList.contains('check-item')?'flex':'grid'):'none';});
+    document.querySelectorAll('[data-design-section="upper"]').forEach(el=>el.style.display=upper?'block':'none');
+    document.querySelectorAll('[data-design-section="trousers"]').forEach(el=>el.style.display=trousers?'block':'none');
+    setVisible('[data-design-group="upper"]',upper);
+    setVisible('[data-design-group="sleeves"]',sleeves);
+    setVisible('[data-design-group="trousers"]',trousers);
+    setVisible('[data-design-group="waist"]',!!garment);
+    const hint=document.getElementById('plannerDynamicHint');if(hint)hint.textContent=!garment?'Kies een kledingstuktype; daarna worden alleen relevante ontwerpvelden getoond.':trousers?(garment==='Jumpsuit'?'Jumpsuitvelden combineren bovenstuk en broekconstructie.':'Broekvelden zijn actief; halslijn en mouwvelden zijn verborgen.'):upper?'Bovenstukvelden zijn actief; broekpasvorm en rise zijn verborgen.':'Alleen de voor dit kledingstuk relevante velden worden getoond.';
+  }
+
+  function renderPlannerMeasurementOptions(selectedId){
+    const select=document.getElementById('plannerMeasurement');if(!select)return;
+    const current=selectedId!==undefined?selectedId:select.value;
+    select.innerHTML='<option value="">Geen matenprofiel gekoppeld</option>'+data.measurements.map(m=>`<option value="${m.id}">${esc(m.label||'Meting')} · ${formatDate(m.date)}</option>`).join('');
+    if([...select.options].some(o=>o.value===current))select.value=current;
+    renderPlannerMeasurementSummary();
+  }
+  function renderPlannerMeasurementSummary(){
+    const root=document.getElementById('plannerMeasurementSummary');if(!root)return;
+    const id=document.getElementById('plannerMeasurement').value;
+    root.innerHTML='<h4>Matenprofiel</h4>'+measurementProfileSummaryHtml(id);
+  }
+  function renderPlannerPatternFileInfo(){
+    const root=document.getElementById('plannerPatternFileInfo');if(!root)return;
+    const pid=document.getElementById('plannerPattern').value,vid=document.getElementById('plannerPatternVersion').value;
+    const {pattern,version}=findPatternVersion(pid,vid);
+    if(!pattern||!version){root.innerHTML='<h4>Patroonbestand</h4><div class="meta">Kies een specifieke patroonversie om het gekoppelde bestand te zien.</div>';return;}
+    root.innerHTML=`<h4>Patroonbestand · ${esc(versionLabel(version))}</h4><div class="meta">${version.file?esc(version.file.name||'Bestand gekoppeld'):'Geen bestand gekoppeld aan deze versie.'}</div>`;
+  }
+
+  document.getElementById('plannerGarment').addEventListener('change',()=>{renderPlannerFabricOptions();updatePlannerDynamicFields();markPlannerFlatChanged();updatePlannerSummary();});
+  document.getElementById('plannerBasePattern').addEventListener('change',()=>{const inferred=inferGarmentFromBase(document.getElementById('plannerBasePattern').value);const garment=document.getElementById('plannerGarment');if(!garment.value&&inferred!=='Anders'&&[...garment.options].some(o=>o.value===inferred)){garment.value=inferred;renderPlannerFabricOptions();updatePlannerDynamicFields();markPlannerFlatChanged();}updatePlannerSummary();});
+  document.getElementById('plannerFabric').addEventListener('change',updatePlannerSummary);
+  document.getElementById('plannerMeasurement').addEventListener('change',()=>{renderPlannerMeasurementSummary();updatePlannerSummary();});
+  document.getElementById('plannerName').addEventListener('input',updatePlannerSummary);
+  document.getElementById('plannerDescription').addEventListener('input',updatePlannerSummary);
+  document.getElementById('plannerNote').addEventListener('input',updatePlannerSummary);
+  document.getElementById('plannerPatternAdjustments').addEventListener('input',updatePlannerSummary);
+  document.getElementById('plannerPatternPieces').addEventListener('input',updatePlannerSummary);
   document.getElementById('plannerFlatDesignPanel').addEventListener('change',()=>{markPlannerFlatChanged();updatePlannerSummary();});
+  document.getElementById('plannerFlatSpecialDetails').addEventListener('input',()=>{markPlannerFlatChanged();updatePlannerSummary();});
   document.getElementById('plannerFlatNotes').addEventListener('input',()=>{markPlannerFlatChanged();updatePlannerSummary();});
   document.getElementById('previewTechnicalFlatBtn').addEventListener('click',previewTechnicalFlat);
   document.getElementById('generateTechnicalFlatBtn').addEventListener('click',()=>saveTechnicalFlatVersion('Nieuwe technical-flatversie opgeslagen'));
-  document.getElementById('applyRegenerateTechnicalFlatBtn').addEventListener('click',()=>saveTechnicalFlatVersion('Wijzigingen toegepast in een nieuwe technical-flatversie'));
-  document.getElementById('refreshPlannerBtn').addEventListener('click', () => { renderPlanner(); showToast('Keuzes ververst'); });
+  document.getElementById('applyRegenerateTechnicalFlatBtn').addEventListener('click',()=>saveTechnicalFlatVersion('Technical flat bijgewerkt in een nieuwe versie'));
+  document.getElementById('quickUpdateTechnicalFlatBtn').addEventListener('click',()=>saveTechnicalFlatVersion('Technical flat bijgewerkt in een nieuwe versie'));
+  document.getElementById('refreshPlannerBtn').addEventListener('click',()=>{renderPlanner();showToast('Keuzes ververst');});
 
   function renderPlanner() {
-    const baseSelect = document.getElementById('plannerBasePattern');
-    const currentBase = baseSelect.value;
-    baseSelect.innerHTML = `<option value="">Geen keuze</option>` + data.selectedBasePatterns.map(p => `<option value="${esc(p)}">${esc(p)}</option>`).join('');
-    if (data.selectedBasePatterns.includes(currentBase)) baseSelect.value = currentBase;
+    const baseSelect=document.getElementById('plannerBasePattern');const currentBase=baseSelect.value;
+    baseSelect.innerHTML='<option value="">Geen keuze</option>'+data.selectedBasePatterns.map(p=>`<option value="${esc(p)}">${esc(p)}</option>`).join('');
+    if(data.selectedBasePatterns.includes(currentBase))baseSelect.value=currentBase;
 
-    const patternSelect = document.getElementById('plannerPattern');
-    const currentPatternId = patternSelect.value;
-    patternSelect.innerHTML = `<option value="">Geen patroon gekoppeld</option>` + data.patterns.map(normalizePattern).map(p => `<option value="${p.id}">${esc(p.name)}</option>`).join('');
-    if (data.patterns.some(p => p.id === currentPatternId)) patternSelect.value = currentPatternId;
+    const patternSelect=document.getElementById('plannerPattern');const currentPatternId=patternSelect.value;
+    patternSelect.innerHTML='<option value="">Geen patroon gekoppeld</option>'+data.patterns.map(normalizePattern).map(p=>`<option value="${p.id}">${esc(p.name)}</option>`).join('');
+    if(data.patterns.some(p=>p.id===currentPatternId))patternSelect.value=currentPatternId;
     renderPlannerPatternVersions();
-
-    const wrap = document.getElementById('plannerModelFields');
-    const old = {};
-    wrap.querySelectorAll('select[data-planner-model]').forEach(s => old[s.dataset.plannerModel] = s.value);
-    wrap.innerHTML = Object.entries(modelCategories).map(([category, items]) => {
-      const available = items.filter(item => data.selectedModels.includes(item));
-      return `<div class="field"><label>${esc(category)}</label><select data-planner-model="${esc(category)}"><option value="">Geen keuze</option>${available.map(i => `<option value="${esc(i)}">${esc(i)}</option>`).join('')}</select></div>`;
-    }).join('');
-    wrap.querySelectorAll('select[data-planner-model]').forEach(s => { if ([...s.options].some(o => o.value === old[s.dataset.plannerModel])) s.value = old[s.dataset.plannerModel]; });
-    renderPlannerFabricOptions();
+    renderPlannerMeasurementOptions(document.getElementById('plannerMeasurement').value||'');
+    renderPlannerFabricOptions();renderPlannerReferences();updatePlannerDynamicFields();renderPlannerPatternFileInfo();
     if(!activePlannerFlatId){const latest=technicalFlatScopeRecords()[0];if(latest)activePlannerFlatId=latest.id;}
-    renderPlannerFlatCanvas();renderPlannerTechnicalFlatHistory();renderPlannerFlatStatus();updatePlannerSummary();
+    renderPlannerFlatCanvas();renderPlannerTechnicalFlatHistory();renderPlannerFlatStatus();updatePlannerSummary();showPlannerStep(plannerStep);
   }
 
   function renderPlannerFabricOptions() {
@@ -3472,70 +3684,42 @@
   }
 
   function getPlannerModels() {
-    const out = {};
-    document.querySelectorAll('select[data-planner-model]').forEach(s => { if (s.value) out[s.dataset.plannerModel] = s.value; });
-    return out;
+    return legacyModelsFromDesign(getPlannerTechnicalDesign());
   }
 
   function updatePlannerSummary() {
-    const garment = document.getElementById('plannerGarment').value;
-    const base = document.getElementById('plannerBasePattern').value;
-    const fabricId = document.getElementById('plannerFabric').value;
-    const fabric = data.fabrics.find(f => f.id === fabricId);
-    const linkedPatternId = document.getElementById('plannerPattern').value;
-    const linkedVersionId = document.getElementById('plannerPatternVersion').value;
-    const linkedPattern = data.patterns.find(p => p.id === linkedPatternId);
-    const linkedVersion = linkedPattern ? normalizePattern(linkedPattern).versions.find(v => v.id === linkedVersionId) : null;
-    const models = getPlannerModels();
-    const flatSpec=buildTechnicalFlatSpec(base,models,garment,getPlannerTechnicalDesign(),document.getElementById('plannerFlatNotes').value.trim());
-    const modelLines = Object.entries(models).map(([c,v]) => `<div><strong>${esc(c)}:</strong> ${esc(v)}</div>`).join('');
-    document.getElementById('plannerSummary').innerHTML = `
-      <h4>${esc(document.getElementById('plannerName').value.trim() || 'Nieuw kledingproject')}</h4>
-      <div class="planner-summary">
-        <div><strong>Kledingstuk:</strong> ${esc(garment || 'Nog niet gekozen')}</div>
-        <div><strong>Basispatroon:</strong> ${esc(base || 'Geen keuze')}</div>
-        <div><strong>Patroonbibliotheek:</strong> ${linkedPattern ? esc(linkedPattern.name + (linkedVersion ? ' · ' + versionLabel(linkedVersion) : '')) : 'Niet gekoppeld'}</div>
-        ${modelLines || '<div><strong>Modelintekeningen:</strong> Geen gekozen</div>'}
-        <div><strong>Stof:</strong> ${fabric ? esc(fabricTitle(fabric)) : 'Geen keuze'}</div>
-        <div><strong>Technical flat:</strong> ${currentPlannerFlatMatchesDesign() ? 'opgeslagen versie v' + esc(technicalFlatRecord(activePlannerFlatId).version) : (plannerPreviewSvg ? 'alleen voorbeeld, niet opgeslagen' : 'nog niet gegenereerd voor huidige ontwerpdata')}</div>
-        <div><strong>Flat-details:</strong> ${esc([flatSpec.neckline,flatSpec.collar!=='none'?flatSpec.collar:'',flatSpec.sleeveType,flatSpec.fit].filter(Boolean).join(' · '))}</div>
-        ${flatSpec.recognizedNotes.length?`<div><strong>Herkend uit ontwerpnotities:</strong> ${esc(flatSpec.recognizedNotes.join(' · '))}</div>`:''}
-      </div>`;
+    const garment=document.getElementById('plannerGarment').value;
+    const base=document.getElementById('plannerBasePattern').value;
+    const fabricId=document.getElementById('plannerFabric').value;const fabric=data.fabrics.find(f=>f.id===fabricId);
+    const linkedPatternId=document.getElementById('plannerPattern').value,linkedVersionId=document.getElementById('plannerPatternVersion').value;
+    const linkedPattern=data.patterns.find(p=>p.id===linkedPatternId);const linkedVersion=linkedPattern?normalizePattern(linkedPattern).versions.find(v=>v.id===linkedVersionId):null;
+    const d=getPlannerTechnicalDesign();const flatSpec=buildTechnicalFlatSpec('',{},garment,d,document.getElementById('plannerFlatNotes').value.trim());
+    const measurementId=document.getElementById('plannerMeasurement').value;
+    const designBits=[flatSpec.fit,flatSpec.silhouette,flatSpec.neckline,flatSpec.sleeveType,(flatSpec.family==='trousers'||flatSpec.family==='jumpsuit')?flatSpec.trouserFit:''].filter(x=>x&&x!=='none'&&x!=='other');
+    document.getElementById('plannerSummary').innerHTML=`<h4>${esc(document.getElementById('plannerName').value.trim()||'Nieuw kledingproject')}</h4><div class="planner-summary"><div><strong>Kledingstuk:</strong> ${esc(garment||'Nog niet gekozen')}</div><div><strong>Ontwerp:</strong> ${esc(designBits.join(' · ')||'Neutrale basis')}</div><div><strong>Referentiebeelden:</strong> ${pendingPlannerReferences.length}</div><div><strong>Technical flat:</strong> ${currentPlannerFlatMatchesDesign()?'opgeslagen versie v'+esc(technicalFlatRecord(activePlannerFlatId).version):(plannerPreviewSvg?'alleen voorbeeld, niet opgeslagen':'nog niet actueel gegenereerd')}</div><div><strong>Basispatroon:</strong> ${esc(base||'Geen keuze')}</div><div><strong>Patroonbibliotheek:</strong> ${linkedPattern?esc(linkedPattern.name+(linkedVersion?' · '+versionLabel(linkedVersion):'')):'Niet gekoppeld'}</div><div><strong>Matenprofiel:</strong> ${esc(measurementProfileLabel(measurementId))}</div><div><strong>Stof:</strong> ${fabric?esc(fabricTitle(fabric)):'Geen keuze'}</div>${document.getElementById('plannerPatternAdjustments').value.trim()?`<div><strong>Patroonaanpassingen:</strong> ${esc(document.getElementById('plannerPatternAdjustments').value.trim())}</div>`:''}${flatSpec.recognizedNotes.length?`<div><strong>Expliciet herkend uit ontwerpnotities:</strong> ${esc(flatSpec.recognizedNotes.join(' · '))}</div>`:''}</div>`;
     renderPlannerFlatStatus();
   }
 
-  document.getElementById('saveProjectBtn').addEventListener('click', () => {
-    const garment = document.getElementById('plannerGarment').value;
-    if (!garment) { alert('Kies eerst het type kledingstuk.'); return; }
-    const name = document.getElementById('plannerName').value.trim() || `${garment} project`;
-    const basePattern = document.getElementById('plannerBasePattern').value;
-    const fabricId = document.getElementById('plannerFabric').value;
-    const fabric = data.fabrics.find(f => f.id === fabricId);
-    const patternId = document.getElementById('plannerPattern').value;
-    const patternVersionId = document.getElementById('plannerPatternVersion').value;
-    const linkedPattern = data.patterns.find(p => p.id === patternId);
-    const linkedVersion = linkedPattern ? normalizePattern(linkedPattern).versions.find(v => v.id === patternVersionId) : null;
-    const project = {
-      id: uid(), name, garment, basePattern, models: getPlannerModels(), fabricId,
-      fabricLabel: fabric ? fabricTitle(fabric) : '', note: document.getElementById('plannerNote').value.trim(), description: document.getElementById('plannerNote').value.trim(), collectionId:'',
-      inspirationPhoto: pendingPlannerInspiration,
-      technicalDesign: structuredCloneSafe(getPlannerTechnicalDesign()), technicalNotes: document.getElementById('plannerFlatNotes').value.trim(), technicalFlatId: currentPlannerFlatMatchesDesign() ? activePlannerFlatId : '',
-      patternId: linkedPattern ? linkedPattern.id : '', patternVersionId: linkedVersion ? linkedVersion.id : '',
-      patternName: linkedPattern ? linkedPattern.name : '', patternVersionNumber: linkedVersion ? linkedVersion.number : '',
-      status: 'Idee', createdAt: todayISO(), measurementId: linkedVersion && linkedVersion.measurementId ? linkedVersion.measurementId : (data.measurements.length ? data.measurements[0].id : '')
-    };
+  document.getElementById('saveProjectBtn').addEventListener('click',()=>{
+    const garment=document.getElementById('plannerGarment').value;if(!garment){alert('Kies eerst het type kledingstuk.');showPlannerStep(1);return;}
+    const name=document.getElementById('plannerName').value.trim()||`${garment} project`;
+    const basePattern=document.getElementById('plannerBasePattern').value;
+    const fabricId=document.getElementById('plannerFabric').value;const fabric=data.fabrics.find(f=>f.id===fabricId);
+    const patternId=document.getElementById('plannerPattern').value,patternVersionId=document.getElementById('plannerPatternVersion').value;
+    const linkedPattern=data.patterns.find(p=>p.id===patternId);const linkedVersion=linkedPattern?normalizePattern(linkedPattern).versions.find(v=>v.id===patternVersionId):null;
+    const linkedFlat=currentPlannerFlatMatchesDesign()?technicalFlatRecord(activePlannerFlatId):null;
+    if(linkedFlat){if(!linkedFlat.linkedPatternId&&patternId)linkedFlat.linkedPatternId=patternId;if(!linkedFlat.linkedPatternVersionId&&patternVersionId)linkedFlat.linkedPatternVersionId=patternVersionId;}
+    const mainRef=pendingPlannerReferences.find(r=>r.id===pendingPlannerMainReferenceId)||pendingPlannerReferences[0]||null;
+    const measurementId=document.getElementById('plannerMeasurement').value||(linkedVersion&&linkedVersion.measurementId)||'';
+    const project={id:uid(),name,garment,basePattern,models:getPlannerModels(),fabricId,fabricLabel:fabric?fabricTitle(fabric):'',description:document.getElementById('plannerDescription').value.trim(),note:document.getElementById('plannerNote').value.trim(),patternAdjustments:document.getElementById('plannerPatternAdjustments').value.trim(),patternPieces:document.getElementById('plannerPatternPieces').value.trim(),collectionId:'',inspirationPhoto:mainRef?mainRef.data:'',inspirationImages:structuredCloneSafe(pendingPlannerReferences),technicalDesign:structuredCloneSafe(getPlannerTechnicalDesign()),technicalNotes:document.getElementById('plannerFlatNotes').value.trim(),technicalFlatId:linkedFlat?linkedFlat.id:'',patternId:linkedPattern?linkedPattern.id:'',patternVersionId:linkedVersion?linkedVersion.id:'',patternName:linkedPattern?linkedPattern.name:'',patternVersionNumber:linkedVersion?linkedVersion.number:'',status:'Idee',createdAt:todayISO(),measurementId};
     data.projects.unshift(project);
     if(project.technicalFlatId){const flat=technicalFlatRecord(project.technicalFlatId);if(flat){if(!Array.isArray(flat.linkedProjectIds))flat.linkedProjectIds=[];if(!flat.linkedProjectIds.includes(project.id))flat.linkedProjectIds.push(project.id);}}
-    const defaultTasks = ['Basispatroon overnemen', 'Modelintekeningen uitwerken', 'Patroondelen controleren', 'Stof knippen', 'Kledingstuk naaien', 'Doorpassen en afwerken'];
-    defaultTasks.forEach(text => data.todos.push({ id: uid(), text, projectId: project.id, dueDate:'', status:'todo', done:false, priority:'Normaal', required:true, createdAt:todayISO() }));
+    const defaultTasks=['Ontwerpdetails controleren','Patroonaanpassingen uitwerken','Patroondelen controleren','Stof knippen','Kledingstuk naaien','Doorpassen en afwerken'];
+    defaultTasks.forEach(text=>data.todos.push({id:uid(),text,projectId:project.id,dueDate:'',status:'todo',done:false,priority:'Normaal',required:true,createdAt:todayISO()}));
     saveData();
-    document.getElementById('plannerName').value = '';
-    document.getElementById('plannerNote').value = '';
-    pendingPlannerInspiration = '';
-    document.getElementById('plannerInspirationPhoto').value = '';
-    updatePlannerInspirationPreview();
-    showToast('Project opgeslagen en basistaken toegevoegd');
-    navigate('projects');
+    document.getElementById('plannerName').value='';document.getElementById('plannerDescription').value='';document.getElementById('plannerNote').value='';document.getElementById('plannerPatternAdjustments').value='';document.getElementById('plannerPatternPieces').value='';
+    pendingPlannerReferences=[];pendingPlannerMainReferenceId='';document.getElementById('plannerReferenceImages').value='';renderPlannerReferences();
+    showToast('Project opgeslagen en basistaken toegevoegd');navigate('projects');
   });
 
   function normalizeTodo(todo) {
@@ -3551,6 +3735,9 @@
     if (!project) return project;
     if (!project.collectionId) project.collectionId = '';
     if (typeof project.description !== 'string') project.description = project.note || '';
+    if (!Array.isArray(project.inspirationImages)) project.inspirationImages = project.inspirationPhoto ? [{id:'legacy-'+project.id,data:project.inspirationPhoto,note:'',createdAt:project.createdAt||todayISO()}] : [];
+    if (typeof project.patternAdjustments !== 'string') project.patternAdjustments = '';
+    if (typeof project.patternPieces !== 'string') project.patternPieces = '';
     if (!project.status || !projectStatuses.includes(project.status)) project.status = 'Idee';
     return project;
   }
